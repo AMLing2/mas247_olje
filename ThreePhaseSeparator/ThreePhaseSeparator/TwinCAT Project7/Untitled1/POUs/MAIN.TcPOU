@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{75317203-8f43-4932-aa88-c7b05e9ca563}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	// Linking variables to IO cards
+	Flow_Valve_1 AT %Q* : INT;
+	Level_Valve_1 AT %Q* : INT;
+	Level_Valve_2 AT %Q* : INT;
+	Level_Valve_3 AT %Q* : INT;
+	Gas_Valve AT %Q* : INT;
+	Mixer_Valve AT %Q* : INT;
+	Motor_speed AT %Q* : INT;
+	Motor_ON_OFF AT %Q* :BOOL;
+	Motor_Direction AT %Q* :BOOL; 
+	Start_Button AT %I* :BOOL;
+	Stop_Button AT %I* : BOOL; 
+	EMERGENCY_STOP AT %I* : BOOL; 
+	Level_Transmitter_1 AT %I* :INT; 
+	Level_Transmitter_2 AT %I* :INT; 
+	Temperature_Transmitter AT %I* :INT;  
+	Pressure_Differencial_Transmitter_1 AT %I* : INT;
+	Pressure_Differencial_Transmitter_2 AT %I* : INT;
+	Pressure_Transmitter_1 AT %I* : INT ; 
+	Pressure_Transmitter_2 AT %I* : INT ; 
+	Pressure_Transmitter_3 AT %I* : INT ; 
+
+	
+	// User Input as percentage
+	Flow_Valve_1_Percentage: INT :=100;
+	Level_Valve_1_Percentage: INT    ;
+	Level_Valve_2_Percentage: INT;
+	Level_Valve_3_Percentage: INT;
+	Motor_speed_Percentage: INT; 
+	Motor_ON : BOOL ; 
+	ON_OFF : STRING(10) := 'OFF' ; 
+	
+	
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+// Variable interval for Flow_Valve_1_Percentage  form 0 to 100  
+IF Flow_Valve_1_Percentage > 100 THEN
+	Flow_Valve_1_Percentage := 100; 
+	ELSE IF Flow_Valve_1_Percentage < 0 THEN 
+		Flow_Valve_1_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Variable interval for Level_Valve_1_Percentage  form 0 to 100  
+IF Level_Valve_1_Percentage > 100 THEN
+	Level_Valve_1_Percentage := 100; 
+	ELSE IF Level_Valve_1_Percentage < 0 THEN 
+		Level_Valve_1_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Variable interval for Level_Valve_2_Percentage  form 0 to 100 
+IF Level_Valve_2_Percentage > 100 THEN
+	Level_Valve_2_Percentage := 100; 
+	ELSE IF Level_Valve_2_Percentage < 0 THEN 
+		Level_Valve_2_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Variable interval for Level_Valve_3_Percentage  form 0 to 100 
+IF Level_Valve_3_Percentage > 100 THEN
+	Level_Valve_3_Percentage := 100; 
+	ELSE IF Level_Valve_3_Percentage < 0 THEN 
+		Level_Valve_3_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+
+
+// Variable interval for Motor_speed_Percentage  form 0 to 100 
+IF Motor_speed_Percentage > 100 THEN
+	Motor_speed_Percentage := 100; 
+	ELSE IF Motor_speed_Percentage < 0 THEN 
+		Motor_speed_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Flow_Valve_1 calibration
+Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); 
+
+// Level_Valve_1 calibration
+Level_Valve_1 := REAL_TO_INT(262.14*Level_Valve_1_Percentage +6553);
+
+// Level_Valve_2 calibration
+Level_Valve_2 := REAL_TO_INT(262.14*Level_Valve_2_Percentage +6553);
+
+// Level_Valve_3 calibration
+Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553);
+
+
+// Motor_speed calibration
+Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
+
+ 
+IF Motor_ON_OFF   THEN
+    Motor_ON   :=  FALSE;
+	ON_OFF  := 'MOTOR: ON' ;
+	
+ELSE
+    Motor_ON  := TRUE;
+	ON_OFF  := 'MOTOR: OFF' ;
+END_IF
+
+
+
+
+
+
+
+
+
+
+ 
+
+	
+
+
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="1132" Count="1" />
+      <LineId Id="169" Count="6" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="102" Count="7" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="150" Count="0" />
+      <LineId Id="113" Count="6" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="120" Count="6" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="152" Count="0" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="142" Count="5" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="156" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="158" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="159" Count="0" />
+      <LineId Id="161" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="201" Count="3" />
+      <LineId Id="213" Count="0" />
+      <LineId Id="212" Count="0" />
+      <LineId Id="205" Count="1" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="255" Count="0" />
+      <LineId Id="252" Count="1" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="366" Count="0" />
+      <LineId Id="733" Count="1" />
+      <LineId Id="768" Count="1" />
+      <LineId Id="753" Count="0" />
+      <LineId Id="751" Count="0" />
+      <LineId Id="750" Count="0" />
+      <LineId Id="744" Count="0" />
+      <LineId Id="738" Count="0" />
+      <LineId Id="735" Count="0" />
+      <LineId Id="625" Count="1" />
+      <LineId Id="503" Count="0" />
+      <LineId Id="442" Count="0" />
+      <LineId Id="269" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
