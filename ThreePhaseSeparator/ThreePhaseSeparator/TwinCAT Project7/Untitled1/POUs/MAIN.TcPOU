@@ -10,6 +10,7 @@ VAR
 	Level_Valve_3 AT %Q* : INT;
 	Gas_Valve AT %Q* : INT;
 	Mixer_Valve AT %Q* : INT;
+	
 	Motor_speed AT %Q* : INT;
 	Motor_ON_OFF AT %Q* :BOOL;
 	Motor_Direction AT %Q* :BOOL; 
@@ -35,6 +36,9 @@ VAR
 	Motor_ON : BOOL ; 
 	ON_OFF : STRING(10) := 'OFF' ; 
 	
+	//states:
+	Initialize:BOOL;
+	Initialized:BOOL:=FALSE;
 	
 	
 	
@@ -91,34 +95,62 @@ IF Motor_speed_Percentage > 100 THEN
 END_IF
 
 // Flow_Valve_1 calibration
-Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); 
+Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); //15 bits max
 
 // Level_Valve_1 calibration
-Level_Valve_1 := REAL_TO_INT(262.14*Level_Valve_1_Percentage +6553);
+Level_Valve_1 := REAL_TO_INT(262.14*Level_Valve_1_Percentage +6553); //15 bits max
 
 // Level_Valve_2 calibration
-Level_Valve_2 := REAL_TO_INT(262.14*Level_Valve_2_Percentage +6553);
+Level_Valve_2 := REAL_TO_INT(262.14*Level_Valve_2_Percentage +6553); //15 bits max
 
 // Level_Valve_3 calibration
-Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553);
+Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553); //15 bits max
 
 
 // Motor_speed calibration
-Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
+Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553); //15 bits max
 
+//start push button
+IF Start_Button THEN
+	Initialize:=TRUE;
+	Motor_ON_OFF:=TRUE;
+	Start_Button:=FALSE;
+END_IF
+
+IF Initialize AND Initialized=FALSE THEN
+	
+	Flow_Valve_1_Percentage:=0; //open FV1(normally open)
+	Level_Valve_1_Percentage:=0; //open LV1 (normally open)
+	Level_Valve_2_Percentage:=0;//close LV2 (normally closed)
+	Level_Valve_3_Percentage:=0;//close LV3 (normally closed)
+	//delay?
+	//Motor_Speed:=30; //motor on 30% for 10 seconds
+	//delay?
+	Initialized:=TRUE;
+	Initialize:= FALSE;
+END_IF
  
 IF Motor_ON_OFF   THEN
-    Motor_ON   :=  FALSE;
-	ON_OFF  := 'MOTOR: ON' ;
-	
+ //change valves as initial test
+    
+ 	ON_OFF  := 'MOTOR: ON' ;
+	//Motor_ON   :=  FALSE;
+	//Motor_Speed:=30;
 ELSE
-    Motor_ON  := TRUE;
+	//Motor_Speed:=0;
+    //Motor_ON  := TRUE;
 	ON_OFF  := 'MOTOR: OFF' ;
 END_IF
 
+IF EMERGENCY_STOP THEN
+	Motor_ON_OFF:=FALSE;
+	Flow_Valve_1_Percentage:=100;
+	Level_Valve_1_Percentage:=100;
+	Level_Valve_3_Percentage:=100;
+	Level_Valve_2_Percentage:=100; //open all valves
+END_IF
 
-
-
+//flow valves:
 
 
 
@@ -172,16 +204,40 @@ END_IF
       <LineId Id="161" Count="0" />
       <LineId Id="80" Count="0" />
       <LineId Id="79" Count="0" />
-      <LineId Id="201" Count="3" />
-      <LineId Id="213" Count="0" />
-      <LineId Id="212" Count="0" />
-      <LineId Id="205" Count="1" />
+      <LineId Id="1204" Count="0" />
+      <LineId Id="1200" Count="1" />
+      <LineId Id="1205" Count="0" />
+      <LineId Id="1202" Count="1" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="1209" Count="0" />
+      <LineId Id="1208" Count="0" />
+      <LineId Id="1220" Count="0" />
+      <LineId Id="1210" Count="0" />
+      <LineId Id="1212" Count="2" />
+      <LineId Id="1218" Count="0" />
+      <LineId Id="1215" Count="1" />
+      <LineId Id="1221" Count="0" />
+      <LineId Id="1217" Count="0" />
+      <LineId Id="1211" Count="0" />
+      <LineId Id="202" Count="1" />
+      <LineId Id="1185" Count="0" />
+      <LineId Id="204" Count="0" />
+      <LineId Id="1199" Count="0" />
+      <LineId Id="1186" Count="0" />
+      <LineId Id="1177" Count="0" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="1178" Count="0" />
+      <LineId Id="206" Count="0" />
       <LineId Id="214" Count="0" />
       <LineId Id="76" Count="0" />
-      <LineId Id="228" Count="0" />
-      <LineId Id="239" Count="0" />
+      <LineId Id="1179" Count="0" />
       <LineId Id="255" Count="0" />
+      <LineId Id="1187" Count="0" />
+      <LineId Id="1195" Count="2" />
+      <LineId Id="1194" Count="0" />
+      <LineId Id="1181" Count="0" />
       <LineId Id="252" Count="1" />
+      <LineId Id="1189" Count="0" />
       <LineId Id="39" Count="0" />
       <LineId Id="366" Count="0" />
       <LineId Id="733" Count="1" />
