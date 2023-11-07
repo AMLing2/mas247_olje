@@ -3,7 +3,7 @@
   <GVL Name="gAL" Id="{6970ad6a-8c2c-4369-9fec-f533d1fb12ad}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	fbAlarm : FB_TcAlarm;
+	fbAlarm : FB_TcAlarm;	// Creates instance of integrated Alarm FB
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

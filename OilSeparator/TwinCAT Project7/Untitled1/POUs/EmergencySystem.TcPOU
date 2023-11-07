@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="EmergencySystem" Id="{ff8af221-7c2c-420a-82d2-c72830098d6c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_EmergencySystem
+
+VAR_INPUT			// Input variables
+	EmergencyButton : BOOL;
+	ClearButton : BOOL;
+END_VAR
+
+VAR_OUTPUT			// Output variables
+	MotorButton : BOOL;
+	FV1percent : INT;
+	LV1percent : INT;
+	LV2percent : INT;
+	LV3percent : INT;
+END_VAR
+
+VAR					// Internal (instance) variables
+	bIsInitialized : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// ========================= Alarm Display =========================
+IF NOT bIsInitialized THEN	// Initialization, since functions can't run in top pane
+	bIsInitialized := TRUE;
+	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
+END_IF
+
+IF EmergencyButton THEN
+	gAL.fbAlarm.Raise(0); // 0 -> Current time
+END_IF
+
+IF ClearButton THEN
+	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
+END_IF
+// ========================= Alarm Display =========================
+
+// ========================= Emergency Logic =========================
+	// Button check, inverted
+IF NOT EmergencyButton THEN
+	MotorButton := FALSE;
+	FV1percent := 100;
+	LV1percent := 100;
+	LV2percent := 100;
+	LV3percent := 100;
+	gAL.fbAlarm.Raise(0); // 0 -> Current time
+END_IF
+
+	// Temperature check TBA
+	
+	// Pressure check TBA
+// ========================= Emergency Logic =========================
+]]></ST>
+    </Implementation>
+    <LineIds Name="EmergencySystem">
+      <LineId Id="43" Count="0" />
+      <LineId Id="14" Count="5" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="69" Count="1" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="51" Count="6" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="62" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="49" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

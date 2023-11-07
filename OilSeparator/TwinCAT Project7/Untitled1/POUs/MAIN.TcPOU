@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	// --- Linking variables to IO cards -----
-		// Outputs
+		// --------- Outputs ---------
 	Flow_Valve_1 AT %Q* : INT;
 	Level_Valve_1 AT %Q* : INT;
 	Level_Valve_2 AT %Q* : INT;
@@ -14,10 +14,12 @@ VAR
 	Motor_speed AT %Q* : INT;
 	Motor_ON_OFF AT %Q* :BOOL;		// Motor switch		
 	Motor_Direction AT %Q* :BOOL; 
-		// Inputs
-	Start_Button AT %I* :BOOL;
-	Stop_Button AT %I* : BOOL; 
-	EMERGENCY_STOP AT %I* : BOOL; 		// Normally ON
+		// --------- Inputs ---------
+			// Buttons
+	ToggleMotorON_OFF AT %I* :BOOL;		 // GREEN			
+	Button_ClearEmergency AT %I* : BOOL; // RED	
+	EMERGENCY_STOP AT %I* : BOOL; 	// Normally ON
+			// Sensors
 	Level_Transmitter_1 AT %I* :INT; 
 	Level_Transmitter_2 AT %I* :INT; 
 	Temperature_Transmitter AT %I* :INT;  
@@ -29,37 +31,24 @@ VAR
 	// --- Linking variables to IO cards -----
 	
 	//User Input as percentage
-	Flow_Valve_1_Percentage: INT := 100;
-	Level_Valve_1_Percentage: INT;
-	Level_Valve_2_Percentage: INT;
-	Level_Valve_3_Percentage: INT;
-	Motor_speed_Percentage: INT := 30; // Start speed, Motor
-	Motor_ON : BOOL ; 
-	ON_OFF : STRING(10) := 'OFF'; 
+	Flow_Valve_1_Percentage: INT := 100;	// Start values
+	Level_Valve_1_Percentage: INT := 100;	// From Manual
+	Level_Valve_2_Percentage: INT := 0;
+	Level_Valve_3_Percentage: INT := 0;
+	Motor_speed_Percentage: INT := 30; // Start speed, ideal: 30-35%
+	Motor_ON : BOOL; 				// For HMI button
+	ON_OFF : STRING(10) := 'OFF'; 	// For HMI text
 	
-	// Emergency system
-	bIsInitialized : BOOL;
-	
-	
+	// Emergency System
+	fbEmergency : FB_EmergencySystem;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-// ======================= Alarm System =======================
-IF NOT bIsInitialized THEN	// Initialization, functions can't run in top pane
-	bIsInitialized := TRUE;
-	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
-END_IF
+// ======================= Emergency System =======================
+	
 
-IF NOT EMERGENCY_STOP THEN		// Emergency button check, inverted
-	MOTOR_ON_OFF := FALSE;
-	Flow_Valve_1_Percentage := 100;
-	Level_Valve_1_Percentage := 100;
-	Level_Valve_2_Percentage := 100;
-	Level_Valve_3_Percentage := 100;
-	gAL.fbAlarm.Raise(0); // 0 -> Current time
-END_IF
-// ======================= Alarm System =======================
+// ======================= Emergency System =======================
 
 // ===================== Outer bounds logic =====================
 IF Flow_Valve_1_Percentage > 100 THEN
@@ -124,39 +113,13 @@ ELSE
 	ON_OFF  := 'MOTOR: OFF' ;	// Text for HMI
 END_IF
 
-
-
-
-
-
-
-
-
-
- 
-
-	
-
-
-
-
-
-
-
-
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="1177" Count="0" />
       <LineId Id="1179" Count="0" />
-      <LineId Id="1193" Count="2" />
-      <LineId Id="1192" Count="0" />
-      <LineId Id="1196" Count="0" />
-      <LineId Id="1180" Count="0" />
-      <LineId Id="1182" Count="0" />
-      <LineId Id="1184" Count="3" />
-      <LineId Id="1197" Count="0" />
-      <LineId Id="1183" Count="0" />
+      <LineId Id="1272" Count="0" />
+      <LineId Id="1262" Count="0" />
       <LineId Id="1198" Count="1" />
       <LineId Id="1178" Count="0" />
       <LineId Id="170" Count="5" />
@@ -191,23 +154,7 @@ END_IF
       <LineId Id="205" Count="1" />
       <LineId Id="214" Count="0" />
       <LineId Id="76" Count="0" />
-      <LineId Id="228" Count="0" />
-      <LineId Id="239" Count="0" />
-      <LineId Id="255" Count="0" />
-      <LineId Id="252" Count="1" />
-      <LineId Id="39" Count="0" />
-      <LineId Id="366" Count="0" />
-      <LineId Id="733" Count="1" />
-      <LineId Id="768" Count="1" />
-      <LineId Id="753" Count="0" />
-      <LineId Id="751" Count="0" />
-      <LineId Id="750" Count="0" />
-      <LineId Id="744" Count="0" />
-      <LineId Id="738" Count="0" />
-      <LineId Id="735" Count="0" />
-      <LineId Id="625" Count="1" />
-      <LineId Id="503" Count="0" />
-      <LineId Id="442" Count="0" />
+      <LineId Id="1270" Count="0" />
       <LineId Id="269" Count="0" />
     </LineIds>
   </POU>
