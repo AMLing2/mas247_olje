@@ -12,12 +12,12 @@ VAR
 	Gas_Valve AT %Q* : INT;
 	Mixer_Valve AT %Q* : INT;
 	Motor_speed AT %Q* : INT;
-	Motor_ON_OFF AT %Q* :BOOL;		// Motor switch		
+	Motor_ON_OFF AT %Q* :BOOL := FALSE;		// Motor switch		
 	Motor_Direction AT %Q* :BOOL; 
 		// --------- Inputs ---------
 			// Buttons
 	ToggleMotorON_OFF AT %I* :BOOL;		 // GREEN			
-	Button_ClearEmergency AT %I* : BOOL; // RED	
+	Button_ClearEmergency AT %I* : BOOL; // RED
 	EMERGENCY_STOP AT %I* : BOOL; 	// Normally ON
 			// Sensors
 	Level_Transmitter_1 AT %I* :INT; 
@@ -40,14 +40,21 @@ VAR
 	ON_OFF : STRING(10) := 'OFF'; 	// For HMI text
 	
 	// Emergency System
-	fbEmergency : FB_EmergencySystem;
+	fbEmergency : EmergencySystem;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 // ======================= Emergency System =======================
-	
-
+		// Alarm System
+	fbEmergency.AlarmSystem(Button_ClearEmergency, EMERGENCY_STOP);
+		// Emergency Logic
+	fbEmergency.EmergencyLogic(EMERGENCY_STOP,				// Input
+								MotorState => MOTOR_ON_OFF,	// Outputs
+								FV1percent => Flow_Valve_1_Percentage,
+								LV1percent => Level_Valve_1_Percentage,
+								LV2percent => Level_Valve_2_Percentage,
+								LV3percent => Level_Valve_3_Percentage);
 // ======================= Emergency System =======================
 
 // ===================== Outer bounds logic =====================
@@ -118,8 +125,12 @@ END_IF
     <LineIds Name="MAIN">
       <LineId Id="1177" Count="0" />
       <LineId Id="1179" Count="0" />
+      <LineId Id="1325" Count="0" />
       <LineId Id="1272" Count="0" />
-      <LineId Id="1262" Count="0" />
+      <LineId Id="1314" Count="0" />
+      <LineId Id="1326" Count="0" />
+      <LineId Id="1321" Count="3" />
+      <LineId Id="1320" Count="0" />
       <LineId Id="1198" Count="1" />
       <LineId Id="1178" Count="0" />
       <LineId Id="170" Count="5" />

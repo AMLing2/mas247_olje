@@ -1,28 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="EmergencySystem" Id="{ff8af221-7c2c-420a-82d2-c72830098d6c}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_EmergencySystem
+    <Declaration><![CDATA[FUNCTION_BLOCK EmergencySystem
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Do nothing here. Function block was split into sub-methods!]]></ST>
+    </Implementation>
+    <Method Name="AlarmSystem" Id="{56e1c5cb-b349-4390-aac6-4099d16cd53c}">
+      <Declaration><![CDATA[METHOD PUBLIC AlarmSystem
 
 VAR_INPUT			// Input variables
-	EmergencyButton : BOOL;
 	ClearButton : BOOL;
-END_VAR
-
-VAR_OUTPUT			// Output variables
-	MotorButton : BOOL;
-	FV1percent : INT;
-	LV1percent : INT;
-	LV2percent : INT;
-	LV3percent : INT;
+	EmergencyButton : BOOL;
 END_VAR
 
 VAR					// Internal (instance) variables
 	bIsInitialized : BOOL;
-END_VAR
-]]></Declaration>
-    <Implementation>
-      <ST><![CDATA[// ========================= Alarm Display =========================
-IF NOT bIsInitialized THEN	// Initialization, since functions can't run in top pane
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bIsInitialized THEN	// Initialization, since functions can't run in top pane
 	bIsInitialized := TRUE;
 	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
 END_IF
@@ -33,45 +29,50 @@ END_IF
 
 IF ClearButton THEN
 	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
-END_IF
-// ========================= Alarm Display =========================
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmergencyLogic" Id="{209a9a5c-22e1-4953-85b4-acb5c95ad300}">
+      <Declaration><![CDATA[METHOD PUBLIC EmergencyLogic
 
-// ========================= Emergency Logic =========================
-	// Button check, inverted
+VAR_INPUT			// Input variables
+	EmergencyButton : BOOL;
+END_VAR
+
+VAR_OUTPUT			// Output variables
+	MotorState : BOOL;
+	FV1percent : INT;
+	LV1percent : INT;
+	LV2percent : INT;
+	LV3percent : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	// Button check, inverted
 IF NOT EmergencyButton THEN
-	MotorButton := FALSE;
+	MotorState := FALSE;
 	FV1percent := 100;
 	LV1percent := 100;
 	LV2percent := 100;
 	LV3percent := 100;
-	gAL.fbAlarm.Raise(0); // 0 -> Current time
 END_IF
 
 	// Temperature check TBA
 	
 	// Pressure check TBA
-// ========================= Emergency Logic =========================
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
     <LineIds Name="EmergencySystem">
-      <LineId Id="43" Count="0" />
-      <LineId Id="14" Count="5" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="68" Count="0" />
-      <LineId Id="67" Count="0" />
-      <LineId Id="69" Count="1" />
-      <LineId Id="44" Count="0" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="58" Count="0" />
-      <LineId Id="51" Count="6" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="61" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="62" Count="1" />
-      <LineId Id="47" Count="0" />
       <LineId Id="49" Count="0" />
+    </LineIds>
+    <LineIds Name="EmergencySystem.AlarmSystem">
+      <LineId Id="6" Count="10" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EmergencySystem.EmergencyLogic">
+      <LineId Id="13" Count="6" />
+      <LineId Id="21" Count="4" />
+      <LineId Id="5" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
