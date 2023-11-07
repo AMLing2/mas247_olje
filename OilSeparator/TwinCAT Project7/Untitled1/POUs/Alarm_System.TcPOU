@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Alarm_System" Id="{0c25327a-9784-407a-9f83-71ce43145858}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Alarm_System
+VAR
+	bIsInitialized : BOOL;
+	bEmergency : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT bIsInitialized THEN	// Initialization, since functions can't run in top pane
+	bIsInitialized := TRUE;
+	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
+END_IF
+
+IF bEmergency THEN
+	bEmergency := FALSE;
+	gAL.fbAlarm.Raise(0); // 0 -> Current time
+END_IF
+
+// NOT USED AT THE MOMENT OH MA GAH !]]></ST>
+    </Implementation>
+    <LineIds Name="Alarm_System">
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
