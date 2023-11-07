@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{75317203-8f43-4932-aa88-c7b05e9ca563}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	// --- Linking variables to IO cards -----
+		// Outputs
+	Flow_Valve_1 AT %Q* : INT;
+	Level_Valve_1 AT %Q* : INT;
+	Level_Valve_2 AT %Q* : INT;
+	Level_Valve_3 AT %Q* : INT;
+	Gas_Valve AT %Q* : INT;
+	Mixer_Valve AT %Q* : INT;
+	Motor_speed AT %Q* : INT;
+	Motor_ON_OFF AT %Q* :BOOL;		// Motor switch		
+	Motor_Direction AT %Q* :BOOL; 
+		// Inputs
+	Start_Button AT %I* :BOOL;
+	Stop_Button AT %I* : BOOL; 
+	EMERGENCY_STOP AT %I* : BOOL; 		// Normally ON
+	Level_Transmitter_1 AT %I* :INT; 
+	Level_Transmitter_2 AT %I* :INT; 
+	Temperature_Transmitter AT %I* :INT;  
+	Pressure_Differencial_Transmitter_1 AT %I* : INT;
+	Pressure_Differencial_Transmitter_2 AT %I* : INT;
+	Pressure_Transmitter_1 AT %I* : INT ; 
+	Pressure_Transmitter_2 AT %I* : INT ; 
+	Pressure_Transmitter_3 AT %I* : INT ; 
+	// --- Linking variables to IO cards -----
+	
+	//User Input as percentage
+	Flow_Valve_1_Percentage: INT := 100;
+	Level_Valve_1_Percentage: INT;
+	Level_Valve_2_Percentage: INT;
+	Level_Valve_3_Percentage: INT;
+	Motor_speed_Percentage: INT := 30; // Start speed, Motor
+	Motor_ON : BOOL ; 
+	ON_OFF : STRING(10) := 'OFF'; 
+	
+	// Emergency system
+	bIsInitialized : BOOL;
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// ======================= Alarm System =======================
+IF NOT bIsInitialized THEN	// Initialization, functions can't run in top pane
+	bIsInitialized := TRUE;
+	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
+END_IF
+
+IF NOT EMERGENCY_STOP THEN		// Emergency button check, inverted
+	MOTOR_ON_OFF := FALSE;
+	Flow_Valve_1_Percentage := 100;
+	Level_Valve_1_Percentage := 100;
+	Level_Valve_2_Percentage := 100;
+	Level_Valve_3_Percentage := 100;
+	gAL.fbAlarm.Raise(0); // 0 -> Current time
+END_IF
+// ======================= Alarm System =======================
+
+// ===================== Outer bounds logic =====================
+IF Flow_Valve_1_Percentage > 100 THEN
+	Flow_Valve_1_Percentage := 100; 
+	ELSE IF Flow_Valve_1_Percentage < 0 THEN 
+		Flow_Valve_1_Percentage := 0; 
+	END_IF
+	
+END_IF
+IF Level_Valve_1_Percentage > 100 THEN
+	Level_Valve_1_Percentage := 100; 
+	ELSE IF Level_Valve_1_Percentage < 0 THEN 
+		Level_Valve_1_Percentage := 0; 
+	END_IF
+	
+END_IF
+IF Level_Valve_2_Percentage > 100 THEN
+	Level_Valve_2_Percentage := 100; 
+	ELSE IF Level_Valve_2_Percentage < 0 THEN 
+		Level_Valve_2_Percentage := 0; 
+	END_IF
+	
+END_IF
+IF Level_Valve_3_Percentage > 100 THEN
+	Level_Valve_3_Percentage := 100; 
+	ELSE IF Level_Valve_3_Percentage < 0 THEN 
+		Level_Valve_3_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+IF Motor_speed_Percentage > 100 THEN
+	Motor_speed_Percentage := 100; 
+	ELSE IF Motor_speed_Percentage < 0 THEN 
+		Motor_speed_Percentage := 0; 
+	END_IF
+	
+END_IF
+// ===================== Outer bound logic =====================
+
+// ===================== Percentage to bits =====================
+// Flow_Valve_1 calibration
+Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); 
+// Level_Valve_1 calibration
+Level_Valve_1 := REAL_TO_INT(262.14*Level_Valve_1_Percentage +6553);
+// Level_Valve_2 calibration
+Level_Valve_2 := REAL_TO_INT(262.14*Level_Valve_2_Percentage +6553);
+// Level_Valve_3 calibration
+Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553);
+
+// Motor_speed calibration
+Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
+// ===================== Percentage to bits =====================
+
+ // Start motor?
+IF Motor_ON_OFF   THEN
+    Motor_ON   :=  FALSE;		// For button display
+	ON_OFF  := 'MOTOR: ON' ;	// Text for HMI
+	
+ELSE
+    Motor_ON  := TRUE;			// For button display
+	ON_OFF  := 'MOTOR: OFF' ;	// Text for HMI
+END_IF
+
+
+
+
+
+
+
+
+
+
+ 
+
+	
+
+
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="1177" Count="0" />
+      <LineId Id="1179" Count="0" />
+      <LineId Id="1193" Count="2" />
+      <LineId Id="1192" Count="0" />
+      <LineId Id="1196" Count="0" />
+      <LineId Id="1180" Count="0" />
+      <LineId Id="1182" Count="0" />
+      <LineId Id="1184" Count="3" />
+      <LineId Id="1197" Count="0" />
+      <LineId Id="1183" Count="0" />
+      <LineId Id="1198" Count="1" />
+      <LineId Id="1178" Count="0" />
+      <LineId Id="170" Count="5" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="104" Count="5" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="114" Count="5" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="121" Count="5" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="142" Count="5" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="1200" Count="0" />
+      <LineId Id="1202" Count="0" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="161" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="1203" Count="0" />
+      <LineId Id="201" Count="3" />
+      <LineId Id="213" Count="0" />
+      <LineId Id="212" Count="0" />
+      <LineId Id="205" Count="1" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="255" Count="0" />
+      <LineId Id="252" Count="1" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="366" Count="0" />
+      <LineId Id="733" Count="1" />
+      <LineId Id="768" Count="1" />
+      <LineId Id="753" Count="0" />
+      <LineId Id="751" Count="0" />
+      <LineId Id="750" Count="0" />
+      <LineId Id="744" Count="0" />
+      <LineId Id="738" Count="0" />
+      <LineId Id="735" Count="0" />
+      <LineId Id="625" Count="1" />
+      <LineId Id="503" Count="0" />
+      <LineId Id="442" Count="0" />
+      <LineId Id="269" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

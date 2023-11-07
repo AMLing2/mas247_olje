@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{75317203-8f43-4932-aa88-c7b05e9ca563}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	// Linking variables to IO cards
+	//pc to machine:
+	//valves:
+	Flow_Valve_1 AT %Q* : INT;
+	Level_Valve_1 AT %Q* : INT;
+	Level_Valve_2 AT %Q* : INT;
+	Level_Valve_3 AT %Q* : INT;
+	Gas_Valve AT %Q* : INT;
+	Mixer_Valve AT %Q* : INT;
+	
+	//motor:
+	Motor_speed AT %Q* : INT;
+	Motor_ON_OFF AT %Q* :BOOL; //true = on, false = off?
+	Motor_Direction AT %Q* :BOOL; //true = ccw/cw?
+	
+	//machine to pc:
+	//buttons:
+	Start_Button AT %I* :BOOL;
+	Stop_Button AT %I* : BOOL; 
+	EMERGENCY_STOP AT %I* : BOOL; 
+	
+	//sensors:
+	Level_Transmitter_1 AT %I* :INT; 
+	Level_Transmitter_2 AT %I* :INT; 
+	Temperature_Transmitter AT %I* :INT;  
+	Pressure_Differencial_Transmitter_1 AT %I* : INT;
+	Pressure_Differencial_Transmitter_2 AT %I* : INT;
+	Pressure_Transmitter_1 AT %I* : INT ; 
+	Pressure_Transmitter_2 AT %I* : INT ; 
+	Pressure_Transmitter_3 AT %I* : INT ; 
+	
+	//converted outputs:
+
+	
+	// User Input as percentage
+	Flow_Valve_1_Percentage: INT :=100;
+	Level_Valve_1_Percentage: INT    ;
+	Level_Valve_2_Percentage: INT;
+	Level_Valve_3_Percentage: INT;
+	Motor_speed_Percentage: INT; 
+	Motor_ON : BOOL ; //what does this do?
+	ON_OFF : STRING(10) := 'MOTOR: OFF' ; 
+	
+	//sensors converted to user readable:
+	LT1_mm: REAL;
+	LT2_mm: REAL; //mm
+	TT1_C: REAL;//centigrade
+	PDT1_Pa: REAL; //pascal, use other unit?
+	PDT2_Pa: REAL;
+	PT1_pa: REAL;
+	PT2_Pa: REAL;
+	PT3_Pa:REAL;
+	//states:
+	Initialized:BOOL:=FALSE;
+	
+	//function blocks
+	
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//convertions: #I = INPUT (System to Computer), %Q = OUTPUT (Computer to System)
+ACT_CONVERT();
+
+//start push button (green button)
+IF Start_Button AND Initialized=FALSE THEN
+	ACT_INIT(); //run initialize function for valves
+	Initialized:= TRUE; //can only be ran once
+	//motor stuff:
+	//Motor_ON_OFF:=TRUE;
+	//Start_Button:=FALSE; //is this neccesary?
+END_IF
+
+IF LT2_mm > 55 THEN//needs to be converted from bit to dec
+	
+END_IF
+
+IF Motor_ON_OFF THEN
+ //change valves as initial test
+ 	ON_OFF  := 'MOTOR: ON' ;
+	Motor_ON   :=  TRUE;
+	//Motor_Direction:=TRUE; //cw?ccw?
+	Motor_Speed:=30;
+ELSE
+	ON_OFF  := 'MOTOR: OFF' ;
+	Motor_ON  := FALSE;
+	//Motor_Speed:=0;
+    
+END_IF
+
+IF Stop_Button THEN //only turns motor off, no changes to valves
+	Motor_ON_OFF:=FALSE;
+END_IF
+
+IF EMERGENCY_STOP THEN
+	Motor_ON_OFF:=FALSE;
+	Flow_Valve_1_Percentage:=0;
+	Level_Valve_1_Percentage:=100;
+	Level_Valve_3_Percentage:=0;
+	Level_Valve_2_Percentage:=100; //open all valves
+	Initialized:=FALSE; //unsure if it should be here
+END_IF
+
+//flow valves:
+
+
+
+
+
+
+ 
+
+	
+
+
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <Action Name="ACT_CONVERT" Id="{ae73ed82-88e0-437f-8392-9a59ea4c9ebb}">
+      <Implementation>
+        <ST><![CDATA[// Variable interval for Flow_Valve_1_Percentage  form 0 to 100  
+IF Flow_Valve_1_Percentage > 100 THEN
+	Flow_Valve_1_Percentage := 100; 
+	ELSE IF Flow_Valve_1_Percentage < 0 THEN 
+		Flow_Valve_1_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Variable interval for Level_Valve_1_Percentage  form 0 to 100  
+IF Level_Valve_1_Percentage > 100 THEN
+	Level_Valve_1_Percentage := 100; 
+	ELSE IF Level_Valve_1_Percentage < 0 THEN 
+		Level_Valve_1_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Variable interval for Level_Valve_2_Percentage  form 0 to 100 
+IF Level_Valve_2_Percentage > 100 THEN
+	Level_Valve_2_Percentage := 100; 
+	ELSE IF Level_Valve_2_Percentage < 0 THEN 
+		Level_Valve_2_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Variable interval for Level_Valve_3_Percentage  form 0 to 100 
+IF Level_Valve_3_Percentage > 100 THEN
+	Level_Valve_3_Percentage := 100; 
+	ELSE IF Level_Valve_3_Percentage < 0 THEN 
+		Level_Valve_3_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+
+// Variable interval for Motor_speed_Percentage  form 0 to 100 
+IF Motor_speed_Percentage > 100 THEN
+	Motor_speed_Percentage := 100; 
+	ELSE IF Motor_speed_Percentage < 0 THEN 
+		Motor_speed_Percentage := 0; 
+	END_IF
+	
+END_IF
+
+// Flow_Valve_1 calibration
+Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); //15 bits max
+
+// Level_Valve_1 calibration
+Level_Valve_1 := REAL_TO_INT(262.14*Level_Valve_1_Percentage +6553); //15 bits max
+
+// Level_Valve_2 calibration
+Level_Valve_2 := REAL_TO_INT(262.14*Level_Valve_2_Percentage +6553); //15 bits max
+
+// Level_Valve_3 calibration
+Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553); //15 bits max
+
+// Motor_speed calibration
+Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553); //15 bits max
+
+//sensors:
+LT1_mm := (INT_TO_REAL(Level_Transmitter_1)/65536.0 ) * 100; //percentage right now, need to measure to correct unit
+LT2_mm := (INT_TO_REAL(Level_Transmitter_2)/65536.0 ) * 100; //percentage right now, need to measure to correct unit
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ACT_INIT" Id="{cc096aeb-8401-45c6-9709-63c5a8c2c107}">
+      <Implementation>
+        <ST><![CDATA[Flow_Valve_1_Percentage:=0; //open FV1(normally open)
+Level_Valve_1_Percentage:=100; //open LV1 (normally closed)
+Level_Valve_2_Percentage:=100;//close LV2 (normally open)
+Level_Valve_3_Percentage:=0;//close LV3 (normally closed)
+//delay?
+//Motor_Speed:=30; //motor on 30% for 10 seconds
+//delay?]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="MAIN">
+      <LineId Id="1294" Count="0" />
+      <LineId Id="1292" Count="1" />
+      <LineId Id="1200" Count="0" />
+      <LineId Id="1295" Count="0" />
+      <LineId Id="1229" Count="0" />
+      <LineId Id="1298" Count="1" />
+      <LineId Id="1202" Count="1" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="1231" Count="0" />
+      <LineId Id="1230" Count="0" />
+      <LineId Id="1232" Count="1" />
+      <LineId Id="202" Count="1" />
+      <LineId Id="1185" Count="0" />
+      <LineId Id="1199" Count="0" />
+      <LineId Id="1186" Count="0" />
+      <LineId Id="1317" Count="0" />
+      <LineId Id="1177" Count="0" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="1315" Count="1" />
+      <LineId Id="1178" Count="0" />
+      <LineId Id="206" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="1312" Count="0" />
+      <LineId Id="1311" Count="0" />
+      <LineId Id="1313" Count="1" />
+      <LineId Id="1179" Count="0" />
+      <LineId Id="255" Count="0" />
+      <LineId Id="1187" Count="0" />
+      <LineId Id="1195" Count="2" />
+      <LineId Id="1194" Count="0" />
+      <LineId Id="1309" Count="0" />
+      <LineId Id="1181" Count="0" />
+      <LineId Id="252" Count="1" />
+      <LineId Id="1189" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="366" Count="0" />
+      <LineId Id="733" Count="1" />
+      <LineId Id="768" Count="1" />
+      <LineId Id="753" Count="0" />
+      <LineId Id="751" Count="0" />
+      <LineId Id="750" Count="0" />
+      <LineId Id="744" Count="0" />
+      <LineId Id="738" Count="0" />
+      <LineId Id="735" Count="0" />
+      <LineId Id="625" Count="1" />
+      <LineId Id="503" Count="0" />
+      <LineId Id="442" Count="0" />
+      <LineId Id="269" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.ACT_CONVERT">
+      <LineId Id="4" Count="35" />
+      <LineId Id="41" Count="20" />
+      <LineId Id="63" Count="1" />
+      <LineId Id="1" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="70" Count="4" />
+      <LineId Id="68" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.ACT_INIT">
+      <LineId Id="2" Count="5" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
