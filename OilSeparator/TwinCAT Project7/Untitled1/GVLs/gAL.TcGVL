@@ -4,6 +4,14 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	fbAlarm : FB_TcAlarm;	// Creates instance of integrated Alarm FB
+	
+	Motor_ON_OFF 	AT %Q* : BOOL := FALSE;	// Motor switch	
+	// User Input as percentage, Declaration
+	Flow_Valve_1_Percentage	: INT;	// Start values
+	Level_Valve_1_Percentage: INT;	// From Manual
+	Level_Valve_2_Percentage: INT;
+	Level_Valve_3_Percentage: INT;
+	Motor_speed_Percentage	: INT; // Start speed, ideal: 30-35%
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

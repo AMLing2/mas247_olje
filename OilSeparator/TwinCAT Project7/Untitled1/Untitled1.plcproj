@@ -36,7 +36,7 @@
     <Compile Include="POUs\FB_AlarmSystem.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_Initialization.TcPOU">
+    <Compile Include="POUs\FB_defaultValues.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">

@@ -71,7 +71,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{8FA49C02-2877-AFE2-B22C-F5F4146B4B98}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{F75C2EC2-0FFE-DA47-535A-BB12B3B2CB5C}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -79,11 +79,6 @@
 						<Var>
 							<Name>MAIN.Toggle_Button</Name>
 							<Comment><![CDATA[ Normally Open  (OFF), Green]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Clear_Button</Name>
-							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -124,12 +119,17 @@
 							<Name>MAIN.Pressure_Transmitter_3</Name>
 							<Type>INT</Type>
 						</Var>
+						<Var>
+							<Name>MAIN.Reset_Button</Name>
+							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.Motor_ON_OFF</Name>
-							<Comment><![CDATA[ Motor switch		]]></Comment>
+							<Name>MAIN.Motor_Direction</Name>
+							<Comment><![CDATA[ Don't touch]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -163,8 +163,8 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.Motor_Direction</Name>
-							<Comment><![CDATA[ Don't touch]]></Comment>
+							<Name>gAL.Motor_ON_OFF</Name>
+							<Comment><![CDATA[ Motor switch	]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -735,7 +735,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="1">
-								<Entry Name="Clear Button" Index="#x6020" Sub="#x01">
+								<Entry Name="Reset Button" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
 							</Pdo>
@@ -820,11 +820,11 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 7 (EK1200)^Term 12 (EL1859)">
-				<Link VarA="PlcTask Inputs^MAIN.Clear_Button" VarB="Channel 3^Clear Button"/>
 				<Link VarA="PlcTask Inputs^MAIN.EMERGENCY_STOP" VarB="Channel 1^EMERGENCY STOP"/>
+				<Link VarA="PlcTask Inputs^MAIN.Reset_Button" VarB="Channel 3^Reset Button"/>
 				<Link VarA="PlcTask Inputs^MAIN.Toggle_Button" VarB="Channel 2^Toggle Button"/>
 				<Link VarA="PlcTask Outputs^MAIN.Motor_Direction" VarB="Channel 10^Motor Direction"/>
-				<Link VarA="PlcTask Outputs^MAIN.Motor_ON_OFF" VarB="Channel 9^Motor ON/OFF"/>
+				<Link VarA="PlcTask Outputs^gAL.Motor_ON_OFF" VarB="Channel 9^Motor ON/OFF"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 7 (EK1200)^Term 2 (EL4004)">
 				<Link VarA="PlcTask Outputs^MAIN.Flow_Valve_1" VarB="AO Outputs Channel 4^Flow_Valve_1"/>

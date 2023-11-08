@@ -23,7 +23,7 @@ IF ( (NOT EmergencyButton) AND (NOT latch) ) THEN
 	latch := TRUE;
 END_IF
 
-IF ((NOT ClearButton) AND gAL.fbAlarm.bRaised) THEN
+IF (EmergencyButton AND (NOT ClearButton) AND gAL.fbAlarm.bRaised) THEN
 	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
 	latch := FALSE;
 END_IF]]></ST>

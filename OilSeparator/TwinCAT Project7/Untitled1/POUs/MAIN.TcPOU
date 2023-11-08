@@ -11,13 +11,12 @@ VAR
 	Level_Valve_3 	AT %Q* : INT;
 	Gas_Valve 		AT %Q* : INT;
 	Mixer_Valve 	AT %Q* : INT;
-	Motor_speed 	AT %Q* : INT;
-	Motor_ON_OFF 	AT %Q* : BOOL := FALSE;	// Motor switch		
+	Motor_speed 	AT %Q* : INT;	
 	Motor_Direction AT %Q* : BOOL; 			// Don't touch
 		// --------- Inputs ---------
 			// Buttons
 	Toggle_Button 	AT %I* :BOOL;	// Normally Open  (OFF), Green
-	Clear_Button 	AT %I* : BOOL; 	// Normally Closed (ON), Red
+	Reset_Button 	AT %I* : BOOL; 	// Normally Closed (ON), Red
 	EMERGENCY_STOP 	AT %I* : BOOL; 	// Normally Closed (ON), Emergency Switch
 			// Sensors
 	Level_Transmitter_1 	AT %I* :INT;
@@ -30,12 +29,6 @@ VAR
 	Pressure_Transmitter_3 AT %I* : INT ; 
 	// --- Linking variables to IO cards -----
 	
-	// User Input as percentage, Declaration
-	Flow_Valve_1_Percentage	: INT;	// Start values
-	Level_Valve_1_Percentage: INT;	// From Manual
-	Level_Valve_2_Percentage: INT;
-	Level_Valve_3_Percentage: INT;
-	Motor_speed_Percentage	: INT; // Start speed, ideal: 30-35%
 	Motor_ON : BOOL; 				// For HMI button
 	ON_OFF 	 : STRING(10) := 'OFF'; // For HMI text
 	
@@ -44,81 +37,81 @@ VAR
 	
 	// Initializer
 	init : BOOL := FALSE;
-	mainInitializer : FB_Initialization;
+	mainInitializer : FB_defaultValues;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 // ======================== Initializer ========================
 	IF NOT init THEN
-		mainInitializer(MotorState  => Motor_ON_OFF,
-						MotorSpeed  => Motor_speed_Percentage,
-						FV1_Percent => Flow_Valve_1_Percentage,
-						LV1_Percent => Level_Valve_1_Percentage,
-						LV2_Percent => Level_Valve_2_Percentage,
-						LV3_Percent => Level_Valve_3_Percentage);
+		mainInitializer(MotorState  := gAL.Motor_ON_OFF,
+						MotorSpeed  := gAL.Motor_speed_Percentage,
+						FV1_Percent := gAL.Flow_Valve_1_Percentage,
+						LV1_Percent := gAL.Level_Valve_1_Percentage,
+						LV2_Percent := gAL.Level_Valve_2_Percentage,
+						LV3_Percent := gAL.Level_Valve_3_Percentage);
 		init := TRUE;
 	END_IF
 // ======================== Initializer ========================
 
 // ======================== Alarm System ========================
-	(*alarmSystem(ClearButton := Clear_Button,
-				EmergencyButton := EMERGENCY_STOP);*)
+	alarmSystem(ClearButton := Reset_Button,
+				EmergencyButton := EMERGENCY_STOP);
 // ======================== Alarm System ========================
 	
 // ================ Outer bounds logic (outputs) ================
-IF Flow_Valve_1_Percentage > 100 THEN
-	Flow_Valve_1_Percentage := 100; 
-	ELSE IF Flow_Valve_1_Percentage < 0 THEN 
-		Flow_Valve_1_Percentage := 0; 
+IF gAL.Flow_Valve_1_Percentage > 100 THEN
+	gAL.Flow_Valve_1_Percentage := 100; 
+	ELSE IF gAL.Flow_Valve_1_Percentage < 0 THEN 
+		gAL.Flow_Valve_1_Percentage := 0; 
 	END_IF
 END_IF
 
-IF Level_Valve_1_Percentage > 100 THEN
-	Level_Valve_1_Percentage := 100; 
-	ELSE IF Level_Valve_1_Percentage < 0 THEN 
-		Level_Valve_1_Percentage := 0; 
+IF gAL.Level_Valve_1_Percentage > 100 THEN
+	gAL.Level_Valve_1_Percentage := 100; 
+	ELSE IF gAL.Level_Valve_1_Percentage < 0 THEN 
+		gAL.Level_Valve_1_Percentage := 0; 
 	END_IF
 END_IF
 
-IF Level_Valve_2_Percentage > 100 THEN
-	Level_Valve_2_Percentage := 100; 
-	ELSE IF Level_Valve_2_Percentage < 0 THEN 
-		Level_Valve_2_Percentage := 0; 
+IF gAL.Level_Valve_2_Percentage > 100 THEN
+	gAL.Level_Valve_2_Percentage := 100; 
+	ELSE IF gAL.Level_Valve_2_Percentage < 0 THEN 
+		gAL.Level_Valve_2_Percentage := 0; 
 	END_IF
 END_IF
 
-IF Level_Valve_3_Percentage > 100 THEN
-	Level_Valve_3_Percentage := 100; 
-	ELSE IF Level_Valve_3_Percentage < 0 THEN 
-		Level_Valve_3_Percentage := 0; 
+IF gAL.Level_Valve_3_Percentage > 100 THEN
+	gAL.Level_Valve_3_Percentage := 100; 
+	ELSE IF gAL.Level_Valve_3_Percentage < 0 THEN 
+		gAL.Level_Valve_3_Percentage := 0; 
 	END_IF
 END_IF
 
-IF Motor_speed_Percentage > 100 THEN
-	Motor_speed_Percentage := 100; 
-	ELSE IF Motor_speed_Percentage < 0 THEN 
-		Motor_speed_Percentage := 0; 
+IF gAL.Motor_speed_Percentage > 100 THEN
+	gAL.Motor_speed_Percentage := 100; 
+	ELSE IF gAL.Motor_speed_Percentage < 0 THEN 
+		gAL.Motor_speed_Percentage := 0; 
 	END_IF
 END_IF
 // ================= Outer bounds logic (outputs) ================
 // ===================== Percentage to bits =====================
 // Flow_Valve_1 calibration
-Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); 
+Flow_Valve_1 := REAL_TO_INT (262.14*gAL.Flow_Valve_1_Percentage +6553 ); 
 // Level_Valve_1 calibration
-Level_Valve_1 := REAL_TO_INT(262.14*Level_Valve_1_Percentage +6553);
+Level_Valve_1 := REAL_TO_INT(262.14*gAL.Level_Valve_1_Percentage +6553);
 // Level_Valve_2 calibration
-Level_Valve_2 := REAL_TO_INT(262.14*Level_Valve_2_Percentage +6553);
+Level_Valve_2 := REAL_TO_INT(262.14*gAL.Level_Valve_2_Percentage +6553);
 // Level_Valve_3 calibration
-Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553);
+Level_Valve_3 := REAL_TO_INT(262.14*gAL.Level_Valve_3_Percentage +6553);
 
 // Motor_speed calibration
-Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
+Motor_speed := REAL_TO_INT(262.14*gAL.Motor_speed_Percentage +6553);
 // ===================== Percentage to bits =====================
 
 // ======================== HMI Display ========================
  // Start motor?
-IF Motor_ON_OFF   THEN
+IF gAL.Motor_ON_OFF   THEN
     Motor_ON   :=  FALSE;		// Button display
 	ON_OFF  := 'MOTOR: ON' ;	// Text display
 	
@@ -132,7 +125,7 @@ END_IF
     <LineIds Name="MAIN">
       <LineId Id="1431" Count="1" />
       <LineId Id="1434" Count="0" />
-      <LineId Id="1438" Count="4" />
+      <LineId Id="1565" Count="4" />
       <LineId Id="1435" Count="0" />
       <LineId Id="1443" Count="0" />
       <LineId Id="1436" Count="0" />

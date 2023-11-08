@@ -4,30 +4,10 @@
     <Declaration><![CDATA[PROGRAM ControlSystem
 VAR
 		// Variables
-	desMotorState  : BOOL := FALSE;
-	desMotorSpeed  : INT := 100;
-	desFV1_Percent : INT := 100;
-	desLV1_Percent : INT := 100;
-	desLV2_Percent : INT := 100;
-	desLV3_Percent : INT := 100;
 	emergencyTime   : TIME := T#10S;
 	
 		// Function Blocks
-	initializer : FB_Initialization();
-	{ attribute 'no_init'}
-	setter : FB_Setter(dMotorState  := desMotorState,
-					   dMotorSpeed  := desMotorSpeed,
-					   dFV1_Percent := desFV1_Percent,
-					   dLV1_Percent := desLV2_Percent,
-					   dLV2_Percent := desLV2_Percent,
-					   dLV3_Percent := desLV3_Percent,
-					   MotorState   => Main.Motor_ON_OFF,
-					   MotorSpeed   => Main.Motor_speed,
-					   FV1_Percent  => Main.Flow_Valve_1_Percentage,
-					   LV1_Percent  => Main.Level_Valve_1_Percentage,
-					   LV2_Percent  => Main.Level_Valve_2_Percentage,
-					   LV3_Percent  => Main.Level_Valve_3_Percentage);
-
+	initializer : FB_defaultValues;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -168,7 +148,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(NOT Main.Clear_Button) AND gAL.fbAlarm.bRaised"</v>
+                                        <v n="Value">"(NOT Main.Reset_Button) AND Main.EMERGENCY_STOP"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">274L</v>
@@ -455,7 +435,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(Main.Clear_Button) AND (NOT gAL.fbAlarm.bRaised) "</v>
+                                        <v n="Value">"(Main.Reset_Button) AND (NOT gAL.fbAlarm.bRaised) "</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">19L</v>
@@ -1235,41 +1215,22 @@ END_VAR
     <Action Name="Emergency_entry" Id="{8fa4c7b6-7e3d-4cd7-9142-9712b4ff052c}">
       <Implementation>
         <ST><![CDATA[
-desMotorState  := FALSE;
-desMotorSpeed  := 30;
-desFV1_Percent := 100;
-desLV1_Percent := 100;
-desLV2_Percent := 0;
-desLV3_Percent := 0;
-setter();
-	
-(*Main.Motor_ON_OFF := FALSE;				// Stop Motor
-Main.Flow_Valve_1_Percentage := 100;	// Open all valves
-Main.Level_Valve_1_Percentage := 100;
-Main.Level_Valve_2_Percentage := 100;
-Main.Level_Valve_3_Percentage := 100;*)]]></ST>
+gAL.Motor_ON_OFF := FALSE;				// Stop Motor
+gAL.Flow_Valve_1_Percentage  := 100;	// Open all valves
+gAL.Level_Valve_1_Percentage := 100;
+gAL.Level_Valve_2_Percentage := 100;
+gAL.Level_Valve_3_Percentage := 100;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Reset_entry" Id="{daed5b0f-1655-4d32-9d05-3f98606b998b}">
       <Implementation>
         <ST><![CDATA[
-(*Main.init := FALSE; 
-Don't do this, may be delayed due to calculations,
-which could be critical!*)
-(*initializer(MotorState  => Main.Motor_ON_OFF,
-			MotorSpeed  => Main.Motor_speed_Percentage,
-			FV1_Percent => Main.Flow_Valve_1_Percentage,
-			LV1_Percent => Main.Level_Valve_1_Percentage,
-			LV2_Percent => Main.Level_Valve_2_Percentage,
-			LV3_Percent => Main.Level_Valve_3_Percentage);*)
-			
-desMotorState  := FALSE;
-desMotorSpeed  := 30;
-desFV1_Percent := 100;
-desLV1_Percent := 100;
-desLV2_Percent := 0;
-desLV3_Percent := 0;
-setter();]]></ST>
+initializer(MotorState  := gAL.Motor_ON_OFF,
+			MotorSpeed  := gAL.Motor_speed_Percentage,
+			FV1_Percent := gAL.Flow_Valve_1_Percentage,
+			LV1_Percent := gAL.Level_Valve_1_Percentage,
+			LV2_Percent := gAL.Level_Valve_2_Percentage,
+			LV3_Percent := gAL.Level_Valve_3_Percentage);]]></ST>
       </Implementation>
     </Action>
     <ObjectProperties>
@@ -1368,20 +1329,12 @@ setter();]]></ST>
       </XmlArchive>
     </ObjectProperties>
     <LineIds Name="ControlSystem.Emergency_entry">
-      <LineId Id="13" Count="5" />
-      <LineId Id="2" Count="0" />
-      <LineId Id="20" Count="0" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="4" />
+      <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Reset_entry">
-      <LineId Id="2" Count="3" />
-      <LineId Id="11" Count="4" />
+      <LineId Id="2" Count="5" />
       <LineId Id="1" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="18" Count="5" />
-      <LineId Id="17" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
