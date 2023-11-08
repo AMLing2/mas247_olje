@@ -71,19 +71,24 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{165C450C-5013-2839-98A7-372B6ACBAD37}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{8FA49C02-2877-AFE2-B22C-F5F4146B4B98}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
 							<Name>MAIN.Toggle_Button</Name>
-							<Comment><![CDATA[ GREEN, 		 Normally]]></Comment>
+							<Comment><![CDATA[ Normally Open  (OFF), Green]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Clear_Button</Name>
+							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.EMERGENCY_STOP</Name>
-							<Comment><![CDATA[ Emergency Switch, Normally Closed (ON)]]></Comment>
+							<Comment><![CDATA[ Normally Closed (ON), Emergency Switch]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -118,11 +123,6 @@
 						<Var>
 							<Name>MAIN.Pressure_Transmitter_3</Name>
 							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Clear_Button</Name>
-							<Comment><![CDATA[ RED, 		 Normally Closed (ON)]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -164,6 +164,7 @@
 						</Var>
 						<Var>
 							<Name>MAIN.Motor_Direction</Name>
+							<Comment><![CDATA[ Don't touch]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>

@@ -9,7 +9,7 @@ VAR_INPUT			// Input variables
 END_VAR
 
 VAR					// Internal (instance) variables
-	bIsInitialized : BOOL;
+	bIsInitialized : BOOL := FALSE;
 	latch : BOOL := FALSE;
 END_VAR]]></Declaration>
     <Implementation>
@@ -23,7 +23,7 @@ IF ( (NOT EmergencyButton) AND (NOT latch) ) THEN
 	latch := TRUE;
 END_IF
 
-IF (ClearButton AND gAL.fbAlarm.bRaised) THEN
+IF ((NOT ClearButton) AND gAL.fbAlarm.bRaised) THEN
 	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
 	latch := FALSE;
 END_IF]]></ST>

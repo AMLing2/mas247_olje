@@ -30,6 +30,9 @@
     <Compile Include="POUs\ControlSystem.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_Setter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_AlarmSystem.TcPOU">
       <SubType>Code</SubType>
     </Compile>

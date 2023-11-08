@@ -821,6 +821,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 7 (EK1200)^Term 12 (EL1859)">
 				<Link VarA="PlcTask Inputs^MAIN.Clear_Button" VarB="Channel 3^Clear Button"/>
 				<Link VarA="PlcTask Inputs^MAIN.EMERGENCY_STOP" VarB="Channel 1^EMERGENCY STOP"/>
+				<Link VarA="PlcTask Inputs^MAIN.Toggle_Button" VarB="Channel 2^Toggle Button"/>
 				<Link VarA="PlcTask Outputs^MAIN.Motor_Direction" VarB="Channel 10^Motor Direction"/>
 				<Link VarA="PlcTask Outputs^MAIN.Motor_ON_OFF" VarB="Channel 9^Motor ON/OFF"/>
 			</OwnerB>
