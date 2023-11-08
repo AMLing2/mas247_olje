@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedType>
+      <Type guid="ff8af221-7c2c-420a-82d2-c72830098d6c">FB_EMERGENCYSYSTEM</Type>
+      <From>EmergencySystem</From>
+      <To>FB_AlarmSystem</To>
+    </RenamedType>
+  </Renames>
+</Refactors>

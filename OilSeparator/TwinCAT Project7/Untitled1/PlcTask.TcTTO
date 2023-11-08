@@ -7,6 +7,9 @@
     <PouCall>
       <Name>MAIN</Name>
     </PouCall>
+    <PouCall>
+      <Name>ControlSystem</Name>
+    </PouCall>
     <TaskFBGuid>{c57aa709-0d5f-4ba9-b5ae-46c4804acb68}</TaskFBGuid>
     <Fb_init>{c9279eca-9e9d-4b35-b2fd-b2d604deb5cb}</Fb_init>
     <Fb_exit>{8361ab86-b865-4667-812e-0bc986cfb1f0}</Fb_exit>

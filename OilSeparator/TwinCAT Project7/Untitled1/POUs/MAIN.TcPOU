@@ -16,9 +16,9 @@ VAR
 	Motor_Direction AT %Q* :BOOL; 
 		// --------- Inputs ---------
 			// Buttons
-	Toggle_Button AT %I* :BOOL;		// GREEN, 		 Normally
-	Clear_Button AT %I* : BOOL; 	// RED, 		 Normally Closed (ON)
-	EMERGENCY_STOP AT %I* : BOOL; 	// Emergency Switch, Normally Closed (ON)
+	Toggle_Button AT %I* :BOOL;		// Normally Open  (OFF), Green
+	Clear_Button AT %I* : BOOL; 	// Normally Closed (ON), Red
+	EMERGENCY_STOP AT %I* : BOOL; 	// Normally Closed (ON), Emergency Switch
 			// Sensors
 	Level_Transmitter_1 AT %I* :INT;
 	Level_Transmitter_2 AT %I* :INT;
@@ -30,44 +30,43 @@ VAR
 	Pressure_Transmitter_3 AT %I* : INT ; 
 	// --- Linking variables to IO cards -----
 	
-	//User Input as percentage
-	Flow_Valve_1_Percentage: INT := 100;	// Start values
-	Level_Valve_1_Percentage: INT := 100;	// From Manual
-	Level_Valve_2_Percentage: INT := 0;
-	Level_Valve_3_Percentage: INT := 0;
-	Motor_speed_Percentage: INT := 30; // Start speed, ideal: 30-35%
+	// User Input as percentage, Declaration
+	Flow_Valve_1_Percentage: INT;	// Start values
+	Level_Valve_1_Percentage: INT;	// From Manual
+	Level_Valve_2_Percentage: INT;
+	Level_Valve_3_Percentage: INT;
+	Motor_speed_Percentage: INT; // Start speed, ideal: 30-35%
 	Motor_ON : BOOL; 				// For HMI button
 	ON_OFF : STRING(10) := 'OFF'; 	// For HMI text
 	
 	// Emergency System
-	fbEmergency : EmergencySystem;
+	alarmSystem : FB_AlarmSystem;
+	
+	// Initializer
+	init : BOOL := FALSE;
+	mainInitializer : FB_Initialization;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-// ======================= Emergency System =======================
-		// Alarm System
-	fbEmergency.AlarmSystem(Clear_Button, EMERGENCY_STOP);
-		// Emergency Logic
-		
-	(* Pass by value:
-	fbEmergency.EmergencyLogic(EMERGENCY_STOP,				// Input
-								MotorState => MOTOR_ON_OFF,	// Outputs
-								FV1percent => Flow_Valve_1_Percentage,
-								LV1percent => Level_Valve_1_Percentage,
-								LV2percent => Level_Valve_2_Percentage,
-								LV3percent => Level_Valve_3_Percentage);*)
-		// Pass by Reference
-	fbEmergency.EmergencyLogic(EMERGENCY_STOP,				// Input
-								MotorState := MOTOR_ON_OFF,	// Outputs
-								FV1percent := Flow_Valve_1_Percentage,
-								LV1percent := Level_Valve_1_Percentage,
-								LV2percent := Level_Valve_2_Percentage,
-								LV3percent := Level_Valve_3_Percentage);
-								
-// ======================= Emergency System =======================
+// ======================== Initializer ========================
+	IF NOT init THEN
+		mainInitializer(MotorState  => Motor_ON_OFF,
+						MotorSpeed  => Motor_speed_Percentage,
+						FV1_Percent => Flow_Valve_1_Percentage,
+						LV1_Percent => Level_Valve_1_Percentage,
+						LV2_Percent => Level_Valve_2_Percentage,
+						LV3_Percent => Level_Valve_3_Percentage);
+		init := TRUE;
+	END_IF
+// ======================== Initializer ========================
+
+// ======================== Alarm System ========================
+	alarmSystem(ClearButton := Clear_Button,
+				EmergencyButton := EMERGENCY_STOP);								
+// ======================== Alarm System ========================
 	
-// ===================== Outer bounds logic =====================
+// ================ Outer bounds logic (outputs) ================
 IF Flow_Valve_1_Percentage > 100 THEN
 	Flow_Valve_1_Percentage := 100; 
 	ELSE IF Flow_Valve_1_Percentage < 0 THEN 
@@ -104,50 +103,37 @@ IF Motor_speed_Percentage > 100 THEN
 	END_IF
 	
 END_IF
-// ===================== Outer bound logic =====================
-
-// ===================== Percentage to bits =====================
-// Flow_Valve_1 calibration
-Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); 
-// Level_Valve_1 calibration
-Level_Valve_1 := REAL_TO_INT(262.14*Level_Valve_1_Percentage +6553);
-// Level_Valve_2 calibration
-Level_Valve_2 := REAL_TO_INT(262.14*Level_Valve_2_Percentage +6553);
-// Level_Valve_3 calibration
-Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553);
-
+// ================= Outer bounds logic (outputs) ================
 // Motor_speed calibration
 Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
-// ===================== Percentage to bits =====================
+// ================= Percentage to bits (outputs) ================
 
+// ======================== HMI Display ========================
  // Start motor?
 IF Motor_ON_OFF   THEN
-    Motor_ON   :=  FALSE;		// For button display
-	ON_OFF  := 'MOTOR: ON' ;	// Text for HMI
+    Motor_ON   :=  FALSE;		// Button display
+	ON_OFF  := 'MOTOR: ON' ;	// Text display
 	
 ELSE
-    Motor_ON  := TRUE;			// For button display
-	ON_OFF  := 'MOTOR: OFF' ;	// Text for HMI
+    Motor_ON  := TRUE;			// Button display
+	ON_OFF  := 'MOTOR: OFF' ;	// Text display
 END_IF
-
+// ======================== HMI Display ========================
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="1431" Count="1" />
+      <LineId Id="1434" Count="0" />
+      <LineId Id="1438" Count="4" />
+      <LineId Id="1435" Count="0" />
+      <LineId Id="1443" Count="0" />
+      <LineId Id="1436" Count="0" />
+      <LineId Id="1433" Count="0" />
       <LineId Id="1177" Count="0" />
       <LineId Id="1179" Count="0" />
-      <LineId Id="1325" Count="0" />
       <LineId Id="1272" Count="0" />
-      <LineId Id="1314" Count="0" />
-      <LineId Id="1380" Count="0" />
-      <LineId Id="1326" Count="0" />
-      <LineId Id="1381" Count="0" />
-      <LineId Id="1321" Count="3" />
-      <LineId Id="1320" Count="0" />
-      <LineId Id="1375" Count="0" />
-      <LineId Id="1382" Count="0" />
-      <LineId Id="1376" Count="3" />
-      <LineId Id="1368" Count="0" />
-      <LineId Id="1373" Count="1" />
+      <LineId Id="1426" Count="0" />
+      <LineId Id="1374" Count="0" />
       <LineId Id="1199" Count="0" />
       <LineId Id="1178" Count="0" />
       <LineId Id="170" Count="5" />
@@ -161,21 +147,11 @@ END_IF
       <LineId Id="47" Count="0" />
       <LineId Id="142" Count="5" />
       <LineId Id="40" Count="0" />
-      <LineId Id="1200" Count="0" />
-      <LineId Id="1202" Count="0" />
-      <LineId Id="155" Count="0" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="2" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="15" Count="0" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="71" Count="0" />
-      <LineId Id="70" Count="0" />
       <LineId Id="161" Count="0" />
       <LineId Id="80" Count="0" />
       <LineId Id="79" Count="0" />
       <LineId Id="1203" Count="0" />
+      <LineId Id="1427" Count="0" />
       <LineId Id="201" Count="3" />
       <LineId Id="213" Count="0" />
       <LineId Id="212" Count="0" />

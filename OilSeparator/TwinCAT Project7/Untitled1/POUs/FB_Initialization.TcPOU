@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Initialization" Id="{6cff6948-7f9b-4986-b7e7-9781a355fe73}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Initialization
+
+VAR_OUTPUT			// Output Variables
+	MotorState  : BOOL;
+	MotorSpeed  : INT;
+	FV1_Percent : INT;
+	LV1_Percent : INT;
+	LV2_Percent : INT;
+	LV3_Percent : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	// Definition
+MotorState  := FALSE;
+MotorSpeed  := 30;
+FV1_Percent := 100;
+LV1_Percent := 100;
+LV2_Percent := 0;
+LV3_Percent := 0;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Initialization">
+      <LineId Id="20" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="22" Count="3" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
