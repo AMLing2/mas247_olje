@@ -16,17 +16,17 @@ VAR
 	Motor_Direction AT %Q* :BOOL; 
 		// --------- Inputs ---------
 			// Buttons
-	ToggleMotorON_OFF AT %I* :BOOL;		 // GREEN
-	Button_ClearEmergency AT %I* : BOOL; // RED
-	EMERGENCY_STOP AT %I* : BOOL; 	// Normally ON, latch "button"
+	Toggle_Button AT %I* :BOOL;		// GREEN, 		 Normally
+	Clear_Button AT %I* : BOOL; 	// RED, 		 Normally Closed (ON)
+	EMERGENCY_STOP AT %I* : BOOL; 	// Emergency Switch, Normally Closed (ON)
 			// Sensors
-	Level_Transmitter_1 AT %I* :INT; 
-	Level_Transmitter_2 AT %I* :INT; 
-	Temperature_Transmitter AT %I* :INT;  
+	Level_Transmitter_1 AT %I* :INT;
+	Level_Transmitter_2 AT %I* :INT;
+	Temperature_Transmitter AT %I* :INT;
 	Pressure_Differencial_Transmitter_1 AT %I* : INT;
 	Pressure_Differencial_Transmitter_2 AT %I* : INT;
-	Pressure_Transmitter_1 AT %I* : INT ; 
-	Pressure_Transmitter_2 AT %I* : INT ; 
+	Pressure_Transmitter_1 AT %I* : INT ;
+	Pressure_Transmitter_2 AT %I* : INT ;
 	Pressure_Transmitter_3 AT %I* : INT ; 
 	// --- Linking variables to IO cards -----
 	
@@ -47,7 +47,7 @@ END_VAR
       <ST><![CDATA[
 // ======================= Emergency System =======================
 		// Alarm System
-	fbEmergency.AlarmSystem(Button_ClearEmergency, EMERGENCY_STOP);
+	fbEmergency.AlarmSystem(Clear_Button, EMERGENCY_STOP);
 		// Emergency Logic
 		
 	(* Pass by value:
@@ -66,7 +66,7 @@ END_VAR
 								LV3percent := Level_Valve_3_Percentage);
 								
 // ======================= Emergency System =======================
-
+	
 // ===================== Outer bounds logic =====================
 IF Flow_Valve_1_Percentage > 100 THEN
 	Flow_Valve_1_Percentage := 100; 

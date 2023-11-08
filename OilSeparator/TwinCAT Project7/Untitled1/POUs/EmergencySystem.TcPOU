@@ -16,6 +16,7 @@ END_VAR
 
 VAR					// Internal (instance) variables
 	bIsInitialized : BOOL;
+	latch : BOOL := FALSE;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF NOT bIsInitialized THEN	// Initialization, since functions can't run in top pane
@@ -23,12 +24,14 @@ END_VAR]]></Declaration>
 	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
 END_IF
 
-IF NOT EmergencyButton THEN
+IF NOT (EmergencyButton AND NOT latch) THEN
 	gAL.fbAlarm.Raise(0); // 0 -> Current time
+	latch := TRUE;
 END_IF
 
 IF (ClearButton AND gAL.fbAlarm.bRaised) THEN
 	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
+	latch := FALSE;
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -66,7 +69,10 @@ END_IF
       <LineId Id="49" Count="0" />
     </LineIds>
     <LineIds Name="EmergencySystem.AlarmSystem">
-      <LineId Id="6" Count="10" />
+      <LineId Id="6" Count="6" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="13" Count="3" />
+      <LineId Id="27" Count="0" />
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="EmergencySystem.EmergencyLogic">

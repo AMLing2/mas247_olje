@@ -71,24 +71,19 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{258F76D9-70AD-4D8B-D1DC-C76D16B65E1A}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{165C450C-5013-2839-98A7-372B6ACBAD37}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.ToggleMotorON_OFF</Name>
-							<Comment><![CDATA[ GREEN			]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Button_ClearEmergency</Name>
-							<Comment><![CDATA[ RED]]></Comment>
+							<Name>MAIN.Toggle_Button</Name>
+							<Comment><![CDATA[ GREEN, 		 Normally]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.EMERGENCY_STOP</Name>
-							<Comment><![CDATA[ Normally ON, latch "button"]]></Comment>
+							<Comment><![CDATA[ Emergency Switch, Normally Closed (ON)]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -123,6 +118,11 @@
 						<Var>
 							<Name>MAIN.Pressure_Transmitter_3</Name>
 							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Clear_Button</Name>
+							<Comment><![CDATA[ RED, 		 Normally Closed (ON)]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -167,14 +167,6 @@
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
-					<UnrestoredVarLinks ImportTime="2023-11-07T15:47:26">
-						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
-							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 7 (EK1200)^Term 12 (EL1859)">
-								<Link VarA="MAIN.Start_Button" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 2^Start Button" Size="1" RestoreInfo="ANotFound"/>
-								<Link VarA="MAIN.Stop_Button" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 3^Stop Button" Size="1" RestoreInfo="ANotFound"/>
-							</OwnerB>
-						</OwnerA>
-					</UnrestoredVarLinks>
 					<Contexts>
 						<Context>
 							<Id>0</Id>
@@ -737,12 +729,12 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="1">
-								<Entry Name="Start Button" Index="#x6010" Sub="#x01">
+								<Entry Name="Toggle Button" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="1">
-								<Entry Name="Stop Button" Index="#x6020" Sub="#x01">
+								<Entry Name="Clear Button" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
 							</Pdo>
@@ -827,6 +819,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 7 (EK1200)^Term 12 (EL1859)">
+				<Link VarA="PlcTask Inputs^MAIN.Clear_Button" VarB="Channel 3^Clear Button"/>
 				<Link VarA="PlcTask Inputs^MAIN.EMERGENCY_STOP" VarB="Channel 1^EMERGENCY STOP"/>
 				<Link VarA="PlcTask Outputs^MAIN.Motor_Direction" VarB="Channel 10^Motor Direction"/>
 				<Link VarA="PlcTask Outputs^MAIN.Motor_ON_OFF" VarB="Channel 9^Motor ON/OFF"/>
