@@ -499,43 +499,87 @@
 
 
 
+
+
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
   {
-    "event": "%s%PLC1.gAL.fbAlarm.bRaised%/s%",
+    "event": "%s%PLC1.ControlSystem.stateAlarm%/s%",
     "actions": [
       {
         "objectType": "SwitchCase",
         "active": true,
         "compare": {
-          "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": ""
+          "objectType": "Symbol",
+          "valueType": "tchmi:server#/definitions/PLC1.AlarmState",
+          "symbolExpression": "%s%PLC1.ControlSystem.stateAlarm%/s%"
         },
         "cases": [
           {
             "caseValue": {
               "objectType": "StaticValue",
-              "valueType": "tchmi:general#/definitions/String",
-              "value": null
+              "valueType": "tchmi:server#/definitions/PLC1.AlarmState",
+              "value": 0
             },
-            "actions": []
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%AlarmSymbol::FillColor%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "rgba(188, 23, 23, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
           },
           {
             "caseValue": {
               "objectType": "StaticValue",
-              "valueType": "tchmi:general#/definitions/String",
-              "value": null
+              "valueType": "tchmi:server#/definitions/PLC1.AlarmState",
+              "value": 1
             },
-            "actions": []
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%AlarmSymbol::FillColor%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "rgba(255, 219, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
           },
           {
             "caseValue": {
               "objectType": "StaticValue",
-              "valueType": "tchmi:general#/definitions/String",
-              "value": null
+              "valueType": "tchmi:server#/definitions/PLC1.AlarmState",
+              "value": 2
             },
-            "actions": []
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%AlarmSymbol::FillColor%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "rgba(56, 166, 75, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
           }
         ],
         "asyncWait": true

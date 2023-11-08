@@ -1,10 +1,10 @@
 {
     "USERS": {
         "__SystemAdministrator": {
-            "ALGORITHM": 0,
-            "ENABLED": false,
-            "PASSWORD": "",
-            "SALT": ""
+            "ALGORITHM": 1,
+            "ENABLED": true,
+            "PASSWORD": "6491ccbcb106e252821f41a41016629e36bcb89bda5e54b847201c56158baef02b8f1e34418087ff61265debd3b1abc3e977a1154b523fce4b0880bb9ac9e1b6",
+            "SALT": "hjk6JEktRu8J7FOBxDj7hVUGI6eTIbStbyYAdeSDkP236N2yhAE7vuMLDcqoCFVmm0h0IzjdvSv8uR/nNG639g=="
         },
         "__SystemGuest": {
             "ALGORITHM": 0,

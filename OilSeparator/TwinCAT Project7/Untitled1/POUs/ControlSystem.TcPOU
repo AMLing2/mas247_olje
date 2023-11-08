@@ -4,9 +4,9 @@
     <Declaration><![CDATA[PROGRAM ControlSystem
 VAR
 		// Variables
-	emergencyTime   : TIME := T#10S;
+	emergencyTime   : TIME := T#9S;
 	resetLatch : BOOL := FALSE;
-	stateAlarm : AlarmState;
+	stateAlarm : AlarmState := AlarmState.AlarmCleared;
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -150,7 +150,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(resetLatch OR Main.Reset_Button) AND Main.EMERGENCY_STOP"</v>
+                                        <v n="Value">"(resetLatch OR (NOT Main.Reset_Button)) AND Main.EMERGENCY_STOP"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">274L</v>
@@ -1245,7 +1245,8 @@ initializer(MotorState  := gAL.Motor_ON_OFF,
 			LV2_Percent := gAL.Level_Valve_2_Percentage,
 			LV3_Percent := gAL.Level_Valve_3_Percentage);
 			
-stateAlarm := AlarmState.AlarmCleared;]]></ST>
+stateAlarm := AlarmState.AlarmCleared;
+resetLatch := FALSE;]]></ST>
       </Implementation>
     </Action>
     <ObjectProperties>
@@ -1344,21 +1345,17 @@ stateAlarm := AlarmState.AlarmCleared;]]></ST>
       </XmlArchive>
     </ObjectProperties>
     <LineIds Name="ControlSystem.Emergency_active">
-      <LineId Id="4" Count="0" />
-      <LineId Id="1" Count="1" />
-      <LineId Id="6" Count="0" />
-      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="3" />
+      <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_entry">
-      <LineId Id="2" Count="4" />
+      <LineId Id="2" Count="6" />
       <LineId Id="1" Count="0" />
-      <LineId Id="10" Count="0" />
-      <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Reset_entry">
-      <LineId Id="2" Count="5" />
+      <LineId Id="2" Count="7" />
       <LineId Id="1" Count="0" />
-      <LineId Id="8" Count="1" />
+      <LineId Id="10" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
