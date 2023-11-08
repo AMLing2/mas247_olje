@@ -71,7 +71,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{F75C2EC2-0FFE-DA47-535A-BB12B3B2CB5C}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{6BBBC06E-29C5-7D22-D7EE-3DFCBF638A8A}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -79,6 +79,11 @@
 						<Var>
 							<Name>MAIN.Toggle_Button</Name>
 							<Comment><![CDATA[ Normally Open  (OFF), Green]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Reset_Button</Name>
+							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -119,11 +124,6 @@
 							<Name>MAIN.Pressure_Transmitter_3</Name>
 							<Type>INT</Type>
 						</Var>
-						<Var>
-							<Name>MAIN.Reset_Button</Name>
-							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
@@ -134,7 +134,7 @@
 						</Var>
 						<Var>
 							<Name>MAIN.Flow_Valve_1</Name>
-							<Comment><![CDATA[ --- Linking variables to IO cards -----
+							<Comment><![CDATA[ ------ Linking variables to IO cards ------
  --------- Outputs ---------]]></Comment>
 							<Type>INT</Type>
 						</Var>

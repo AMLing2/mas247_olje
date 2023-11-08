@@ -27,7 +27,18 @@
     "DEFAULTTIMEFORMATLOCALE": "client",
     "DEFAULTTIMEZONE": "client",
     "DEFAULTUSERGROUP": "__SystemUsers",
-    "DEFINITIONS": {},
+    "DEFINITIONS": {
+        "PLC1.PROPERTY-GET-BOOL": {
+            "allOf": [
+                {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                {
+                    "function": true
+                }
+            ]
+        }
+    },
     "DEFLATECOMPRESSIONLEVEL": 5,
     "DIAGNOSTICS_DOMAINS": [],
     "DISABLED_CONFIGURATION_HINTS": [],
@@ -2878,6 +2889,26 @@
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
         },
+        "PLC1.MAIN.Reset_Button": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Reset_Button",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Normally Closed (ON), Red"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MAIN.Start_Green": {
             "ACCESS": 3,
             "CUSTOMERDATA": "",
@@ -3044,6 +3075,16 @@
                 "$ref": "tchmi:general#/definitions/REAL"
             },
             "SUBSYMBOL_MAPPING": "",
+            "USEMAPPING": true
+        },
+        "PLC1.gAL.fbAlarm.bRaised": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::gAL::fbAlarm::bRaised",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.PROPERTY-GET-BOOL"
+            },
             "USEMAPPING": true
         },
         "RefreshDefinitions": {
@@ -4556,6 +4597,7 @@
                 "PLC1.MAIN.Pressure_Transmitter_1_Bar": 3,
                 "PLC1.MAIN.Pressure_Transmitter_2_Bar": 3,
                 "PLC1.MAIN.Pressure_Transmitter_3_Bar": 3,
+                "PLC1.MAIN.Reset_Button": 3,
                 "PLC1.MAIN.Start_Green": 3,
                 "PLC1.MAIN.Stop_Red": 3,
                 "PLC1.MAIN.Temperature_In_Celsius": 3,
@@ -4567,6 +4609,7 @@
                 "PLC1.MAIN.bSendMessage": 3,
                 "PLC1.MAIN.height": 3,
                 "PLC1.MAIN.height_Oil": 3,
+                "PLC1.gAL.fbAlarm.bRaised": 3,
                 "SetLocale": 3,
                 "SubscribeEvents": 3,
                 "TcHmiEventLogger.Diagnostics": 1,

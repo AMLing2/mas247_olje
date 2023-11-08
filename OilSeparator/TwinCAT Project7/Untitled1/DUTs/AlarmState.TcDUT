@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="AlarmState" Id="{da90130e-02d8-4e7b-a29e-57337425c4d9}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE AlarmState :
+	(
+		AlarmActive := 0,
+		AlarmClearPreTimer := 1,
+		AlarmCleared := 2
+	)USINT;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

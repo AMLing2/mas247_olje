@@ -71,7 +71,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{F75C2EC2-0FFE-DA47-535A-BB12B3B2CB5C}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{539A7F06-1CC7-5A4A-EAA2-6C1A024885F4}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -79,6 +79,11 @@
 						<Var>
 							<Name>MAIN.Toggle_Button</Name>
 							<Comment><![CDATA[ Normally Open  (OFF), Green]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Reset_Button</Name>
+							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -118,11 +123,6 @@
 						<Var>
 							<Name>MAIN.Pressure_Transmitter_3</Name>
 							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Reset_Button</Name>
-							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -821,6 +821,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 7 (EK1200)^Term 12 (EL1859)">
 				<Link VarA="PlcTask Inputs^MAIN.EMERGENCY_STOP" VarB="Channel 1^EMERGENCY STOP"/>
+				<Link VarA="PlcTask Inputs^MAIN.Reset_Button" VarB="Channel 3^Reset Button"/>
 				<Link VarA="PlcTask Inputs^MAIN.Toggle_Button" VarB="Channel 2^Toggle Button"/>
 				<Link VarA="PlcTask Outputs^MAIN.Motor_Direction" VarB="Channel 10^Motor Direction"/>
 				<Link VarA="PlcTask Outputs^gAL.Motor_ON_OFF" VarB="Channel 9^Motor ON/OFF"/>

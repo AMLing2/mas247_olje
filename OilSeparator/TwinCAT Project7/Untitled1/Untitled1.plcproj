@@ -17,6 +17,9 @@
     <LibraryReferences>{4ba0846d-3cbb-4e43-8d4e-a88fb326c03e}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\AlarmState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>

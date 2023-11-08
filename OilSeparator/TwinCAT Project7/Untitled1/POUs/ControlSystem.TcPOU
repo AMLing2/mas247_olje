@@ -5,6 +5,8 @@
 VAR
 		// Variables
 	emergencyTime   : TIME := T#10S;
+	resetLatch : BOOL := FALSE;
+	stateAlarm : AlarmState;
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -148,7 +150,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(NOT Main.Reset_Button) AND Main.EMERGENCY_STOP"</v>
+                                        <v n="Value">"(resetLatch OR Main.Reset_Button) AND Main.EMERGENCY_STOP"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">274L</v>
@@ -686,7 +688,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">""</v>
+                                        <v n="Value">"Emergency_active"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">384L</v>
@@ -1212,6 +1214,15 @@ END_VAR
         </XmlArchive>
       </SFC>
     </Implementation>
+    <Action Name="Emergency_active" Id="{f3d9c642-3825-4f1f-8f2e-6190e18b09ed}">
+      <Implementation>
+        <ST><![CDATA[
+IF ( (Main.EMERGENCY_STOP) AND (NOT Main.Reset_Button) ) THEN
+	resetLatch := TRUE;
+	stateAlarm := AlarmState.AlarmClearPreTimer;
+END_IF]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Emergency_entry" Id="{8fa4c7b6-7e3d-4cd7-9142-9712b4ff052c}">
       <Implementation>
         <ST><![CDATA[
@@ -1219,7 +1230,9 @@ gAL.Motor_ON_OFF := FALSE;				// Stop Motor
 gAL.Flow_Valve_1_Percentage  := 100;	// Open all valves
 gAL.Level_Valve_1_Percentage := 100;
 gAL.Level_Valve_2_Percentage := 100;
-gAL.Level_Valve_3_Percentage := 100;]]></ST>
+gAL.Level_Valve_3_Percentage := 100;
+
+stateAlarm := AlarmState.AlarmActive;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Reset_entry" Id="{daed5b0f-1655-4d32-9d05-3f98606b998b}">
@@ -1230,7 +1243,9 @@ initializer(MotorState  := gAL.Motor_ON_OFF,
 			FV1_Percent := gAL.Flow_Valve_1_Percentage,
 			LV1_Percent := gAL.Level_Valve_1_Percentage,
 			LV2_Percent := gAL.Level_Valve_2_Percentage,
-			LV3_Percent := gAL.Level_Valve_3_Percentage);]]></ST>
+			LV3_Percent := gAL.Level_Valve_3_Percentage);
+			
+stateAlarm := AlarmState.AlarmCleared;]]></ST>
       </Implementation>
     </Action>
     <ObjectProperties>
@@ -1328,13 +1343,22 @@ initializer(MotorState  := gAL.Motor_ON_OFF,
         </TypeList>
       </XmlArchive>
     </ObjectProperties>
+    <LineIds Name="ControlSystem.Emergency_active">
+      <LineId Id="4" Count="0" />
+      <LineId Id="1" Count="1" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="3" Count="0" />
+    </LineIds>
     <LineIds Name="ControlSystem.Emergency_entry">
       <LineId Id="2" Count="4" />
       <LineId Id="1" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Reset_entry">
       <LineId Id="2" Count="5" />
       <LineId Id="1" Count="0" />
+      <LineId Id="8" Count="1" />
     </LineIds>
   </POU>
 </TcPlcObject>

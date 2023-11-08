@@ -3,7 +3,7 @@
   <POU Name="MAIN" Id="{75317203-8f43-4932-aa88-c7b05e9ca563}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	// --- Linking variables to IO cards -----
+	// ------ Linking variables to IO cards ------
 		// --------- Outputs ---------
 	Flow_Valve_1 	AT %Q* : INT;
 	Level_Valve_1 	AT %Q* : INT;
@@ -27,10 +27,12 @@ VAR
 	Pressure_Transmitter_1 AT %I* : INT ;
 	Pressure_Transmitter_2 AT %I* : INT ;
 	Pressure_Transmitter_3 AT %I* : INT ; 
-	// --- Linking variables to IO cards -----
+	// ------ Linking variables to IO cards ------
 	
+	// ------------------ HMI ------------------
 	Motor_ON : BOOL; 				// For HMI button
 	ON_OFF 	 : STRING(10) := 'OFF'; // For HMI text
+	// ------------------ HMI ------------------
 	
 	// Emergency System
 	alarmSystem : FB_AlarmSystem;
