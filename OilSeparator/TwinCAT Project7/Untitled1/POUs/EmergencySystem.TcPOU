@@ -23,11 +23,11 @@ END_VAR]]></Declaration>
 	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
 END_IF
 
-IF EmergencyButton THEN
+IF NOT EmergencyButton THEN
 	gAL.fbAlarm.Raise(0); // 0 -> Current time
 END_IF
 
-IF ClearButton THEN
+IF (ClearButton AND gAL.fbAlarm.bRaised) THEN
 	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
 END_IF]]></ST>
       </Implementation>
@@ -39,7 +39,7 @@ VAR_INPUT			// Input variables
 	EmergencyButton : BOOL;
 END_VAR
 
-VAR_OUTPUT			// Output variables
+VAR_IN_OUT			// Pass by reference variables
 	MotorState : BOOL;
 	FV1percent : INT;
 	LV1percent : INT;

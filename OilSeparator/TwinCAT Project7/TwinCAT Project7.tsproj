@@ -71,14 +71,24 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{1B59ABE8-D4C8-F42F-AC42-56027C8C5334}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{28B4FACD-101E-FC6D-FAF3-6CAE29879B47}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
+							<Name>MAIN.ToggleMotorON_OFF</Name>
+							<Comment><![CDATA[ GREEN]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Button_ClearEmergency</Name>
+							<Comment><![CDATA[ RED]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>MAIN.EMERGENCY_STOP</Name>
-							<Comment><![CDATA[ Normally ON]]></Comment>
+							<Comment><![CDATA[ Normally ON, latch "button"]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -113,16 +123,6 @@
 						<Var>
 							<Name>MAIN.Pressure_Transmitter_3</Name>
 							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.ToggleMotorON_OFF</Name>
-							<Comment><![CDATA[ GREEN			]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Button_ClearEmergency</Name>
-							<Comment><![CDATA[ RED	]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
