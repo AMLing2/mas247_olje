@@ -1020,7 +1020,7 @@ waiting for timer" data-tchmi-top="92" data-tchmi-top-unit="px" data-tchmi-width
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%LT1display::Text%/ctrl%",
+        "symbolExpression": "%ctrl%LT2display::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
