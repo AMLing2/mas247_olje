@@ -7,6 +7,7 @@ VAR
 	emergencyTime   : TIME := T#9S;
 	resetLatch : BOOL := FALSE;
 	stateAlarm : AlarmState := AlarmState.AlarmCleared;
+	alarmTime : TIME := T#0S;
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -1220,17 +1221,19 @@ END_VAR
 IF ( (Main.EMERGENCY_STOP) AND (NOT Main.Reset_Button) ) THEN
 	resetLatch := TRUE;
 	stateAlarm := AlarmState.AlarmClearPreTimer;
-END_IF]]></ST>
+END_IF
+
+alarmTime := emergencyTime - emergency.t;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Emergency_entry" Id="{8fa4c7b6-7e3d-4cd7-9142-9712b4ff052c}">
       <Implementation>
         <ST><![CDATA[
-gAL.Motor_ON_OFF := FALSE;				// Stop Motor
-gAL.Flow_Valve_1_Percentage  := 100;	// Open all valves
-gAL.Level_Valve_1_Percentage := 100;
-gAL.Level_Valve_2_Percentage := 100;
-gAL.Level_Valve_3_Percentage := 100;
+Main.Motor_ON_OFF := FALSE;				// Stop Motor
+Main.Flow_Valve_1_Percentage  := 100;	// Open all valves
+Main.Level_Valve_1_Percentage := 100;
+Main.Level_Valve_2_Percentage := 100;
+Main.Level_Valve_3_Percentage := 100;
 
 stateAlarm := AlarmState.AlarmActive;]]></ST>
       </Implementation>
@@ -1238,13 +1241,13 @@ stateAlarm := AlarmState.AlarmActive;]]></ST>
     <Action Name="Reset_entry" Id="{daed5b0f-1655-4d32-9d05-3f98606b998b}">
       <Implementation>
         <ST><![CDATA[
-initializer(MotorState  := gAL.Motor_ON_OFF,
-			MotorSpeed  := gAL.Motor_speed_Percentage,
-			FV1_Percent := gAL.Flow_Valve_1_Percentage,
-			LV1_Percent := gAL.Level_Valve_1_Percentage,
-			LV2_Percent := gAL.Level_Valve_2_Percentage,
-			LV3_Percent := gAL.Level_Valve_3_Percentage);
-			
+initializer(MotorState  := Main.Motor_ON_OFF,
+			MotorSpeed  := Main.Motor_speed_Percentage,
+			FV1_Percent := Main.Flow_Valve_1_Percentage,
+			LV1_Percent := Main.Level_Valve_1_Percentage,
+			LV2_Percent := Main.Level_Valve_2_Percentage,
+			LV3_Percent := Main.Level_Valve_3_Percentage);
+
 stateAlarm := AlarmState.AlarmCleared;
 resetLatch := FALSE;]]></ST>
       </Implementation>
@@ -1347,15 +1350,16 @@ resetLatch := FALSE;]]></ST>
     <LineIds Name="ControlSystem.Emergency_active">
       <LineId Id="2" Count="3" />
       <LineId Id="1" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="6" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_entry">
       <LineId Id="2" Count="6" />
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Reset_entry">
-      <LineId Id="2" Count="7" />
+      <LineId Id="2" Count="8" />
       <LineId Id="1" Count="0" />
-      <LineId Id="10" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

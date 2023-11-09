@@ -2634,6 +2634,23 @@
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
         },
+        "PLC1.ControlSystem.emergencyTime": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::ControlSystem::emergencyTime",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/TIME"
+                    },
+                    {
+                        "comment": "Variables"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "PLC1.ControlSystem.stateAlarm": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -4615,6 +4632,7 @@
                 "LocalizeText": 3,
                 "Login": 3,
                 "Logout": 3,
+                "PLC1.ControlSystem.emergencyTime": 3,
                 "PLC1.ControlSystem.stateAlarm": 3,
                 "PLC1.MAIN.B_EMG": 3,
                 "PLC1.MAIN.B_Start": 3,

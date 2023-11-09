@@ -120,7 +120,7 @@
 
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
-  "color": "rgba(156, 24, 24, 1)"
+  "color": "rgba(238, 219, 219, 1)"
 }
 </script>
 
@@ -172,7 +172,7 @@
 
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
-  "color": "rgba(255, 255, 255, 1)"
+  "color": "rgba(238, 219, 219, 1)"
 }
 </script>
 
@@ -224,7 +224,7 @@
 
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
-  "color": "rgba(255, 255, 255, 1)"
+  "color": "rgba(238, 219, 219, 1)"
 }
 </script>
 
@@ -599,5 +599,38 @@ waiting for timer" data-tchmi-top="132" data-tchmi-top-unit="px" data-tchmi-widt
 <div id="TcHmiLine_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiLine" data-tchmi-height="15" data-tchmi-height-unit="px" data-tchmi-left="952" data-tchmi-left-unit="px" data-tchmi-top="239" data-tchmi-top-unit="px" data-tchmi-width="351" data-tchmi-width-unit="px" data-tchmi-x2="350" data-tchmi-y2="0" data-tchmi-stroke-thickness="2">
 </div>
 <div id="TcHmiLine_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiLine" data-tchmi-height="15" data-tchmi-height-unit="px" data-tchmi-left="952" data-tchmi-left-unit="px" data-tchmi-top="118" data-tchmi-top-unit="px" data-tchmi-width="351" data-tchmi-width-unit="px" data-tchmi-x2="350" data-tchmi-y2="0" data-tchmi-stroke-thickness="2">
+</div>
+<div id="AlarmTimer" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiNumericInput" data-tchmi-auto-focus-out="true" data-tchmi-decimal-digits="0" data-tchmi-height="35" data-tchmi-height-unit="px" data-tchmi-left="1334" data-tchmi-left-unit="px" data-tchmi-max-value="100" data-tchmi-min-value="0" data-tchmi-reset-to-last-valid-value="true" data-tchmi-top="296" data-tchmi-top-unit="px" data-tchmi-value="%s%PLC1.MAIN.Level_Valve_1_Percentage%/s%" data-tchmi-width="246" data-tchmi-width-unit="px" data-tchmi-value-horizontal-alignment="Center" data-tchmi-value-font-size="25">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(188, 188, 188, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-value-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+</div>
+<div id="TcHmiTextblock_23" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="1235" data-tchmi-left-unit="px" data-tchmi-text="Alarm Time Remaining" data-tchmi-top="462" data-tchmi-top-unit="px" data-tchmi-width="317" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="35" data-tchmi-text-font-weight="Normal">
 </div>
 </div>
