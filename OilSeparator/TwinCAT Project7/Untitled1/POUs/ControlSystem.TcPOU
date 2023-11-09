@@ -7,7 +7,7 @@ VAR
 	emergencyTime   : TIME := T#9S;
 	resetLatch : BOOL := FALSE;
 	stateAlarm : AlarmState := AlarmState.AlarmCleared;
-	alarmTime : TIME := T#0S;
+	alarmTime : REAL;
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -707,7 +707,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{a2621e18-7de3-4ea6-ae6d-89e9e0b7befd}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">""</v>
+                                        <v n="Value">"Emergency_exit"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">386L</v>
@@ -1223,7 +1223,10 @@ IF ( (Main.EMERGENCY_STOP) AND (NOT Main.Reset_Button) ) THEN
 	stateAlarm := AlarmState.AlarmClearPreTimer;
 END_IF
 
-alarmTime := emergencyTime - emergency.t;]]></ST>
+IF resetLatch THEN
+	alarmTime := TIME_TO_REAL(emergencyTime - emergency.t)/1000;
+END_IF
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="Emergency_entry" Id="{8fa4c7b6-7e3d-4cd7-9142-9712b4ff052c}">
@@ -1236,6 +1239,12 @@ Main.Level_Valve_2_Percentage := 100;
 Main.Level_Valve_3_Percentage := 100;
 
 stateAlarm := AlarmState.AlarmActive;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Emergency_exit" Id="{f60c972d-b762-44db-a616-b0355972ac63}">
+      <Implementation>
+        <ST><![CDATA[
+alarmTime := 0.0;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Reset_entry" Id="{daed5b0f-1655-4d32-9d05-3f98606b998b}">
@@ -1350,11 +1359,17 @@ resetLatch := FALSE;]]></ST>
     <LineIds Name="ControlSystem.Emergency_active">
       <LineId Id="2" Count="3" />
       <LineId Id="1" Count="0" />
+      <LineId Id="8" Count="0" />
       <LineId Id="7" Count="0" />
-      <LineId Id="6" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="15" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_entry">
       <LineId Id="2" Count="6" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="ControlSystem.Emergency_exit">
+      <LineId Id="2" Count="0" />
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Reset_entry">

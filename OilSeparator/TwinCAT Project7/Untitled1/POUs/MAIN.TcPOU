@@ -29,6 +29,18 @@ VAR
 	Pressure_Transmitter_3 AT %I* : INT ; 
 	// ------ Linking variables to IO cards ------
 	
+	// ------- Percentage Output Variables ---------
+	LT1percent  : INT;
+	LT2percent  : INT;
+	TT1percent  : INT;
+	PDT1percent : INT;
+	PDT2percent : INT;
+	PT1percent  : INT;
+	PT2percent  : INT;
+	PT3percent  : INT;
+	// ------- Percentage Output Variables --------- 
+	
+	
 		// Toggle Motor Statee with green button
 	risingEdge : R_TRIG;
 	elapsedDebounce : TIME;
@@ -111,7 +123,8 @@ IF Motor_speed_Percentage > 100 THEN
 	END_IF
 END_IF
 // ================= Outer bounds logic (outputs) ================
-// ===================== Percentage to bits =====================
+
+// ================= Percentage Mapping (OUTPUTS) =================
 // Flow_Valve_1 calibration
 Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); 
 // Level_Valve_1 calibration
@@ -123,7 +136,18 @@ Level_Valve_3 := REAL_TO_INT(262.14*Level_Valve_3_Percentage +6553);
 
 // Motor_speed calibration
 Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
-// ===================== Percentage to bits =====================
+// ================= Percentage Mapping (OUTPUTS) =================
+
+// ================= Percentage Mapping (INPUTS) =================
+	(*LT1percent  :=
+	LT2percent  :=
+	TT1percent  :=
+	PDT1percent :=
+	PDT2percent :=
+	PT1percent  :=
+	PT2percent  :=
+	PT3percent  :=*)
+// ================= Percentage Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
 risingEdge(CLK := Toggle_Button,
@@ -175,8 +199,13 @@ END_IF
       <LineId Id="142" Count="4" />
       <LineId Id="40" Count="0" />
       <LineId Id="161" Count="0" />
+      <LineId Id="1699" Count="0" />
       <LineId Id="1489" Count="11" />
       <LineId Id="1203" Count="0" />
+      <LineId Id="1700" Count="1" />
+      <LineId Id="1717" Count="6" />
+      <LineId Id="1703" Count="0" />
+      <LineId Id="1702" Count="0" />
       <LineId Id="1626" Count="0" />
       <LineId Id="1621" Count="0" />
       <LineId Id="1615" Count="0" />
