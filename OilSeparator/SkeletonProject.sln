@@ -9,6 +9,8 @@ Project("{FE7A1B72-C5B7-4D7C-BB7D-76384D4DE8E1}") = "TcHmiProject8", "TcHmiProje
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0A4CF0E5-7196-4E2A-BBD1-92AD54A4ACE2}"
 EndProject
+Project("{FD9F1D59-E000-42F3-8744-88DE1BE93C06}") = "OilSeparatorLogging", "OilSeparatorLogging\OilSeparatorLogging.tcmproj", "{F0299000-D859-4433-93C4-6CDF1F65B631}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|TwinCAT CE7 (ARMV7) = Debug|TwinCAT CE7 (ARMV7)
@@ -71,6 +73,16 @@ Global
 		{BB83E7FB-8A00-45A7-8525-3E7D21D20878}.Release|TwinCAT RT (x64).Build.0 = Release|TwinCAT RT (x64)
 		{BB83E7FB-8A00-45A7-8525-3E7D21D20878}.Release|TwinCAT RT (x86).ActiveCfg = Release|TwinCAT RT (x86)
 		{BB83E7FB-8A00-45A7-8525-3E7D21D20878}.Release|TwinCAT RT (x86).Build.0 = Release|TwinCAT RT (x86)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Debug|TwinCAT CE7 (ARMV7).ActiveCfg = Debug|TwinCAT CE7 (ARMV7)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Debug|TwinCAT HMI.ActiveCfg = Debug|TwinCAT OS (ARMT2)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Debug|TwinCAT OS (ARMT2).ActiveCfg = Debug|TwinCAT OS (ARMT2)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Debug|TwinCAT RT (x64).ActiveCfg = Debug|TwinCAT RT (x64)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Debug|TwinCAT RT (x86).ActiveCfg = Debug|TwinCAT RT (x86)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Release|TwinCAT CE7 (ARMV7).ActiveCfg = Release|TwinCAT CE7 (ARMV7)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Release|TwinCAT HMI.ActiveCfg = Release|TwinCAT OS (ARMT2)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Release|TwinCAT OS (ARMT2).ActiveCfg = Release|TwinCAT OS (ARMT2)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Release|TwinCAT RT (x64).ActiveCfg = Release|TwinCAT RT (x64)
+		{F0299000-D859-4433-93C4-6CDF1F65B631}.Release|TwinCAT RT (x86).ActiveCfg = Release|TwinCAT RT (x86)
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

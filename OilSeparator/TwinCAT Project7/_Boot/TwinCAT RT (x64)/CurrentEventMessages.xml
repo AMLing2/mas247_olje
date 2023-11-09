@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <TcEventSources Version="2">
 	<Source>
-		<GUID>{BD81F35B-99CB-4DA4-82AD-03863495F3B4}</GUID>
-		<Name LcId="1033">Tank Alarm</Name>
+		<GUID>{FD263FBB-1465-4E7A-B62B-9EEFDA093F0A}</GUID>
+		<Name LcId="1033">TankAlarm</Name>
 		<Event>
 			<Id>1</Id>
 			<Message LcId="1033">Emergency Pressed</Message>

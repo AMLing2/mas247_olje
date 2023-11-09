@@ -139,14 +139,14 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 // ================= Percentage Mapping (OUTPUTS) =================
 
 // ================= Percentage Mapping (INPUTS) =================
-	(*LT1percent  :=
-	LT2percent  :=
-	TT1percent  :=
-	PDT1percent :=
-	PDT2percent :=
-	PT1percent  :=
-	PT2percent  :=
-	PT3percent  :=*)
+	LT1percent  := Level_Transmitter_1;
+	LT2percent  := Level_Transmitter_2;
+	TT1percent  := Temperature_Transmitter;
+	PDT1percent := Pressure_Differencial_Transmitter_1;
+	PDT2percent := Pressure_Differencial_Transmitter_2;
+	PT1percent  := Pressure_Transmitter_1;
+	PT2percent  := Pressure_Transmitter_2;
+	PT3percent  := Pressure_Transmitter_3;
 // ================= Percentage Mapping (INPUTS) =================
 
 	// Toggle motor state with green button

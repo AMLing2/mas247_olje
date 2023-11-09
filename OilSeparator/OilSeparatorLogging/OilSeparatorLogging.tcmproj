@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{f0299000-d859-4433-93c4-6cdf1f65b631}</ProjectGuid>
+    <AssemblyName>OilSeparatorLogging</AssemblyName>
+    <Name>OilSeparatorLogging</Name>
+    <RootNamespace>OilSeparatorLogging</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="YT Scope Project.tcscopex">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+</Project>
