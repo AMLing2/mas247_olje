@@ -29,6 +29,11 @@ VAR
 	Pressure_Transmitter_3 AT %I* : INT ; 
 	// ------ Linking variables to IO cards ------
 	
+		// Toggle Motor Statee with green button
+	risingEdge : R_TRIG;
+	elapsedDebounce : TIME;
+	toggleMotor : BOOL;
+	
 	// ------------------ HMI ------------------
 	Motor_ON : BOOL; 				// For HMI button
 	ON_OFF 	 : STRING(10) := 'OFF'; // For HMI text
@@ -111,6 +116,13 @@ Level_Valve_3 := REAL_TO_INT(262.14*gAL.Level_Valve_3_Percentage +6553);
 Motor_speed := REAL_TO_INT(262.14*gAL.Motor_speed_Percentage +6553);
 // ===================== Percentage to bits =====================
 
+	// Toggle motor state with green button
+risingEdge(CLK := Toggle_Button,
+		   Q => toggleMotor);
+IF toggleMotor THEN
+	gAL.Motor_ON_OFF := NOT gAL.Motor_ON_OFF;
+END_IF
+
 // ======================== HMI Display ========================
  // Start motor?
 IF gAL.Motor_ON_OFF   THEN
@@ -156,6 +168,11 @@ END_IF
       <LineId Id="161" Count="0" />
       <LineId Id="1489" Count="11" />
       <LineId Id="1203" Count="0" />
+      <LineId Id="1626" Count="0" />
+      <LineId Id="1621" Count="0" />
+      <LineId Id="1615" Count="0" />
+      <LineId Id="1638" Count="0" />
+      <LineId Id="1642" Count="2" />
       <LineId Id="1427" Count="0" />
       <LineId Id="201" Count="3" />
       <LineId Id="213" Count="0" />
