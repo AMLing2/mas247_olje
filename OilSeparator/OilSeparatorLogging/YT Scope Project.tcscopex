@@ -727,7 +727,8 @@
           <BaseSampleTime>100000</BaseSampleTime>
           <ChannelStyleInformation />
           <Comment> ------ Linking variables to IO cards ------
- ------- Percentage Output Variables ---------</Comment>
+ ------- Display Input Variables ---------
+ Percentages</Comment>
           <CompressionMode>Uncompressed</CompressionMode>
           <ContextMask>0</ContextMask>
           <DataAccess>

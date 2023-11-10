@@ -2755,6 +2755,40 @@
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
         },
+        "PLC1.MAIN.LT1cm": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::LT1cm",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/REAL"
+                    },
+                    {
+                        "comment": "Actual values"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.LT1mm": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::LT1mm",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/REAL"
+                    },
+                    {
+                        "comment": "Actual values"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MAIN.LT1percent": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -2769,6 +2803,26 @@
                         "comment": "------ Linking variables to IO cards ------\r\n ------- Percentage Output Variables ---------"
                     }
                 ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.LT2cm": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::LT2cm",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.LT2mm": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::LT2mm",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
             },
             "USEMAPPING": true
         },
@@ -2910,6 +2964,16 @@
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
         },
+        "PLC1.MAIN.PDT1bar": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::PDT1bar",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MAIN.PDT1percent": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -2917,6 +2981,16 @@
             "MAPPING": "PLC1::MAIN::PDT1percent",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/INT"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.PDT2bar": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::PDT2bar",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
             },
             "USEMAPPING": true
         },
@@ -2930,6 +3004,16 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.MAIN.PT1bar": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::PT1bar",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MAIN.PT1percent": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -2937,6 +3021,16 @@
             "MAPPING": "PLC1::MAIN::PT1percent",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/INT"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.PT2bar": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::PT2bar",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
             },
             "USEMAPPING": true
         },
@@ -3175,6 +3269,16 @@
                 ]
             },
             "SUBSYMBOL_MAPPING": "",
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.TT1c": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::TT1c",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
+            },
             "USEMAPPING": true
         },
         "PLC1.MAIN.TT1percent": {
@@ -4842,7 +4946,11 @@
                 "PLC1.MAIN.EMG_RED": 3,
                 "PLC1.MAIN.Flow_Valve_1": 3,
                 "PLC1.MAIN.Flow_Valve_1_Percentage": 3,
+                "PLC1.MAIN.LT1cm": 3,
+                "PLC1.MAIN.LT1mm": 3,
                 "PLC1.MAIN.LT1percent": 3,
+                "PLC1.MAIN.LT2cm": 3,
+                "PLC1.MAIN.LT2mm": 3,
                 "PLC1.MAIN.LT2percent": 3,
                 "PLC1.MAIN.Level_Percentage_To_cm": 3,
                 "PLC1.MAIN.Level_Transmitter_1": 3,
@@ -4853,9 +4961,13 @@
                 "PLC1.MAIN.Motor_ON_OFF": 3,
                 "PLC1.MAIN.Motor_speed_Percentage": 3,
                 "PLC1.MAIN.ON_OFF": 3,
+                "PLC1.MAIN.PDT1bar": 3,
                 "PLC1.MAIN.PDT1percent": 3,
+                "PLC1.MAIN.PDT2bar": 3,
                 "PLC1.MAIN.PDT2percent": 3,
+                "PLC1.MAIN.PT1bar": 3,
                 "PLC1.MAIN.PT1percent": 3,
+                "PLC1.MAIN.PT2bar": 3,
                 "PLC1.MAIN.PT2percent": 3,
                 "PLC1.MAIN.Pressure_Differencial_1_Bar": 3,
                 "PLC1.MAIN.Pressure_Differencial_2_Bar": 3,
@@ -4870,6 +4982,7 @@
                 "PLC1.MAIN.Reset_Button": 3,
                 "PLC1.MAIN.Start_Green": 3,
                 "PLC1.MAIN.Stop_Red": 3,
+                "PLC1.MAIN.TT1c": 3,
                 "PLC1.MAIN.TT1percent": 3,
                 "PLC1.MAIN.Temperature_In_Celsius": 3,
                 "PLC1.MAIN.Temperature_Transmitter": 3,

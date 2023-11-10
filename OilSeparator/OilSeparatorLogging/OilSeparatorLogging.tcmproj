@@ -10,6 +10,9 @@
     <Content Include="Test1_Tank1.svdx">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Test2_Tank2.svdx">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="YT Scope Project.svdx">
       <SubType>Content</SubType>
     </Content>

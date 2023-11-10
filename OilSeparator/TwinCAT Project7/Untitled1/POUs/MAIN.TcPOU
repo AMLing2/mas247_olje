@@ -40,8 +40,8 @@ VAR
 	PT2percent  : INT;
 	PT3percent  : INT;
 		// Actual values
-	LT1cm 	: REAL;
-	LT2cm 	: REAL;
+	LT1mm 	: REAL;
+	LT2mm 	: REAL;
 	TT1c 	: REAL;
 	PDT1bar : REAL;
 	PDT2bar : REAL;
@@ -49,19 +49,16 @@ VAR
 	PT2bar  : REAL;
 	PT3bar  : REAL;
 		// Scaling variables
-	ratio 		: REAL := 4/20; 			// [mA/mA], unitless
 	bitMax 		: REAL := 32767;			// [bits]
-	bitMin 		: REAL := ratio*bitMax;		// [bits]
-	deltaBit 	: REAL := bitMax - bitMin;	// [bits]
-	minPT 		: REAL := 0.6;				// [bar]
-	maxPT 		: REAL := 60;				// [bar]
+	minPT 		: REAL := 0.06;				// [bar]
+	maxPT 		: REAL := 6;				// [bar]
 	deltaPT 	: REAL := maxPT - minPT;	// [bar]
-	minPDT		: REAL := 0.04;				// [bar]
-	maxPDT		: REAL := 4;				// [bar]
+	minPDT		: REAL := 0.004;			// [bar]
+	maxPDT		: REAL := 0.4;				// [bar]
 	deltaPDT	: REAL := maxPDT - minPDT;	// [bar]
 	maxLT 		: REAL := 304.8;			// [mm]
-	minLT  		: REAL := maxLT*ratio;		// [mm]
-	deltaLT 	: REAL := maxLT - minLT;	// [mm]
+	bitMinLT1 	: REAL := 130.0;				// [bits]
+	minLT  		: REAL := 40.0;				// [mm]
 	maxTT		: REAL := 250;				// [celsius]
 	minTT		: REAL := -50;				// [celsius]
 	deltaTT 	: REAL := maxTT - minTT;	// [celsius]
@@ -152,6 +149,7 @@ END_IF
 // ================= Outer bounds logic (outputs) ================
 
 // ================= Percentage Mapping (OUTPUTS) =================
+	// Take 2 [V] to 10 [V]
 // Flow_Valve_1 calibration
 Flow_Valve_1 := REAL_TO_INT (262.14*Flow_Valve_1_Percentage +6553 ); 
 // Level_Valve_1 calibration
@@ -166,7 +164,8 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 // ================= Percentage Mapping (OUTPUTS) =================
 
 // ================= Mapping (INPUTS) =================
-		// Percentages
+		// Take 4 [mA] to 20 [mA] 
+	// Percentages
 	LT1percent  := Level_Transmitter_1;
 	LT2percent  := Level_Transmitter_2;
 	TT1percent  := Temperature_Transmitter;
@@ -176,14 +175,21 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	PT2percent  := Pressure_Transmitter_2;
 	PT3percent  := Pressure_Transmitter_3;
 		// Actual values
-	LT1cm 	:= Level_Transmitter_1 					* (deltaLT/deltaBit)  - minLT;
-	LT2cm 	:= Level_Transmitter_2 					* (deltaLT/deltaBit)  - minLT;
-	TT1c 	:= Temperature_Transmitter 				* (deltaTT/deltaBit)  - minTT;
-	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/deltaBit) - minPDT;
-	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/deltaBit) - minPDT;
-	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/deltaBit)  - minPT;
-	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/deltaBit)  - minPT;
-	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/deltaBit)  - minPT;
+	LT1mm 	:= Level_Transmitter_1 					* (maxLT/(bitMax-bitMinLT1))+ minLT; // Different Mapping
+	LT2mm 	:= Level_Transmitter_2 					* (maxLT/bitMax)  			+ minLT; // Different Mapping
+	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
+	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax) 		+ minPDT;
+	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax) 		+ minPDT;
+	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax)  		+ minPT;
+	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax)  		+ minPT;
+	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax)  		+ minPT;
+
+	IF (LT1mm < 40.0) THEN
+		LT1mm := 0.0;
+	END_IF
+	IF (LT2mm < 0.0) THEN
+		LT2mm := 0.0;
+	END_IF
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
@@ -237,15 +243,21 @@ END_IF
       <LineId Id="40" Count="0" />
       <LineId Id="161" Count="0" />
       <LineId Id="1699" Count="0" />
-      <LineId Id="1489" Count="11" />
+      <LineId Id="1489" Count="0" />
+      <LineId Id="1903" Count="0" />
+      <LineId Id="1490" Count="10" />
       <LineId Id="1203" Count="0" />
       <LineId Id="1700" Count="1" />
+      <LineId Id="1904" Count="0" />
       <LineId Id="1800" Count="0" />
       <LineId Id="1717" Count="6" />
       <LineId Id="1703" Count="0" />
       <LineId Id="1801" Count="0" />
       <LineId Id="1803" Count="6" />
       <LineId Id="1802" Count="0" />
+      <LineId Id="1915" Count="2" />
+      <LineId Id="1909" Count="0" />
+      <LineId Id="1911" Count="2" />
       <LineId Id="1702" Count="0" />
       <LineId Id="1626" Count="0" />
       <LineId Id="1621" Count="0" />
