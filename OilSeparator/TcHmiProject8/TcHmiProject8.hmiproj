@@ -160,6 +160,33 @@
     <Content Include="Images\Untitled Diagram.drawio.png">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Imports\Images\Tank1-0.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\Tank1.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\Tank2-0.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\Tank2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\Valve.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\ValveV2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\ValveV2Horizontal.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\ValveV3Horizontal.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Imports\Images\ValveV3Vertical.png">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="KeyboardLayouts\numericKey.json">
       <SubType>Content</SubType>
     </Content>
