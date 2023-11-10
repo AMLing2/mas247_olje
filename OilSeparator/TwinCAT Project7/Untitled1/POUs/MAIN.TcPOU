@@ -48,6 +48,23 @@ VAR
 	PT1bar  : REAL;
 	PT2bar  : REAL;
 	PT3bar  : REAL;
+		// Scaling variables
+	ratio 		: REAL := 4/20; 			// [mA/mA], unitless
+	bitMax 		: REAL := 32767;			// [bits]
+	bitMin 		: REAL := ratio*bitMax;		// [bits]
+	deltaBit 	: REAL := bitMax - bitMin;	// [bits]
+	minPT 		: REAL := 0.6;				// [bar]
+	maxPT 		: REAL := 60;				// [bar]
+	deltaPT 	: REAL := maxPT - minPT;	// [bar]
+	minPDT		: REAL := 0.04;				// [bar]
+	maxPDT		: REAL := 4;				// [bar]
+	deltaPDT	: REAL := maxPDT - minPDT;	// [bar]
+	maxLT 		: REAL := 304.8;			// [mm]
+	minLT  		: REAL := maxLT*ratio;		// [mm]
+	deltaLT 	: REAL := maxLT - minLT;	// [mm]
+	maxTT		: REAL := 250;				// [celsius]
+	minTT		: REAL := -50;				// [celsius]
+	deltaTT 	: REAL := maxTT - minTT;	// [celsius]
 	// ------- Display Input Variables --------- 
 	
 	
@@ -159,14 +176,14 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	PT2percent  := Pressure_Transmitter_2;
 	PT3percent  := Pressure_Transmitter_3;
 		// Actual values
-	LT1cm 	:= Level_Transmitter_1;
-	LT2cm 	:= Level_Transmitter_2;
-	TT1c 	:= Temperature_Transmitter;
-	PDT1bar := Pressure_Differencial_Transmitter_1;
-	PDT2bar := Pressure_Differencial_Transmitter_2;
-	PT1bar  := Pressure_Transmitter_1;
-	PT2bar  := Pressure_Transmitter_2;
-	PT3bar  := Pressure_Transmitter_3;
+	LT1cm 	:= Level_Transmitter_1 					* (deltaLT/deltaBit)  - minLT;
+	LT2cm 	:= Level_Transmitter_2 					* (deltaLT/deltaBit)  - minLT;
+	TT1c 	:= Temperature_Transmitter 				* (deltaTT/deltaBit)  - minTT;
+	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/deltaBit) - minPDT;
+	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/deltaBit) - minPDT;
+	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/deltaBit)  - minPT;
+	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/deltaBit)  - minPT;
+	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/deltaBit)  - minPT;
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
