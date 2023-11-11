@@ -5,9 +5,10 @@
 VAR
 		// Variables
 	emergencyTime   : TIME := T#9S;
-	resetLatch : BOOL := FALSE;
-	stateAlarm : AlarmState := AlarmState.AlarmCleared;
-	alarmTime : REAL;
+	resetLatch 		: BOOL := FALSE;
+	stateAlarm 		: AlarmState := AlarmState.AlarmCleared;
+	alarmTime 		: REAL;
+	timeBuffer 		: TIME := T#5S;
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -454,7 +455,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(Main.Reset_Button) AND (NOT gAL.fbAlarm.bRaised)"</v>
+                                        <v n="Value">"(Main.Reset_Button) AND (NOT gAL.fbAlarm.bRaised) AND (init.t&gt;timeBuffer)"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">19L</v>
@@ -1851,17 +1852,11 @@ resetLatch := FALSE;]]></ST>
       </XmlArchive>
     </ObjectProperties>
     <LineIds Name="ControlSystem.Controlling_active">
-      <LineId Id="2" Count="3" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="6" Count="1" />
-      <LineId Id="9" Count="9" />
+      <LineId Id="2" Count="17" />
       <LineId Id="1" Count="0" />
-      <LineId Id="20" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Controlling_entry">
-      <LineId Id="2" Count="0" />
-      <LineId Id="4" Count="0" />
-      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="2" />
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_active">
@@ -1881,10 +1876,8 @@ resetLatch := FALSE;]]></ST>
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Init_entry">
-      <LineId Id="13" Count="0" />
-      <LineId Id="2" Count="9" />
+      <LineId Id="15" Count="12" />
       <LineId Id="1" Count="0" />
-      <LineId Id="14" Count="1" />
     </LineIds>
     <LineIds Name="ControlSystem.Reset_entry">
       <LineId Id="2" Count="8" />

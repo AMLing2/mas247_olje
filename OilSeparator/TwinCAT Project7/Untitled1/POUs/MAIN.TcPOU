@@ -81,7 +81,7 @@ VAR
 	// ------------------ HMI ------------------
 	
 	// Emergency System
-	alarmSystem : FB_AlarmSystem;
+	alarmSystem : FB_EmergencySystem;
 	
 	// Initializer
 	init : BOOL := FALSE;
