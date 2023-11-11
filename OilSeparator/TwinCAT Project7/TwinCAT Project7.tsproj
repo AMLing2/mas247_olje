@@ -72,11 +72,21 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{0F02BC50-72DE-0687-4917-F500E9B3E723}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{7FC8ABC1-CA68-F9C1-C6AD-4E4CD49B4277}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>MAIN.Toggle_Button</Name>
+							<Comment><![CDATA[ Normally Open  (OFF), Green]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Reset_Button</Name>
+							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
 						<Var>
 							<Name>MAIN.EMERGENCY_STOP</Name>
 							<Comment><![CDATA[ Normally Closed (ON), Emergency Switch]]></Comment>
@@ -115,22 +125,12 @@
 							<Name>MAIN.Pressure_Transmitter_3</Name>
 							<Type>INT</Type>
 						</Var>
-						<Var>
-							<Name>MAIN.Toggle_Button</Name>
-							<Comment><![CDATA[ Normally Open  (OFF), Green]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Reset_Button</Name>
-							<Comment><![CDATA[ Normally Closed (ON), Red]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.Motor_ON_OFF</Name>
-							<Comment><![CDATA[ Motor switch	]]></Comment>
+							<Name>MAIN.Motor_Direction</Name>
+							<Comment><![CDATA[ Don't touch]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -164,8 +164,8 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.Motor_Direction</Name>
-							<Comment><![CDATA[ Don't touch]]></Comment>
+							<Name>MAIN.Motor_ON_OFF</Name>
+							<Comment><![CDATA[ Motor switch	]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>

@@ -56,9 +56,14 @@ VAR
 	minPDT		: REAL := 0.004;			// [bar]
 	maxPDT		: REAL := 0.4;				// [bar]
 	deltaPDT	: REAL := maxPDT - minPDT;	// [bar]
-	maxLT 		: REAL := 304.8;			// [mm]
-	bitMinLT1 	: REAL := 130.0;				// [bits]
-	minLT  		: REAL := 40.0;				// [mm]
+	
+	//maxLT 		: REAL := 304.8;			// [mm]
+	minLT1  	: REAL := 37.0;				// [mm]
+	minLT1bit  	: REAL := 270.0;			// [mm]
+	minLT2  	: REAL := 42.0;				// [mm]
+	kLT1		: REAL := 9.0/1694.0;		// [deltaMMmeasured/deltaBitmeasured]
+	kLT2		: REAL := 9.0/1529.0;		// [deltaMMmeasured/deltaBitmeasured
+	
 	maxTT		: REAL := 250;				// [celsius]
 	minTT		: REAL := -50;				// [celsius]
 	deltaTT 	: REAL := maxTT - minTT;	// [celsius]
@@ -175,8 +180,8 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	PT2percent  := Pressure_Transmitter_2;
 	PT3percent  := Pressure_Transmitter_3;
 		// Actual values
-	LT1mm 	:= Level_Transmitter_1 					* (maxLT/(bitMax-bitMinLT1))+ minLT; // Different Mapping
-	LT2mm 	:= Level_Transmitter_2 					* (maxLT/bitMax)  			+ minLT; // Different Mapping
+	LT1mm 	:= Level_Transmitter_1					* kLT1 						+ minLT1; // Different Mapping
+	LT2mm 	:= Level_Transmitter_2 					* kLT2						+ minLT2; // Different Mapping
 	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
 	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax) 		+ minPDT;
 	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax) 		+ minPDT;
@@ -184,12 +189,12 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax)  		+ minPT;
 	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax)  		+ minPT;
 
-	IF (LT1mm < 40.0) THEN
+	(*IF (LT1mm < 40.0) THEN
 		LT1mm := 0.0;
 	END_IF
 	IF (LT2mm < 0.0) THEN
 		LT2mm := 0.0;
-	END_IF
+	END_IF*)
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
