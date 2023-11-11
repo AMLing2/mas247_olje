@@ -86,16 +86,37 @@ VAR
 	// Initializer
 	init : BOOL := FALSE;
 	mainInitializer : FB_defaultValues;
+	
+	//PID
+	//Initialize
+	LV2_PID : FB_CTRL_PID;
+	LV2_PID_PARAMS : ST_CTRL_PID_PARAMS;
+	
+	//PID Inputs
+	fActualValue   : LREAL;
+	fManSyncValue  : LREAL;
+	bSync          : BOOL;
+	bHold          :BOOL;
+	eMode: E_CTRL_MODE;
 END_VAR
 
 VAR_INPUT
+	//PID input
+	fsetpointValue : LREAL; //PID setpoint
+	LV2_mode : E_CTRL_MODE;	//PID ON/OFF
+
 	Motor_ON_OFF 	AT %Q* : BOOL := FALSE;	// Motor switch	
+	StartProcess : BOOL; //POU Variable for detecting machine state
+	StartBuffer : BOOL := FALSE;
+	
 	// User Input as percentage, Declaration
 	Flow_Valve_1_Percentage	: INT;	// Start values
 	Level_Valve_1_Percentage: INT;	// From Manual
 	Level_Valve_2_Percentage: INT;
 	Level_Valve_3_Percentage: INT;
 	Motor_speed_Percentage	: INT; // Start speed, ideal: 30-35%
+	
+	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -108,9 +129,33 @@ END_VAR]]></Declaration>
 						LV2_Percent := Level_Valve_2_Percentage,
 						LV3_Percent := Level_Valve_3_Percentage);
 		init := TRUE;
+		//Initialize PID Values
+		LV2_PID_PARAMS.tTaskCycleTime := T#10MS;
+		LV2_PID_PARAMS.tCtrlCycleTime := T#10MS;
+		LV2_PID_PARAMS.fOutMaxLimit := 100; //Max allowed output - 100% valve
+		LV2_PID_PARAMS.fOutMinLimit := 15; //= LV2 closed with deadzone
+        eMode := eCTRL_MODE_Manual; //Fikk en meny opp her - mulig feilkilde om error
+		LV2_PID_PARAMS.fKp := 5;
+		LV2_PID_PARAMS.tTn := T#100S;
+		LV2_PID_PARAMS.tTv := T#2S;
+		LV2_PID_PARAMS.tTd:=T#10MS;
+		
+		
+		
 	END_IF
 // ======================== Initializer ========================
-
+	//		fActualValue = tank2Level
+			
+			
+			LV2_PID(fSetpointValue := fSetpointValue,
+			fActualValue := fActualValue,
+			fManSyncValue := fManSyncValue,
+			bSync := bSync,
+			eMode := eMode, //Denne lagde en POU?
+			bHold := bHold,
+			stParams := LV2_PID_PARAMS,
+			fOut => Level_Valve_1_Percentage //Fikse int to real error
+			);
 // ======================== Alarm System ========================
 	alarmSystem(ClearButton := Reset_Button,
 				EmergencyButton := EMERGENCY_STOP);
@@ -223,9 +268,19 @@ END_IF
       <LineId Id="1565" Count="4" />
       <LineId Id="1435" Count="0" />
       <LineId Id="1443" Count="0" />
+      <LineId Id="2035" Count="4" />
+      <LineId Id="2046" Count="0" />
+      <LineId Id="2056" Count="4" />
+      <LineId Id="2045" Count="0" />
+      <LineId Id="2041" Count="0" />
       <LineId Id="1436" Count="0" />
       <LineId Id="1433" Count="0" />
       <LineId Id="1177" Count="0" />
+      <LineId Id="2065" Count="0" />
+      <LineId Id="2061" Count="1" />
+      <LineId Id="2047" Count="4" />
+      <LineId Id="2053" Count="1" />
+      <LineId Id="2063" Count="0" />
       <LineId Id="1179" Count="0" />
       <LineId Id="1272" Count="0" />
       <LineId Id="1426" Count="0" />
