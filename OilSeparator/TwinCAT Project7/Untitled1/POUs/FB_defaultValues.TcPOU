@@ -14,7 +14,7 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[	// Definition
 MotorState  := FALSE;
-MotorSpeed  := 30;
+MotorSpeed  := 30;		 // Start speed, ideal: 30-35%
 FV1_Percent := 100;
 LV1_Percent := 100;
 LV2_Percent := 0;

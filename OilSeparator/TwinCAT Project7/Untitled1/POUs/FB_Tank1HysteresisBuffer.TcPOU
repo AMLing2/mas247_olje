@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Tank1HysteresisBuffer" Id="{42ea7ff1-ed44-44c7-aa3c-69c1b1091a5f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Tank1HysteresisBuffer
+
+VAR_OUTPUT
+	motorOnOff : BOOL;
+END_VAR
+
+VAR
+	minLT1mm : REAL := 45.0;
+	maxLT1mm : REAL := 135.0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	// To keep water in tank 1
+IF main.LT1mm > maxLT1mm THEN
+	motorOnOff := FALSE;
+ELSIF main.LT1mm < minLT1mm THEN
+	motorOnOff := TRUE; 
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Tank1HysteresisBuffer">
+      <LineId Id="29" Count="0" />
+      <LineId Id="13" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

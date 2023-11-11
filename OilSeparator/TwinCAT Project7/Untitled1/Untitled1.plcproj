@@ -30,13 +30,7 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\BufferTankFiller.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\ControlSystem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_Setter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_AlarmSystem.TcPOU">
@@ -48,7 +42,7 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Oil_sort.TcPOU">
+    <Compile Include="POUs\FB_Tank1HysteresisBuffer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Visualization Manager.TcVMO">

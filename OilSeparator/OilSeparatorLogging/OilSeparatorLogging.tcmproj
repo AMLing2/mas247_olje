@@ -7,6 +7,9 @@
     <RootNamespace>OilSeparatorLogging</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="OpenLoopStepResponseV3.svdx">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Test1_Tank1.svdx">
       <SubType>Content</SubType>
     </Content>
