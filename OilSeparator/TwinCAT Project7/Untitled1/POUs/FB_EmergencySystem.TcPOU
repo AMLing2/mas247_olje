@@ -14,35 +14,40 @@ VAR					// Internal (instance) variables
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// ------------------------- Alarm Displaying ------------------------------------
-IF (NOT bIsInitialized) THEN	// Initialization, since functions can't run in top pane
+	// Initialization, since functions can't run in top pane
+IF (NOT bIsInitialized) THEN
 	bIsInitialized := TRUE;
 	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
 END_IF
-
+	// Raise Alarm
 IF ( (NOT EmergencyButton) AND (NOT latch) ) THEN
 	gAL.fbAlarm.Raise(0); // 0 -> Current time
 	latch := TRUE;
 END_IF
-
+(*
 IF (EmergencyButton AND (NOT ClearButton) AND gAL.fbAlarm.bRaised) THEN
 	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
 	latch := FALSE;
+END_IF*)
+
+	// Clear Alarm when timer is 0 and cleared
+IF (ControlSystem.resetLatch OR (NOT Main.Reset_Button)) AND Main.EMERGENCY_STOP THEN
+	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
+	latch := FALSE;
 END_IF
-// ------------------------- Alarm Displaying ------------------------------------
-
-// ------------------------- Emergency Control -----------------------------------
-
-// ------------------------- Emergency Control -----------------------------------]]></ST>
+// ------------------------- Alarm Displaying ------------------------------------]]></ST>
     </Implementation>
     <LineIds Name="FB_EmergencySystem">
       <LineId Id="84" Count="0" />
+      <LineId Id="106" Count="0" />
       <LineId Id="51" Count="12" />
       <LineId Id="49" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="100" Count="1" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="102" Count="0" />
       <LineId Id="85" Count="0" />
-      <LineId Id="89" Count="0" />
-      <LineId Id="86" Count="0" />
-      <LineId Id="88" Count="0" />
-      <LineId Id="87" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

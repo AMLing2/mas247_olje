@@ -67,6 +67,11 @@ VAR
 	maxTT		: REAL := 250;				// [celsius]
 	minTT		: REAL := -50;				// [celsius]
 	deltaTT 	: REAL := maxTT - minTT;	// [celsius]
+	
+	rhoWater 	: REAL := 998.0;			// Water Density
+	rhoOil		: REAL := 857.0;			// Oil Density
+	PDT2MaxBit  : REAL := 32767.0;			// Measured Bit when Oil tank full of water
+	PDT2Max 	: REAL := (PDT2MaxBit/bitMax) * (rhoOil/rhoWater);
 	// ------- Display Input Variables --------- 
 	
 	
@@ -181,10 +186,11 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	LT2percent  := Level_Transmitter_2;
 	TT1percent  := Temperature_Transmitter;
 	PDT1percent := Pressure_Differencial_Transmitter_1;
-	PDT2percent := Pressure_Differencial_Transmitter_2;
 	PT1percent  := Pressure_Transmitter_1;
 	PT2percent  := Pressure_Transmitter_2;
 	PT3percent  := Pressure_Transmitter_3;
+	
+	PDT2percent := REAL_TO_INT(Pressure_Differencial_Transmitter_2 * (rhoOil/rhoWater) * (100/bitMax));
 		// Actual values
 	LT1mm 	:= Level_Transmitter_1					* kLT1 						+ minLT1; // Different Mapping
 	LT2mm 	:= Level_Transmitter_2 					* kLT2						+ minLT2; // Different Mapping
@@ -263,8 +269,10 @@ END_IF
       <LineId Id="1700" Count="1" />
       <LineId Id="1904" Count="0" />
       <LineId Id="1800" Count="0" />
-      <LineId Id="1717" Count="6" />
+      <LineId Id="1717" Count="3" />
+      <LineId Id="1722" Count="1" />
       <LineId Id="1703" Count="0" />
+      <LineId Id="2406" Count="1" />
       <LineId Id="1801" Count="0" />
       <LineId Id="1803" Count="6" />
       <LineId Id="1802" Count="0" />
