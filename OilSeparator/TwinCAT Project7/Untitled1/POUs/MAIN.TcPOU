@@ -79,12 +79,15 @@ VAR
 	rhoAtm		: REAL := 1.293;
 	h_atm 		: REAL := 0.0;	// Ignore the atmospheric for now, as it's negligible
 	(*
+		// With Float on both fluids
 	A 			: REAL := 1.0/(rhoOil*g - rhoWater*g);
-	B 			: REAL := (rhoWater*g) * A;
-	C			: REAL := (rhoAtm*g*h_atm) * A;
+	B 			: REAL := rhoWater/(rhoOil - rhoWater);
+	//C			: REAL := (rhoAtm*g*h_atm) * A;
 	*)
+		// With Float on only water
 	A 			: REAL := 1/(rhoOil*g);
-	C 			: REAL := (rhoAtm*g*h_atm)*A;
+	B 			: REAL := rhoWater/rhoOil;
+	//C 			: REAL := (rhoAtm*g*h_atm)*A;
 	
 	// ------- Display Input Variables --------- 
 	
@@ -209,16 +212,19 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	LT1mm 	:= Level_Transmitter_1					* kLT1 						+ minLT1; // Different Mapping
 	LT2mm 	:= Level_Transmitter_2 					* kLT2						+ minLT2; // Different Mapping
 	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
-	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax) 		+ minPDT;
-	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax) 		+ minPDT;
-	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax)  		+ minPT;
-	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax)  		+ minPT;
-	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax)  		+ minPT;
-	(*
-	h_oil 	:= +PDT2bar*(100000)*A - LT2mm*(1/1000)*B     + C;
-	h_water := -PDT2bar*(100000)*A + LT2mm*(1/1000)*(1+B) - C;
+	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax);	// Removed min values
+	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax);
+	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax);
+	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax);
+	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax);
+	
+	(*	// With Float on both fluids
+	h_oil 	:= (+PDT1bar*(100000)*A - LT2mm*(1/1000)*B);
+	//h_water := -PDT1bar*(100000)*A + LT2mm*(1/1000)*(1+B);
+	h_water := LT2mm - h_oil;
 	*)
-	h_oil 	:= (PDT2bar*(100000)*A - LT2mm*A/1000 + C)*1000;
+		// With Float on only water
+	h_oil 	:= (PDT1bar*(100000)*A - LT2mm*B/1000)*1000;
 	h_water := LT2mm;
 	
 // ================= Mapping (INPUTS) =================
@@ -291,9 +297,12 @@ END_IF
       <LineId Id="1803" Count="6" />
       <LineId Id="1802" Count="0" />
       <LineId Id="2645" Count="0" />
+      <LineId Id="2776" Count="0" />
       <LineId Id="2518" Count="0" />
       <LineId Id="2642" Count="0" />
+      <LineId Id="2779" Count="0" />
       <LineId Id="2647" Count="0" />
+      <LineId Id="2777" Count="0" />
       <LineId Id="2649" Count="0" />
       <LineId Id="2653" Count="0" />
       <LineId Id="2646" Count="0" />

@@ -116,7 +116,7 @@ Ti = 2*L;           % From formulas = Tn
 Td = L/2;           % From formulas
 
 % Display results:
-table(Kp, Ti, Td)
+table(Kp, Ti, Td)   % Tn = Ti, Tv = Td
 
 % ------------------ Ziegler Nichols calculations ------------------
 

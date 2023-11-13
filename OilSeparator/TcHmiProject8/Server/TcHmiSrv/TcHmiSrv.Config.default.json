@@ -2634,6 +2634,23 @@
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
         },
+        "PLC1.ControlSystem.Kp": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::ControlSystem::Kp",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/REAL"
+                    },
+                    {
+                        "comment": "PID params from HMI"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "PLC1.ControlSystem.ManualMode": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -2641,6 +2658,26 @@
             "MAPPING": "PLC1::ControlSystem::ManualMode",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.ControlSystem.Tn": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::ControlSystem::Tn",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/TIME"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.ControlSystem.Tv": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::ControlSystem::Tv",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/TIME"
             },
             "USEMAPPING": true
         },
@@ -4967,7 +5004,10 @@
                 "LocalizeText": 3,
                 "Login": 3,
                 "Logout": 3,
+                "PLC1.ControlSystem.Kp": 3,
                 "PLC1.ControlSystem.ManualMode": 3,
+                "PLC1.ControlSystem.Tn": 3,
+                "PLC1.ControlSystem.Tv": 3,
                 "PLC1.ControlSystem.alarmTime": 3,
                 "PLC1.ControlSystem.emergencyTime": 3,
                 "PLC1.ControlSystem.stateAlarm": 3,
