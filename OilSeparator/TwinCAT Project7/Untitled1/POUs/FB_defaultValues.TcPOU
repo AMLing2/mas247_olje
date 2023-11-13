@@ -17,7 +17,7 @@ MotorState  := FALSE;
 MotorSpeed  := 30;		 // Start speed, ideal: 30-35%
 FV1_Percent := 100;
 LV1_Percent := 100;
-LV2_Percent := 0;
+LV2_Percent := 100;
 LV3_Percent := 0;]]></ST>
     </Implementation>
     <LineIds Name="FB_defaultValues">

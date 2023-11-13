@@ -112,7 +112,8 @@ L = 40.86 - .74;
 R = (110.48 - 74.97686)/(81.49 - 60.18);
 
 Kp = 1.2 / (L*R/U); % From formulas
-Ti = 2*L;           % From formulas
+Kp = Kp*100;
+Ti = 2*L;           % From formulas = Tn
 Td = L/2;           % From formulas
 
 % Display results:
