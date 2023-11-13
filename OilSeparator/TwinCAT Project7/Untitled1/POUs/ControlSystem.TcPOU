@@ -2012,7 +2012,9 @@ END_VAR
 Main.Flow_Valve_1_Percentage  := 100;	// Open
 Main.Level_Valve_1_Percentage := 45;	// Half
 Main.Level_Valve_2_Percentage := 100;	// Open
-Main.Level_Valve_3_Percentage := 0;		// Closed]]></ST>
+Main.Level_Valve_3_Percentage := 0;		// Closed
+
+eMode := eCTRL_MODE_Active;		// Activate PID]]></ST>
       </Implementation>
     </Action>
     <Action Name="Emergency_active" Id="{f3d9c642-3825-4f1f-8f2e-6190e18b09ed}">
@@ -2081,9 +2083,9 @@ Main.Level_Valve_3_Percentage := 100;	// Open
 	ST_PIDparameters.fOutMinLimit 	:= 15; 		// Min allowed output - LV2 closed with deadzone
 	eMode := eCTRL_MODE_Manual; 				// Set PID control mode to manual
 	
-	ST_PIDparameters.fKp 			:= 100;		// K_P ~ Proportional Gain
-	ST_PIDparameters.tTn 			:= T#10MS;	// K_I ~ Integral Time Constant
-	ST_PIDparameters.tTv 			:= T#10MS;	// K_D ~ Derivative Time Constant
+	ST_PIDparameters.fKp 			:= 2.3662;		// K_P ~ Proportional Gain
+	ST_PIDparameters.tTn 			:= T#67MS;	// K_I ~ Integral Time Constant
+	ST_PIDparameters.tTv 			:= T#16MS;	// K_D ~ Derivative Time Constant
 	ST_PIDparameters.tTd 			:= T#10MS;		// Filter time for derivative]]></ST>
       </Implementation>
       <ObjectProperties>
@@ -2216,6 +2218,8 @@ resetLatch := FALSE;]]></ST>
     <LineIds Name="ControlSystem.Controlling_entry">
       <LineId Id="2" Count="4" />
       <LineId Id="1" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_active">
       <LineId Id="2" Count="8" />

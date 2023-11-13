@@ -3,6 +3,7 @@ clc; close all;
 % Project - Oil Separator: Plotting
 
 %% Test 1 - Tank 1
+close all;
 
 figure
 title("Oil Separator: Data Logging - Tank 1 mapping")
@@ -11,7 +12,7 @@ hold on
 
 yyaxis left
 ylabel("Output [bits]")
-plot(Test1Tank1.Time0, ...
+plot(Test1Tank1.Time0/1000, ...
     Test1Tank1.LT1percent, '-b');
 
 yyaxis right
@@ -23,7 +24,7 @@ yline(9.1, '--r');
 yline(11.1, '--r');
 yline(15.1, '--r');
 yline(16.9, '--r');
-axis([0 Test1Tank1.Time0(end) 3.7 17 ])
+axis([0 Test1Tank1.Time0(end)/1000 3.7 17 ])
 
 legend('Level Transmitter 1', 'Location', 'southeast')
 
@@ -75,23 +76,18 @@ title("Oil Separator: Open Loop Step Response - LT2")
 xlabel("Time [seconds]")
 hold on
 
-yyaxis left
-ylabel("Input")
+ylabel("[%]")
 plot(OpenLoopStepResponseV3.Time0/1000, ...
-     OpenLoopStepResponseV3.Motor_ON_OFF, 'b--')
-ylim([-0.03 1.02])
+     100*OpenLoopStepResponseV3.Motor_ON_OFF, 'b--')
 
-yyaxis right
-ylabel("Measured Height [mm]")
 plot(OpenLoopStepResponseV3.Time0/1000, ...
-     OpenLoopStepResponseV3.LT2mm, 'r-')
-xlim([0 130.229])
-ylim([35 165])
+     100*(OpenLoopStepResponseV3.LT2mm-42)/(155.42-42), 'r-')
+%ylim([35 165])
 
 legend('Step Response', 'LT2', 'Location', 'southeast')
 
 % ------------------ Ziegler Nichols calculations ------------------
-%U = 1;
+U = 100;
 %dt = 0.01;          % [sec] step size
 %stepTime = 9740;    % [ms]
 %data = OpenLoopStepResponseV3.LT2mm;
@@ -104,13 +100,19 @@ legend('Step Response', 'LT2', 'Location', 'southeast')
 %y = R * time + b;   % Value of derivative @ max
 %ii = find(y > 42, 1);    % Find intersection of horisontal axis and y line
 %L = time(ii) - stepTime;    % ----- DEAD TIME L -----
-% ------------------ Ignore the ------------------
 
-L = 40.86 - .74;
-R = (110.48 - 74.97686)/(81.49 - 60.18);
+% Did readings instead from display, since the derivative skyrocketed with
+% the noise.
+
+%L = 40.86 - 9.74;
+%L = 18.87 - 9.74;
+L = 43.26 - 9.74;
+%R = (110.48 - 74.97686)/(81.49 - 60.18);
+%R = (105.1 - 40.09)/(0.26658 - 0.0797);
+R = 
 
 Kp = 1.2 / (L*R/U); % From formulas
-Ti = 2*L;           % From formulas
+Ti = 2*L;           % From formulas = Tn
 Td = L/2;           % From formulas
 
 % Display results:

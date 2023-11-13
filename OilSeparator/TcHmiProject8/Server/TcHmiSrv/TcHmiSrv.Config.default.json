@@ -3408,6 +3408,26 @@
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
         },
+        "PLC1.MAIN.h_oil": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::h_oil",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.h_water": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::h_water",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/REAL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MAIN.height": {
             "ACCESS": 3,
             "CUSTOMERDATA": "",
@@ -4992,6 +5012,8 @@
                 "PLC1.MAIN.bRaiseAlarm": 3,
                 "PLC1.MAIN.bRaiseAlarm2": 3,
                 "PLC1.MAIN.bSendMessage": 3,
+                "PLC1.MAIN.h_oil": 3,
+                "PLC1.MAIN.h_water": 3,
                 "PLC1.MAIN.height": 3,
                 "PLC1.MAIN.height_Oil": 3,
                 "PLC1.gAL.fbAlarm.bRaised": 3,

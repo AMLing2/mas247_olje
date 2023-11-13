@@ -72,6 +72,17 @@ VAR
 	rhoOil		: REAL := 857.0;			// Oil Density
 	PDT2MaxBit  : REAL := 32767.0;			// Measured Bit when Oil tank full of water
 	PDT2Max 	: REAL := (PDT2MaxBit/bitMax) * (rhoOil/rhoWater);
+	
+	h_oil 		: REAL;
+	h_water 	: REAL;
+	g			: REAL := 9.80665;			// Gravity (earth, not mars! )
+	rhoAtm		: REAL := 1.293;
+	h_atm 		: REAL := 0.0;	// Ignore the atmospheric for now, as it's negligible
+	
+	A 			: REAL := (rhoOil*g)/(rhoOil*g - rhoWater*g);
+	B 			: REAL := 1.0/(rhoWater*g - rhoOil*g);
+	C			: REAL := (rhoAtm*g*h_atm)/(rhoWater*g - rhoOil*g);
+	
 	// ------- Display Input Variables --------- 
 	
 	
@@ -201,12 +212,8 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax)  		+ minPT;
 	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax)  		+ minPT;
 
-	(*IF (LT1mm < 40.0) THEN
-		LT1mm := 0.0;
-	END_IF
-	IF (LT2mm < 0.0) THEN
-		LT2mm := 0.0;
-	END_IF*)
+	h_water :=  PDT1bar*B - LT2mm*  A   + C;
+	h_oil 	:= -PDT1bar*B + LT2mm*(1+A) + C;
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
@@ -276,9 +283,9 @@ END_IF
       <LineId Id="1801" Count="0" />
       <LineId Id="1803" Count="6" />
       <LineId Id="1802" Count="0" />
-      <LineId Id="1915" Count="2" />
-      <LineId Id="1909" Count="0" />
-      <LineId Id="1911" Count="2" />
+      <LineId Id="2518" Count="0" />
+      <LineId Id="1913" Count="0" />
+      <LineId Id="2525" Count="0" />
       <LineId Id="1702" Count="0" />
       <LineId Id="1626" Count="0" />
       <LineId Id="1621" Count="0" />
