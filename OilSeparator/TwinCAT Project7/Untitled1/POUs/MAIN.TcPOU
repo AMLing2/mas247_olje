@@ -60,7 +60,7 @@ VAR
 	//maxLT 		: REAL := 304.8;			// [mm]
 	minLT1  	: REAL := 37.0;				// [mm]
 	minLT1bit  	: REAL := 270.0;			// [mm]
-	minLT2  	: REAL := 42.0;				// [mm]
+	minLT2  	: REAL := 43.4;				// [mm]
 	kLT1		: REAL := 9.0/1694.0;		// [deltaMMmeasured/deltaBitmeasured]
 	kLT2		: REAL := 9.0/1529.0;		// [deltaMMmeasured/deltaBitmeasured
 	
@@ -68,20 +68,23 @@ VAR
 	minTT		: REAL := -50;				// [celsius]
 	deltaTT 	: REAL := maxTT - minTT;	// [celsius]
 	
-	rhoWater 	: REAL := 998.0;			// Water Density
-	rhoOil		: REAL := 857.0;			// Oil Density
+	rhoWater 	: REAL := 998.0;			// Water Density [kg/m^3]
+	rhoOil		: REAL := 857.0;			// Oil Density   [kg/m^3]
 	PDT2MaxBit  : REAL := 32767.0;			// Measured Bit when Oil tank full of water
 	PDT2Max 	: REAL := (PDT2MaxBit/bitMax) * (rhoOil/rhoWater);
 	
 	h_oil 		: REAL;
 	h_water 	: REAL;
-	g			: REAL := 9.80665;			// Gravity (earth, not mars! )
+	g			: REAL := 9.80665;			// Gravity (earth, not mars!) [m/s^2]
 	rhoAtm		: REAL := 1.293;
 	h_atm 		: REAL := 0.0;	// Ignore the atmospheric for now, as it's negligible
-	
-	A 			: REAL := (rhoOil*g)/(rhoOil*g - rhoWater*g);
-	B 			: REAL := 1.0/(rhoWater*g - rhoOil*g);
-	C			: REAL := (rhoAtm*g*h_atm)/(rhoWater*g - rhoOil*g);
+	(*
+	A 			: REAL := 1.0/(rhoOil*g - rhoWater*g);
+	B 			: REAL := (rhoWater*g) * A;
+	C			: REAL := (rhoAtm*g*h_atm) * A;
+	*)
+	A 			: REAL := 1/(rhoOil*g);
+	C 			: REAL := (rhoAtm*g*h_atm)*A;
 	
 	// ------- Display Input Variables --------- 
 	
@@ -211,9 +214,13 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax)  		+ minPT;
 	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax)  		+ minPT;
 	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax)  		+ minPT;
-
-	h_water :=  PDT1bar*B - LT2mm*  A   + C;
-	h_oil 	:= -PDT1bar*B + LT2mm*(1+A) + C;
+	(*
+	h_oil 	:= +PDT2bar*(100000)*A - LT2mm*(1/1000)*B     + C;
+	h_water := -PDT2bar*(100000)*A + LT2mm*(1/1000)*(1+B) - C;
+	*)
+	h_oil 	:= (PDT2bar*(100000)*A - LT2mm*A/1000 + C)*1000;
+	h_water := LT2mm;
+	
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
@@ -283,9 +290,13 @@ END_IF
       <LineId Id="1801" Count="0" />
       <LineId Id="1803" Count="6" />
       <LineId Id="1802" Count="0" />
+      <LineId Id="2645" Count="0" />
       <LineId Id="2518" Count="0" />
-      <LineId Id="1913" Count="0" />
-      <LineId Id="2525" Count="0" />
+      <LineId Id="2642" Count="0" />
+      <LineId Id="2647" Count="0" />
+      <LineId Id="2649" Count="0" />
+      <LineId Id="2653" Count="0" />
+      <LineId Id="2646" Count="0" />
       <LineId Id="1702" Count="0" />
       <LineId Id="1626" Count="0" />
       <LineId Id="1621" Count="0" />

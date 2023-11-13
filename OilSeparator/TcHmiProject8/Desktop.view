@@ -237,7 +237,7 @@
 <div id="HMImotorToggler" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiToggleButton" data-tchmi-height="59" data-tchmi-height-unit="px" data-tchmi-left="1335" data-tchmi-left-unit="px" data-tchmi-text="%f%MOTOR :%s%PLC1.MAIN.ON_OFF%/s%%/f%" data-tchmi-top="810" data-tchmi-top-unit="px" data-tchmi-width="246" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center" data-tchmi-text-font-size="30" data-tchmi-state-symbol="%s%PLC1.MAIN.Motor_ON_OFF%/s%" data-tchmi-text-font-style="Normal" data-tchmi-zindex="5">
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
-  "color": "rgba(217, 202, 202, 1)"
+  "color": "rgba(184, 184, 184, 1)"
 }
 </script>
 </div>
@@ -1531,6 +1531,13 @@ waiting for timer" data-tchmi-top="92" data-tchmi-top-unit="px" data-tchmi-width
     ]
   }
 ]
+</script>
+</div>
+<div id="ManualModeButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiToggleButton" data-tchmi-height="59" data-tchmi-height-unit="px" data-tchmi-left="1335" data-tchmi-left-unit="px" data-tchmi-text="%f%MANUAL :%s%PLC1.ControlSystem.ManualMode%/s%%/f%" data-tchmi-top="648" data-tchmi-top-unit="px" data-tchmi-width="246" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center" data-tchmi-text-font-size="30" data-tchmi-text-font-style="Normal" data-tchmi-zindex="5" data-tchmi-state-symbol="%s%PLC1.ControlSystem.ManualMode%/s%">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(215, 215, 215, 1)"
+}
 </script>
 </div>
 </div>

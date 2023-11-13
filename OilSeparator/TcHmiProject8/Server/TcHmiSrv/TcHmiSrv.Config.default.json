@@ -2634,6 +2634,16 @@
             "SUBSYMBOL_MAPPING": "",
             "USEMAPPING": true
         },
+        "PLC1.ControlSystem.ManualMode": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::ControlSystem::ManualMode",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.ControlSystem.alarmTime": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -4957,6 +4967,7 @@
                 "LocalizeText": 3,
                 "Login": 3,
                 "Logout": 3,
+                "PLC1.ControlSystem.ManualMode": 3,
                 "PLC1.ControlSystem.alarmTime": 3,
                 "PLC1.ControlSystem.emergencyTime": 3,
                 "PLC1.ControlSystem.stateAlarm": 3,
