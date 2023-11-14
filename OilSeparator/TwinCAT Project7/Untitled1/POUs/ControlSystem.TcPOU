@@ -20,7 +20,7 @@ VAR
 		// PID instantiation
 	FB_PID : FB_CTRL_PID;					// Function Block
 	ST_PIDparameters : ST_CTRL_PID_PARAMS;	// Structure
-	eMode: E_CTRL_MODE;						// PID mode
+	eMode : E_CTRL_MODE;					// PID mode
 		// PID Function Block Inputs
 	setPoint 	   : LREAL := 130.0;
 	fActualValue   : LREAL;

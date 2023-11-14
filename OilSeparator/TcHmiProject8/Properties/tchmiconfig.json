@@ -71,6 +71,12 @@
   ],
   "views": [
     {
+      "url": "OperatorView.view",
+      "preload": false,
+      "keepAlive": false,
+      "preloadBindings": false
+    },
+    {
       "url": "TrendView.view",
       "preload": false,
       "keepAlive": false,

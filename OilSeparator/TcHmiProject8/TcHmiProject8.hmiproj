@@ -26,7 +26,7 @@
     <HmiViewportMaximumScale />
     <HmiViewportUserScaleable>Default</HmiViewportUserScaleable>
     <Name>TcHmiProject8</Name>
-    <HmiCommunicationRouterPort>10116</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10118</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.758.8</HmiInitial>
     <HmiRecent>1.12.760.48</HmiRecent>
@@ -188,6 +188,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="KeyboardLayouts\numericKey.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OperatorView.view">
       <SubType>Content</SubType>
     </Content>
     <Content Include="packages.config">

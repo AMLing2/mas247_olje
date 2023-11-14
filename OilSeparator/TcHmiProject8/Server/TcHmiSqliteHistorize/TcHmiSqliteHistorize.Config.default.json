@@ -55,6 +55,18 @@
             "maxEntries": 10000,
             "recordingEnabled": true,
             "rowLimit": 100000
+        },
+        "PLC1.MAIN.h_oil": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.h_water": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
         }
     },
     "inMemory": false,
