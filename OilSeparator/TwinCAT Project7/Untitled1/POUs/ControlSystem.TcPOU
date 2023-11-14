@@ -22,7 +22,7 @@ VAR
 	ST_PIDparameters : ST_CTRL_PID_PARAMS;	// Structure
 	eMode: E_CTRL_MODE;						// PID mode
 		// PID Function Block Inputs
-	setPoint 	   : LREAL := 140.0;
+	setPoint 	   : LREAL := 130.0;
 	fActualValue   : LREAL;
 	fManSyncValue  : LREAL;
 	bSync          : BOOL;
@@ -1799,7 +1799,7 @@ END_VAR
 
 // =========== Control Algoritm with PID =============
 	FB_PID( fSetpointValue 	:= 	setPoint,		// Desired Value
-			fActualValue 	:= 	Main.LT2mm,		// Actual  Value
+			fActualValue 	:= 	Main.h_water,		// Actual  Value
 			fManSyncValue 	:= 	fManSyncValue,
 			bSync 			:= 	bSync,
 			eMode 			:= 	eMode,				// PID mode - manual

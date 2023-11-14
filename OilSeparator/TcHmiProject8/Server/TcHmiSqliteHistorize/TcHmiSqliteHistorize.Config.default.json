@@ -2,7 +2,55 @@
     "commitInterval": "PT10S",
     "enableBackup": false,
     "historizedSymbolList": {
-        "PLC1.MAIN.height": {
+        "PLC1.MAIN.Flow_Valve_1_Percentage": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.LT1mm": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.LT2mm": {
+            "interval": "PT10S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.Level_Valve_1_Percentage": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.Level_Valve_2_Percentage": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.Level_Valve_3_Percentage": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.PDT1bar": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.PT1bar": {
+            "interval": "PT1S",
+            "maxEntries": 10000,
+            "recordingEnabled": true,
+            "rowLimit": 100000
+        },
+        "PLC1.MAIN.PT2bar": {
             "interval": "PT1S",
             "maxEntries": 10000,
             "recordingEnabled": true,

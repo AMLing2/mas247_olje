@@ -162,8 +162,8 @@ A = 1/(g*(rhoWater - rhoOil));
 B = rhoOil/(rhoWater - rhoOil);
 C = 1/20.03;
 % Variables to change
-    PDT1bit = 16252;
-    LT2mm   = 100.5;
+    PDT1bit = 9600;
+    LT2mm   = 64.99058532714844;
 % Variables to change
 LT2m = LT2mm/1000;
 PDT1bar = PDT1bit*(dPDT/dBit)*C;
@@ -179,6 +179,7 @@ h_water = ((PDT1bar * (100000) * A) - (LT2mm * (1/1000) * B))*1000
     C3 = 19.831767100422518;
     C_fin = (C1+C2+C3)/3;
 
+    h_water2 = ( (PDT1bar * (100000) * A)  - (LT2mm * (1/1000) * B))*1000;
 %h_water = (PDT1Pa*A - LT2m*B)*1000;
 h_oil = LT2m*1000 - h_water;
 h_tot = h_water + h_oil;

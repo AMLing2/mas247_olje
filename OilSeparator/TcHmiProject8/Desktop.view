@@ -1804,7 +1804,7 @@ WIP | TBA" data-tchmi-top="395" data-tchmi-top-unit="px" data-tchmi-width="178" 
 }
 </script>
 </div>
-<div id="TcHmiButton_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="75" data-tchmi-height-unit="px" data-tchmi-left="840" data-tchmi-left-unit="px" data-tchmi-text="Trend View" data-tchmi-top="150" data-tchmi-top-unit="px" data-tchmi-width="233" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
+<div id="bTrendView" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="75" data-tchmi-height-unit="px" data-tchmi-left="840" data-tchmi-left-unit="px" data-tchmi-text="Trend View" data-tchmi-top="150" data-tchmi-top-unit="px" data-tchmi-width="233" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
 <script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
 {
   "color": "rgba(58, 58, 58, 1)"
@@ -1812,6 +1812,31 @@ WIP | TBA" data-tchmi-top="395" data-tchmi-top-unit="px" data-tchmi-width="178" 
 </script>
 
 
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "bTrendView.onMouseDown",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "var v1 = TcHmi.View.get();",
+          "TcHmi.Log.debug(v1.getId());",
+          "TcHmi.View.load('TrendView.view', function (data) {",
+          "var v2 = TcHmi.View.get();",
+          "TcHmi.Log.debug(v2.getId());",
+          "});"
+        ],
+        "injectContextObject": false,
+        "asyncWait": true,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]
+</script>
 </div>
 <div id="TcHmiTextblock_40" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="940" data-tchmi-left-unit="px" data-tchmi-text="Out of Service" data-tchmi-top="642" data-tchmi-top-unit="px" data-tchmi-width="196" data-tchmi-width-unit="px" data-tchmi-word-wrap="false" data-tchmi-background-image-horizontal-alignment="Left" data-tchmi-background-image-vertical-alignment="Center" data-tchmi-text-font-size="25" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-zindex="5">
 <script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">

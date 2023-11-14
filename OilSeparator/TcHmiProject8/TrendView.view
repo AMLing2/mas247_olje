@@ -44,7 +44,7 @@
 }
 </script>
 </div>
-<div id="TcHmiButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="75" data-tchmi-height-unit="px" data-tchmi-left="685" data-tchmi-left-unit="px" data-tchmi-text="Engineering HMI" data-tchmi-top="180" data-tchmi-top-unit="px" data-tchmi-width="320" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
+<div id="bMainView" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="75" data-tchmi-height-unit="px" data-tchmi-left="1281" data-tchmi-left-unit="px" data-tchmi-text="Engineering HMI" data-tchmi-top="100" data-tchmi-top-unit="px" data-tchmi-width="306" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
 
 <script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
 {
@@ -53,5 +53,152 @@
 </script>
 
 
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "bMainView.onMouseDown",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "var v1 = TcHmi.View.get();",
+          "TcHmi.Log.debug(v1.getId());",
+          "TcHmi.View.load('Desktop.view', function (data) {",
+          "var v2 = TcHmi.View.get();",
+          "TcHmi.Log.debug(v2.getId());",
+          "});"
+        ],
+        "injectContextObject": false,
+        "asyncWait": true,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="PressureSensors" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTrendLineChart" data-tchmi-end="Latest" data-tchmi-height="351" data-tchmi-height-unit="px" data-tchmi-left="46" data-tchmi-left-unit="px" data-tchmi-start="PT2M" data-tchmi-top="253" data-tchmi-top-unit="px" data-tchmi-width="1078" data-tchmi-width-unit="px" data-tchmi-x-axis-name="Time [seconds]" data-tchmi-x-sub-tick-steps="2" data-tchmi-y-sub-tick-steps="1000" data-tchmi-show-legend="false" data-tchmi-y-axis-width="2" data-tchmi-y-main-tick-steps="1">
+<script data-tchmi-target-attribute="data-tchmi-y-axis" type="application/json">
+[
+  {
+    "id": 1,
+    "showAxis": true,
+    "position": "Left",
+    "mainTickMinValue": 0.0,
+    "mainTickMaxValue": 100.0,
+    "showLabels": true,
+    "showAxisName": true,
+    "axisName": "Pressure [bar]",
+    "axisNameFontFamily": "",
+    "axisNameFontSize": 15,
+    "axisNameFontSizeUnit": "px",
+    "axisNameFontWeight": "Bold",
+    "decimalPlaces": 2,
+    "unit": "",
+    "autoScaling": false,
+    "logarithmicScale": false,
+    "axisLabeling": "Auto",
+    "labelFontColor": "%tr%Control::TcHmi.Controls.Beckhoff.PressureSensors::YAxisLabelFontColor%/tr%",
+    "axisColor": "%tr%Control::TcHmi.Controls.Beckhoff.PressureSensors::YAxisAxisColor%/tr%",
+    "axisNameFontColor": "%tr%Control::TcHmi.Controls.Beckhoff.PressureSensors::YAxisAxisNameFontColor%/tr%"
+  }
+]
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 2,
+  "right": 2,
+  "top": 2,
+  "bottom": 2,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Dashed",
+  "right": "Dashed",
+  "top": "Dashed",
+  "bottom": "Dashed"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-line-graph-descriptions" type="application/json">
+[
+  {
+    "yAxisId": 1,
+    "legendName": "PDT1",
+    "scaleFactor": 1.0,
+    "showAxis": true,
+    "lineWidth": 1,
+    "pointDot": false,
+    "pointDotRadius": 3,
+    "pointDotStrokeWidth": 1,
+    "lineColor": {
+      "color": "rgba(134, 103, 215, 1)"
+    },
+    "pointDotFillColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionPointDotFillColor%/tr%",
+    "pointDotStrokeColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionPointDotStrokeColor%/tr%",
+    "pointDotInStopMode": true,
+    "fillMode": "None",
+    "fillColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionFillColor%/tr%",
+    "fillTransparency": 50.0,
+    "symbol": "PLC1.MAIN.PDT1bar"
+  },
+  {
+    "yAxisId": 1,
+    "legendName": "PT1",
+    "scaleFactor": 1.0,
+    "showAxis": true,
+    "lineWidth": 1,
+    "pointDot": false,
+    "pointDotRadius": 3,
+    "pointDotStrokeWidth": 1,
+    "lineColor": {
+      "color": "rgba(65, 91, 177, 1)"
+    },
+    "pointDotFillColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionPointDotFillColor%/tr%",
+    "pointDotStrokeColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionPointDotStrokeColor%/tr%",
+    "pointDotInStopMode": true,
+    "fillMode": "None",
+    "fillColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionFillColor%/tr%",
+    "fillTransparency": 50.0,
+    "symbol": "PLC1.MAIN.PT1bar"
+  },
+  {
+    "yAxisId": 1,
+    "legendName": "PT2",
+    "scaleFactor": 1.0,
+    "showAxis": true,
+    "lineWidth": 1,
+    "pointDot": false,
+    "pointDotRadius": 3,
+    "pointDotStrokeWidth": 1,
+    "lineColor": {
+      "color": "rgba(157, 94, 170, 1)"
+    },
+    "pointDotFillColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionPointDotFillColor%/tr%",
+    "pointDotStrokeColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionPointDotStrokeColor%/tr%",
+    "pointDotInStopMode": true,
+    "fillMode": "None",
+    "fillColor": "%tr%Control::TcHmi.Controls.Beckhoff.TcHmiLineChart::LineGraphDescriptionFillColor%/tr%",
+    "fillTransparency": 50.0,
+    "symbol": "PLC1.MAIN.PT2bar"
+  }
+]
+</script>
 </div>
 </div>

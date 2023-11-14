@@ -56,7 +56,7 @@ VAR
 	minPDT		: REAL := 0.004;			// [bar]
 	maxPDT		: REAL := 0.4;				// [bar]
 	deltaPDT	: REAL := maxPDT - minPDT;	// [bar]
-	C			: REAL := 1/(20.03);		// See calculation. "Scale descaler"
+	C			: REAL := 1.0/(20.03);		// See calculation. "Scale descaler"
 	
 	//maxLT 		: REAL := 304.8;			// [mm]
 	minLT1  	: REAL := 37.0;				// [mm]
@@ -210,13 +210,8 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax);
 	
 		// With Float on both fluids
-	h_water := ((PDT1bar * (100000) * A) - (LT2mm * (1/1000) * B))*1000;
-	h_oil 	:= LT2mm - h_water;
-	(*
-		// With Float on only Water
-	h_water := LT2mm;
-	h_oil 	:=
-*) 
+	h_water := ( (PDT1bar * (100000.0) * A)  - (LT2mm * (1.0/1000.0) * B))*1000.0;
+	h_oil 	:= LT2mm - h_water; 
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
@@ -290,7 +285,6 @@ END_IF
       <LineId Id="2776" Count="0" />
       <LineId Id="2518" Count="0" />
       <LineId Id="2893" Count="0" />
-      <LineId Id="2895" Count="4" />
       <LineId Id="1702" Count="0" />
       <LineId Id="1626" Count="0" />
       <LineId Id="1621" Count="0" />
