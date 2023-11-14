@@ -71,13 +71,13 @@
   ],
   "views": [
     {
-      "url": "Desktop.view",
+      "url": "TrendView.view",
       "preload": false,
       "keepAlive": false,
       "preloadBindings": false
     },
     {
-      "url": "TrendView.view",
+      "url": "Desktop.view",
       "preload": false,
       "keepAlive": false,
       "preloadBindings": false

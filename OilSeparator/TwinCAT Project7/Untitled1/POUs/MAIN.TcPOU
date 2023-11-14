@@ -56,6 +56,7 @@ VAR
 	minPDT		: REAL := 0.004;			// [bar]
 	maxPDT		: REAL := 0.4;				// [bar]
 	deltaPDT	: REAL := maxPDT - minPDT;	// [bar]
+	C			: REAL := 1/(20.03);		// See calculation. "Scale descaler"
 	
 	//maxLT 		: REAL := 304.8;			// [mm]
 	minLT1  	: REAL := 37.0;				// [mm]
@@ -70,17 +71,13 @@ VAR
 	
 	rhoWater 	: REAL := 998.0;			// Water Density [kg/m^3]
 	rhoOil		: REAL := 857.0;			// Oil Density   [kg/m^3]
-	PDT2MaxBit  : REAL := 32767.0;			// Measured Bit when Oil tank full of water
-	PDT2Max 	: REAL := (PDT2MaxBit/bitMax) * (rhoOil/rhoWater);
 	
 	h_oil 		: REAL;
 	h_water 	: REAL;
 	g			: REAL := 9.80665;			// Gravity (earth, not mars!) [m/s^2]
-	rhoAtm		: REAL := 1.293;
-	h_atm 		: REAL := 0.0;	// Ignore the atmospheric for now, as it's negligible
 	
 		// With Float on both fluids
-	A 			: REAL := 1.0/((rhoWater - rhoOil)*g);
+	A 			: REAL := 1.0/(rhoWater*g - rhoOil*g);
 	B 			: REAL := rhoOil/(rhoWater - rhoOil);
 	
 	// ------- Display Input Variables --------- 
@@ -206,14 +203,20 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	LT1mm 	:= Level_Transmitter_1					* kLT1 						+ minLT1; // Different Mapping
 	LT2mm 	:= Level_Transmitter_2 					* kLT2						+ minLT2; // Different Mapping
 	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
-	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax)			+ minPDT;
-	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax)			+ minPDT;
-	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax)			+ minPT;
-	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax)			+ minPT;
-	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax)			+ minPT;
+	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax) * C;
+	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax);
+	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax);
+	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax);
+	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax);
 	
 		// With Float on both fluids
-	h_water := 
+	h_water := ((PDT1bar * (100000) * A) - (LT2mm * (1/1000) * B))*1000;
+	h_oil 	:= LT2mm - h_water;
+	(*
+		// With Float on only Water
+	h_water := LT2mm;
+	h_oil 	:=
+*) 
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
@@ -286,6 +289,8 @@ END_IF
       <LineId Id="2645" Count="0" />
       <LineId Id="2776" Count="0" />
       <LineId Id="2518" Count="0" />
+      <LineId Id="2893" Count="0" />
+      <LineId Id="2895" Count="4" />
       <LineId Id="1702" Count="0" />
       <LineId Id="1626" Count="0" />
       <LineId Id="1621" Count="0" />

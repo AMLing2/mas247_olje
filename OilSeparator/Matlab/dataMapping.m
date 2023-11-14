@@ -120,8 +120,67 @@ table(Kp, Ti, Td)   % Tn = Ti, Tv = Td
 
 % ------------------ Ziegler Nichols calculations ------------------
 
-%% Mapping PDT2 to percent
+%% Testing
 close all;
 
-%figure
-%plot(
+close all;
+
+figure
+title("Oil Separator: Pressure Differential Transmitter 1")
+xlabel("Time [seconds]")
+hold on
+
+yyaxis left
+ylabel("Output [bits]")
+plot(Test1Tank1.Time0/1000, ...
+    Test1Tank1.LT1percent, '-b');
+
+yyaxis right
+ylabel("Measured height [cm]")
+yline(0, '--r');
+yline(4.4, '--r');
+yline(5.7, '--r');
+yline(9.1, '--r');
+yline(11.1, '--r');
+yline(15.1, '--r');
+yline(16.9, '--r');
+axis([0 Test1Tank1.Time0(end)/1000 3.7 17 ])
+
+legend('Level Transmitter 1', 'Location', 'southeast')
+
+%% Calculations
+clc; close all;
+format long
+rhoWater = 998;
+rhoOil   = 857;
+g = 9.80665;
+PDTmax = 0.4;
+PDTmin = 0.004;
+dPDT = PDTmax-PDTmin;
+dBit = 2^15 - 1;
+A = 1/(g*(rhoWater - rhoOil));
+B = rhoOil/(rhoWater - rhoOil);
+C = 1/20.03;
+% Variables to change
+    PDT1bit = 16252;
+    LT2mm   = 100.5;
+% Variables to change
+LT2m = LT2mm/1000;
+PDT1bar = PDT1bit*(dPDT/dBit)*C;
+PDT1Pa  = PDT1bar*10^5;
+    PDT1calc = rhoWater*g*LT2m;
+
+h_water = ((PDT1bar * (100000) * A) - (LT2mm * (1/1000) * B))*1000
+
+    table(PDT1Pa, PDT1calc);
+    Cinv = PDT1Pa/PDT1calc;
+    C1 = 19.968619416961648;
+    C2 = 20.282442997341011;
+    C3 = 19.831767100422518;
+    C_fin = (C1+C2+C3)/3;
+
+%h_water = (PDT1Pa*A - LT2m*B)*1000;
+h_oil = LT2m*1000 - h_water;
+h_tot = h_water + h_oil;
+format short
+table(h_water, h_oil, h_tot)
