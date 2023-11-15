@@ -1042,7 +1042,7 @@ waiting for timer" data-tchmi-top="86" data-tchmi-top-unit="px" data-tchmi-width
 
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
-  "color": "rgba(211, 211, 235, 1)"
+  "color": "rgba(231, 235, 169, 1)"
 }
 </script>
 
@@ -1335,7 +1335,7 @@ waiting for timer" data-tchmi-top="86" data-tchmi-top-unit="px" data-tchmi-width
 ]
 </script>
 </div>
-<div id="TcHmiTextbox" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1639" data-tchmi-left-unit="px" data-tchmi-text="[mm]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
+<div id="TcHmiTextbox" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1666" data-tchmi-left-unit="px" data-tchmi-text="[mm]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "top": 3,
@@ -1352,7 +1352,7 @@ waiting for timer" data-tchmi-top="86" data-tchmi-top-unit="px" data-tchmi-width
 }
 </script>
 </div>
-<div id="TcHmiTextbox_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1709" data-tchmi-left-unit="px" data-tchmi-text="[bar]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="66" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
+<div id="TcHmiTextbox_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1736" data-tchmi-left-unit="px" data-tchmi-text="[bar]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="66" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "top": 3,
@@ -1369,7 +1369,7 @@ waiting for timer" data-tchmi-top="86" data-tchmi-top-unit="px" data-tchmi-width
 }
 </script>
 </div>
-<div id="TcHmiTextbox_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1573" data-tchmi-left-unit="px" data-tchmi-text="[bits]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="66" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
+<div id="TcHmiTextbox_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1600" data-tchmi-left-unit="px" data-tchmi-text="[bits]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="66" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "top": 3,
@@ -1386,7 +1386,7 @@ waiting for timer" data-tchmi-top="86" data-tchmi-top-unit="px" data-tchmi-width
 }
 </script>
 </div>
-<div id="TcHmiTextbox_3" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1520" data-tchmi-left-unit="px" data-tchmi-text="[%]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="51" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
+<div id="TcHmiTextbox_3" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1547" data-tchmi-left-unit="px" data-tchmi-text="[%]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="51" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "top": 3,
@@ -1916,6 +1916,23 @@ WIP | TBA" data-tchmi-top="395" data-tchmi-top-unit="px" data-tchmi-width="178" 
   "rightUnit": "px",
   "topUnit": "px",
   "bottomUnit": "px"
+}
+</script>
+</div>
+<div id="TcHmiTextbox_4" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="48" data-tchmi-height-unit="px" data-tchmi-left="1494" data-tchmi-left-unit="px" data-tchmi-text="[°C]" data-tchmi-top="897" data-tchmi-top-unit="px" data-tchmi-width="53" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-placeholder="[°C]">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(231, 235, 169, 1)"
 }
 </script>
 </div>
