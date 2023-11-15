@@ -1949,8 +1949,8 @@ WIP | TBA" data-tchmi-top="395" data-tchmi-top-unit="px" data-tchmi-width="178" 
         "symbolExpression": "%s%PLC1.MAIN.bEmergency%/s%",
         "value": {
           "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "TRUE"
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
         },
         "asyncWait": true
       }
@@ -1965,8 +1965,8 @@ WIP | TBA" data-tchmi-top="395" data-tchmi-top-unit="px" data-tchmi-width="178" 
         "symbolExpression": "%s%PLC1.MAIN.bEmergency%/s%",
         "value": {
           "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "FALSE"
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": false
         },
         "asyncWait": true
       }
@@ -2028,8 +2028,8 @@ EMERGENCY" data-tchmi-top="465" data-tchmi-top-unit="px" data-tchmi-width="215" 
         "symbolExpression": "%s%PLC1.MAIN.bClear%/s%",
         "value": {
           "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "TRUE"
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
         },
         "asyncWait": true
       }
@@ -2044,8 +2044,8 @@ EMERGENCY" data-tchmi-top="465" data-tchmi-top-unit="px" data-tchmi-width="215" 
         "symbolExpression": "%s%PLC1.MAIN.bClear%/s%",
         "value": {
           "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "FALSE"
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": false
         },
         "asyncWait": true
       }

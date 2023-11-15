@@ -4,14 +4,17 @@
     <Declaration><![CDATA[PROGRAM ControlSystem
 VAR
 		// Variables
-	//emergencyTime   : TIME := T#9S;	<-- Had timer for testing emergency system 
-	//alarmTime 		: REAL;
+	//emergencyTime : TIME := T#9S;	// Had timer for testing emergency system 
+	//alarmTime 	: REAL;
 	resetLatch 		: BOOL := FALSE;
 	stateAlarm 		: AlarmState := AlarmState.AlarmCleared;
 	timeBuffer 		: TIME := T#5S;
 	tempMax 		: REAL := 20.0;		// [celsius]
 	pressureMax 	: REAL := 0.25;		// [bar]
 	LTemergency		: REAL := 50;		// [mm]
+	FVstop			: INT  := 95;		// [%]
+	goal 			: INT  := 70;		// [%]
+	startControl	: INT  := 143-50;	// [mm]
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -461,7 +464,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(NOT ManualMode) AND (Main.Reset_Button) AND (NOT gAL.fbAlarm.bRaised) AND (Main.Flow_Valve_1_Percentage&gt;95)"</v>
+                                        <v n="Value">"(Main.Reset_Button) AND (NOT gAL.fbAlarm.bRaised) AND (Main.Flow_Valve_1_Percentage&gt;FVstop)"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">19L</v>
@@ -650,7 +653,7 @@ END_VAR
                                                 <o>
                                                   <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                                   <o n="Value" t="StringValue">
-                                                    <v n="Value">"Main.LT2mm &gt; (143-50)"</v>
+                                                    <v n="Value">"Main.LT2mm &gt; startControl"</v>
                                                     <v n="DefaultValue">""</v>
                                                   </o>
                                                   <v n="Id">459L</v>
@@ -833,7 +836,7 @@ END_VAR
                                                 <o>
                                                   <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                                   <o n="Value" t="StringValue">
-                                                    <v n="Value">"(Main.PDT2percent &gt; 70) OR (gAL.fbAlarm.bRaised) OR (ManualMode)"</v>
+                                                    <v n="Value">"(Main.PDT2percent &gt; goal) OR (gAL.fbAlarm.bRaised) OR (ManualMode)"</v>
                                                     <v n="DefaultValue">""</v>
                                                   </o>
                                                   <v n="Id">603L</v>
@@ -1846,7 +1849,7 @@ IF ( (Main.EMERGENCY_STOP) AND (Main.PT1bar<pressureMax) AND (Main.TT1c<tempMax)
 	stateAlarm := AlarmState.AlarmClearPreTimer;
 END_IF
 
-(*
+(*		// Timer for testing
 IF resetLatch THEN
 	alarmTime := TIME_TO_REAL(emergencyTime - emergency.t)/1000;
 END_IF
@@ -1868,18 +1871,20 @@ stateAlarm := AlarmState.AlarmActive;]]></ST>
     <Action Name="Emergency_exit" Id="{f60c972d-b762-44db-a616-b0355972ac63}">
       <Implementation>
         <ST><![CDATA[
-//alarmTime := 0.0;]]></ST>
+//alarmTime := 0.0;		// Timer for testing]]></ST>
       </Implementation>
     </Action>
     <Action Name="Filling_entry" Id="{1f04233e-530e-451e-a81b-beddfffbfd24}">
       <Implementation>
-        <ST><![CDATA[	// Start Filling
-Main.Motor_ON_OFF := TRUE;				// ON
-Main.Flow_Valve_1_Percentage  := 100;	// Open
-Main.Level_Valve_1_Percentage := 100;	// Open
-Main.Level_Valve_2_Percentage := 0;		// Closed
-Main.Level_Valve_3_Percentage := 100;	// Open
-]]></ST>
+        <ST><![CDATA[
+IF (NOT ManualMode) THEN
+		// Start Filling
+	Main.Motor_ON_OFF := TRUE;				// ON
+	Main.Flow_Valve_1_Percentage  := 100;	// Open
+	Main.Level_Valve_1_Percentage := 100;	// Open
+	Main.Level_Valve_2_Percentage := 0;		// Closed
+	Main.Level_Valve_3_Percentage := 100;	// Open
+END_IF]]></ST>
       </Implementation>
       <ObjectProperties>
         <XmlArchive>
@@ -2042,8 +2047,9 @@ resetLatch := FALSE;]]></ST>
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_active">
-      <LineId Id="2" Count="10" />
-      <LineId Id="1" Count="0" />
+      <LineId Id="2" Count="4" />
+      <LineId Id="13" Count="5" />
+      <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_entry">
       <LineId Id="2" Count="6" />
@@ -2054,6 +2060,8 @@ resetLatch := FALSE;]]></ST>
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Filling_entry">
+      <LineId Id="9" Count="0" />
+      <LineId Id="8" Count="0" />
       <LineId Id="2" Count="5" />
       <LineId Id="1" Count="0" />
     </LineIds>

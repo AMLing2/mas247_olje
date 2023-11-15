@@ -72,7 +72,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{24667565-EDC9-9192-E455-52D27E20A6D2}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{4107A39D-5CDD-D5D5-F93F-1AC7060C1761}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -144,6 +144,10 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>MAIN.Level_Valve_2</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
 							<Name>MAIN.Level_Valve_3</Name>
 							<Type>INT</Type>
 						</Var>
@@ -163,10 +167,6 @@
 							<Name>MAIN.Motor_ON_OFF</Name>
 							<Comment><![CDATA[ Motor switch	]]></Comment>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Level_Valve_2</Name>
-							<Type>INT</Type>
 						</Var>
 					</Vars>
 					<Contexts>

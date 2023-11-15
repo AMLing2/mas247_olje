@@ -944,85 +944,6 @@
 }
 </script>
 </div>
-<div id="bEmergency" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="115" data-tchmi-height-unit="px" data-tchmi-left="1607" data-tchmi-left-unit="px" data-tchmi-text="EMERGENCY" data-tchmi-top="657" data-tchmi-top-unit="px" data-tchmi-width="308" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="50">
-
-<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
-{
-  "color": "rgba(255, 48, 48, 1)"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
-{
-  "color": "rgba(255, 255, 255, 1)"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
-{
-  "color": "rgba(24, 9, 9, 1)"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
-{
-  "left": 2,
-  "right": 2,
-  "top": 2,
-  "bottom": 2,
-  "leftUnit": "px",
-  "rightUnit": "px",
-  "topUnit": "px",
-  "bottomUnit": "px"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
-{
-  "left": "Solid",
-  "right": "Solid",
-  "top": "Solid",
-  "bottom": "Solid"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
-[
-  {
-    "event": "bEmergency.onMouseDown",
-    "actions": [
-      {
-        "objectType": "WriteToSymbol",
-        "active": true,
-        "symbolExpression": "%s%PLC1.MAIN.bEmergency%/s%",
-        "value": {
-          "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "TRUE"
-        },
-        "asyncWait": true
-      }
-    ]
-  },
-  {
-    "event": "bEmergency.onMouseUp",
-    "actions": [
-      {
-        "objectType": "WriteToSymbol",
-        "active": true,
-        "symbolExpression": "%s%PLC1.MAIN.bEmergency%/s%",
-        "value": {
-          "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "FALSE"
-        },
-        "asyncWait": true
-      }
-    ]
-  }
-]
-</script>
-</div>
 <div id="bStop" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="115" data-tchmi-height-unit="px" data-tchmi-left="1261" data-tchmi-left-unit="px" data-tchmi-text="STOP" data-tchmi-top="813" data-tchmi-top-unit="px" data-tchmi-width="213" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="50">
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
@@ -1062,6 +983,27 @@
   "top": "Solid",
   "bottom": "Solid"
 }
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "bStop.onMouseDown",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.ControlSystem.ManualMode%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
 </script>
 </div>
 <div id="bStart" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="115" data-tchmi-height-unit="px" data-tchmi-left="1260" data-tchmi-left-unit="px" data-tchmi-text="START" data-tchmi-top="665" data-tchmi-top-unit="px" data-tchmi-width="211" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="50">
@@ -1104,78 +1046,20 @@
   "bottom": "Solid"
 }
 </script>
-</div>
-<div id="bClearEmergency" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="116" data-tchmi-height-unit="px" data-tchmi-left="1660" data-tchmi-left-unit="px" data-tchmi-text="CLEAR
-EMERGENCY" data-tchmi-top="525" data-tchmi-top-unit="px" data-tchmi-width="215" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
-<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
-{
-  "color": "rgba(218, 226, 195, 1)"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
-{
-  "color": "rgba(11, 50, 29, 1)"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
-{
-  "color": "rgba(11, 50, 29, 1)"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
-{
-  "left": 2,
-  "right": 2,
-  "top": 2,
-  "bottom": 2,
-  "leftUnit": "px",
-  "rightUnit": "px",
-  "topUnit": "px",
-  "bottomUnit": "px"
-}
-</script>
-
-<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
-{
-  "left": "Solid",
-  "right": "Solid",
-  "top": "Solid",
-  "bottom": "Solid"
-}
-</script>
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
   {
-    "event": "bClearEmergency.onMouseDown",
+    "event": "bStart.onMouseDown",
     "actions": [
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%s%PLC1.MAIN.bClear%/s%",
+        "symbolExpression": "%s%PLC1.ControlSystem.ManualMode%/s%",
         "value": {
           "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "TRUE"
-        },
-        "asyncWait": true
-      }
-    ]
-  },
-  {
-    "event": "bClearEmergency.onMouseUp",
-    "actions": [
-      {
-        "objectType": "WriteToSymbol",
-        "active": true,
-        "symbolExpression": "%s%PLC1.MAIN.bClear%/s%",
-        "value": {
-          "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/String",
-          "value": "FALSE"
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": false
         },
         "asyncWait": true
       }
@@ -1340,5 +1224,162 @@ EMERGENCY" data-tchmi-top="525" data-tchmi-top-unit="px" data-tchmi-width="215" 
 <div id="TcHmiTextblock_64" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="32" data-tchmi-height-unit="px" data-tchmi-left="1384" data-tchmi-left-unit="px" data-tchmi-text="Alarm Time Remaining:" data-tchmi-top="321" data-tchmi-top-unit="px" data-tchmi-width="236" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="25" data-tchmi-text-font-weight="Normal" data-tchmi-zindex="4">
 </div>
 <div id="TcHmiTextblock_65" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="32" data-tchmi-height-unit="px" data-tchmi-left="1820" data-tchmi-left-unit="px" data-tchmi-text="[seconds]" data-tchmi-top="321" data-tchmi-top-unit="px" data-tchmi-width="102" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="25" data-tchmi-text-font-weight="Normal" data-tchmi-zindex="4">
+</div>
+<div id="bEmergency_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="115" data-tchmi-height-unit="px" data-tchmi-left="1607" data-tchmi-left-unit="px" data-tchmi-text="EMERGENCY" data-tchmi-top="655" data-tchmi-top-unit="px" data-tchmi-width="308" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="50">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 48, 48, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(24, 9, 9, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 2,
+  "right": 2,
+  "top": 2,
+  "bottom": 2,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "bEmergency_2.onMouseDown",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.MAIN.bEmergency%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "bEmergency_2.onMouseUp",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.MAIN.bEmergency%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": false
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="bClearEmergency_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="116" data-tchmi-height-unit="px" data-tchmi-left="1660" data-tchmi-left-unit="px" data-tchmi-text="CLEAR
+EMERGENCY" data-tchmi-top="523" data-tchmi-top-unit="px" data-tchmi-width="215" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(218, 226, 195, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(11, 50, 29, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-color" type="application/json">
+{
+  "color": "rgba(11, 50, 29, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 2,
+  "right": 2,
+  "top": 2,
+  "bottom": 2,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "bClearEmergency_2.onMouseDown",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.MAIN.bClear%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "bClearEmergency_2.onMouseUp",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.MAIN.bClear%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": false
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
 </div>

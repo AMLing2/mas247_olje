@@ -9,10 +9,10 @@ VAR
 	Level_Valve_1 	AT %Q* : INT;
 	Level_Valve_2 	AT %Q* : INT;
 	Level_Valve_3 	AT %Q* : INT;
-	Gas_Valve 		AT %Q* : INT;
-	Mixer_Valve 	AT %Q* : INT;
+	Gas_Valve 		AT %Q* : INT;		// Not used
+	Mixer_Valve 	AT %Q* : INT;		// Not used
 	Motor_speed 	AT %Q* : INT;	
-	Motor_Direction AT %Q* : BOOL; 			// Don't touch
+	Motor_Direction AT %Q* : BOOL; 		// Don't touch
 		// --------- Inputs ---------
 			// Buttons
 	Toggle_Button 	AT %I* :BOOL;	// Normally Open  (OFF), Green
@@ -23,17 +23,17 @@ VAR
 	Level_Transmitter_2 	AT %I* :INT;
 	Temperature_Transmitter AT %I* :INT;
 	Pressure_Differencial_Transmitter_1 AT %I* : INT;
-	Pressure_Differencial_Transmitter_2 AT %I* : INT;
+	Pressure_Differencial_Transmitter_2 AT %I* : INT;	// Not used
 	Pressure_Transmitter_1 AT %I* : INT ;
 	Pressure_Transmitter_2 AT %I* : INT ;
-	Pressure_Transmitter_3 AT %I* : INT ; 
+	Pressure_Transmitter_3 AT %I* : INT ; 				// Not used
 	// ------ Linking variables to IO cards ------
 	
 	// ------- Display Input Variables ---------
 		// Percentages
-	LT1percent  : INT;
-	LT2percent  : INT;
-	TT1percent  : INT;
+	LT1percent  : INT;		// Currently used for displaying bits.
+	LT2percent  : INT;		// Sadly didn't have time to remap,
+	TT1percent  : INT;		// as we need to share the PLC.
 	PDT1percent : INT;
 	PDT2percent : INT;
 	PT1percent  : INT;
@@ -44,10 +44,10 @@ VAR
 	LT2mm 	: REAL;
 	TT1c 	: REAL;
 	PDT1bar : REAL;
-	PDT2bar : REAL;
+	PDT2bar : REAL;		// Not used
 	PT1bar  : REAL;
 	PT2bar  : REAL;
-	PT3bar  : REAL;
+	PT3bar  : REAL;		// Not used
 		// Scaling variables
 	bitMax 		: REAL := 32767;			// [bits]
 	minPT 		: REAL := 0.06;				// [bar]
@@ -99,13 +99,11 @@ VAR
 	// Initializer
 	init : BOOL := FALSE;
 	mainInitializer : FB_defaultValues;
-	
-	bClear     : BOOL;
-	bEmergency : BOOL;
 END_VAR
 
 VAR_INPUT
-
+	bClear     : BOOL;
+	bEmergency : BOOL;
 	Motor_ON_OFF 	AT %Q* : BOOL := FALSE;	// Motor switch	
 	StartProcess : BOOL; //POU Variable for detecting machine state
 	StartBuffer : BOOL := FALSE;
@@ -194,27 +192,27 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 
 // ================= Mapping (INPUTS) =================
 		// Take 4 [mA] to 20 [mA] 
-	// Percentages
+	// Bits. As mentioned above, they're not renamed due to short time
 	LT1percent  := Level_Transmitter_1;
 	LT2percent  := Level_Transmitter_2;
 	TT1percent  := Temperature_Transmitter;
 	PDT1percent := Pressure_Differencial_Transmitter_1;
-	PT1percent  := Pressure_Transmitter_1;
+	PDT2percent := REAL_TO_INT(Pressure_Differencial_Transmitter_2 * (rhoOil/rhoWater) * (100/bitMax));	
+	PT1percent  := Pressure_Transmitter_1;		// ^Not used^
 	PT2percent  := Pressure_Transmitter_2;
-	PT3percent  := Pressure_Transmitter_3;
+	PT3percent  := Pressure_Transmitter_3;		// Not used
 	
-	PDT2percent := REAL_TO_INT(Pressure_Differencial_Transmitter_2 * (rhoOil/rhoWater) * (100/bitMax));
 		// Actual values
 	LT1mm 	:= Level_Transmitter_1					* kLT1 						+ minLT1; // Different Mapping
 	LT2mm 	:= Level_Transmitter_2 					* kLT2						+ minLT2; // Different Mapping
 	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
 	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax) * C;
-	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax);
+	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax);	// Not used
 	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax);
 	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax);
-	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax);
+	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax);		// Not used
 	
-		// With Float on both fluids
+		// Height estimate, with float on both fluids
 	h_water := ( (PDT1bar * (100000.0) * A)  - (LT2mm * (1.0/1000.0) * B))*1000.0;
 	h_oil 	:= LT2mm - h_water; 
 // ================= Mapping (INPUTS) =================
@@ -281,9 +279,11 @@ END_IF
       <LineId Id="1904" Count="0" />
       <LineId Id="1800" Count="0" />
       <LineId Id="1717" Count="3" />
-      <LineId Id="1722" Count="1" />
+      <LineId Id="1722" Count="0" />
+      <LineId Id="3128" Count="0" />
+      <LineId Id="1723" Count="0" />
       <LineId Id="1703" Count="0" />
-      <LineId Id="2406" Count="1" />
+      <LineId Id="3127" Count="0" />
       <LineId Id="1801" Count="0" />
       <LineId Id="1803" Count="6" />
       <LineId Id="1802" Count="0" />
