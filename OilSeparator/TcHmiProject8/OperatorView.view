@@ -320,7 +320,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%PDT2display::Text%/ctrl%",
+        "symbolExpression": "%ctrl%PDT2display_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -413,7 +413,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%TT1_c::Text%/ctrl%",
+        "symbolExpression": "%ctrl%TT1_c_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -459,7 +459,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%PT2_bar::Text%/ctrl%",
+        "symbolExpression": "%ctrl%PT2_bar_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -503,7 +503,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%LT1_mm::Text%/ctrl%",
+        "symbolExpression": "%ctrl%LT1_mm_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -547,7 +547,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%PT1_bar::Text%/ctrl%",
+        "symbolExpression": "%ctrl%PT1_bar_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -591,7 +591,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%PDT1_bar::Text%/ctrl%",
+        "symbolExpression": "%ctrl%PDT1_bar_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -635,7 +635,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%LT2_mm::Text%/ctrl%",
+        "symbolExpression": "%ctrl%LT2_mm_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -679,7 +679,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%PDT2_bar::Text%/ctrl%",
+        "symbolExpression": "%ctrl%PDT2_bar_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -723,7 +723,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%OilDisplay::Text%/ctrl%",
+        "symbolExpression": "%ctrl%OilDisplay_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -813,7 +813,7 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%ctrl%WaterDisplay::Text%/ctrl%",
+        "symbolExpression": "%ctrl%WaterDisplay_1::Text%/ctrl%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",
@@ -1000,6 +1000,17 @@
           "value": true
         },
         "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.MAIN.Motor_ON_OFF%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": false
+        },
+        "asyncWait": true
       }
     ]
   }
@@ -1113,7 +1124,7 @@
               {
                 "objectType": "WriteToSymbol",
                 "active": true,
-                "symbolExpression": "%ctrl%AlarmSymbol::FillColor%/ctrl%",
+                "symbolExpression": "%ctrl%AlarmSymbol_1::FillColor%/ctrl%",
                 "value": {
                   "objectType": "StaticValue",
                   "valueType": "tchmi:framework#/definitions/Color",
@@ -1135,7 +1146,7 @@
               {
                 "objectType": "WriteToSymbol",
                 "active": true,
-                "symbolExpression": "%ctrl%AlarmSymbol::FillColor%/ctrl%",
+                "symbolExpression": "%ctrl%AlarmSymbol_1::FillColor%/ctrl%",
                 "value": {
                   "objectType": "StaticValue",
                   "valueType": "tchmi:framework#/definitions/Color",
@@ -1157,7 +1168,7 @@
               {
                 "objectType": "WriteToSymbol",
                 "active": true,
-                "symbolExpression": "%ctrl%AlarmSymbol::FillColor%/ctrl%",
+                "symbolExpression": "%ctrl%AlarmSymbol_1::FillColor%/ctrl%",
                 "value": {
                   "objectType": "StaticValue",
                   "valueType": "tchmi:framework#/definitions/Color",

@@ -72,7 +72,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{BB83E7FB-8A00-45A7-8525-3E7D21D20878}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{4107A39D-5CDD-D5D5-F93F-1AC7060C1761}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{B292AB52-601F-C0BE-6373-D728D11227EE}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -111,6 +111,7 @@
 						</Var>
 						<Var>
 							<Name>MAIN.Pressure_Differencial_Transmitter_2</Name>
+							<Comment><![CDATA[ Not used]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
@@ -123,6 +124,7 @@
 						</Var>
 						<Var>
 							<Name>MAIN.Pressure_Transmitter_3</Name>
+							<Comment><![CDATA[ Not used]]></Comment>
 							<Type>INT</Type>
 						</Var>
 					</Vars>
@@ -153,10 +155,12 @@
 						</Var>
 						<Var>
 							<Name>MAIN.Gas_Valve</Name>
+							<Comment><![CDATA[ Not used]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.Mixer_Valve</Name>
+							<Comment><![CDATA[ Not used]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
