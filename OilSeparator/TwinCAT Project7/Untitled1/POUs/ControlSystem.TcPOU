@@ -4,13 +4,14 @@
     <Declaration><![CDATA[PROGRAM ControlSystem
 VAR
 		// Variables
-	emergencyTime   : TIME := T#9S;
+	//emergencyTime   : TIME := T#9S;	<-- Had timer for testing emergency system 
+	//alarmTime 		: REAL;
 	resetLatch 		: BOOL := FALSE;
 	stateAlarm 		: AlarmState := AlarmState.AlarmCleared;
-	alarmTime 		: REAL;
 	timeBuffer 		: TIME := T#5S;
 	tempMax 		: REAL := 20.0;		// [celsius]
 	pressureMax 	: REAL := 0.25;		// [bar]
+	LTemergency		: REAL := 50;		// [mm]
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -173,7 +174,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(resetLatch OR (NOT Main.Reset_Button)) AND Main.EMERGENCY_STOP"</v>
+                                        <v n="Value">"(resetLatch OR (NOT Main.Reset_Button) OR Main.bClear)"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">274L</v>
@@ -1117,7 +1118,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"(NOT Main.EMERGENCY_STOP) OR (Main.PT1bar&gt;pressureMax) OR (Main.TT1c&gt;tempMax)"</v>
+                                        <v n="Value">"(NOT Main.EMERGENCY_STOP) OR (Main.PT1bar&gt;pressureMax) OR (Main.TT1c&gt;tempMax) OR Main.bEmergency"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">369L</v>
@@ -1300,7 +1301,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Emergency.t&gt;emergencyTime"</v>
+                                        <v n="Value">"(Main.LT1mm&lt;LTemergency) AND (Main.LT2mm&lt;LTemergency) AND (Main.EMERGENCY_STOP) AND (Main.PT1bar&lt;pressureMax) AND (Main.TT1c&lt;tempMax)"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">388L</v>
@@ -1839,15 +1840,17 @@ eMode := eCTRL_MODE_Active;		// Activate PID]]></ST>
     <Action Name="Emergency_active" Id="{f3d9c642-3825-4f1f-8f2e-6190e18b09ed}">
       <Implementation>
         <ST><![CDATA[
-IF ( (Main.EMERGENCY_STOP) AND (NOT Main.Reset_Button) ) THEN
+IF ( (Main.EMERGENCY_STOP) AND (Main.PT1bar<pressureMax) AND (Main.TT1c<tempMax)
+	  AND ((NOT Main.Reset_Button) OR Main.bClear) ) THEN
 	resetLatch := TRUE;
 	stateAlarm := AlarmState.AlarmClearPreTimer;
 END_IF
 
+(*
 IF resetLatch THEN
 	alarmTime := TIME_TO_REAL(emergencyTime - emergency.t)/1000;
 END_IF
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Action>
     <Action Name="Emergency_entry" Id="{8fa4c7b6-7e3d-4cd7-9142-9712b4ff052c}">
@@ -2039,7 +2042,11 @@ resetLatch := FALSE;]]></ST>
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_active">
-      <LineId Id="2" Count="8" />
+      <LineId Id="2" Count="1" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="4" Count="2" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="7" Count="3" />
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_entry">

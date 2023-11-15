@@ -99,6 +99,9 @@ VAR
 	// Initializer
 	init : BOOL := FALSE;
 	mainInitializer : FB_defaultValues;
+	
+	bClear     : BOOL;
+	bEmergency : BOOL;
 END_VAR
 
 VAR_INPUT
@@ -131,8 +134,10 @@ END_VAR]]></Declaration>
 // ======================== Initializer ========================
 
 // ======================== Alarm System ========================
-	alarmSystem(ClearButton := Reset_Button,
-				EmergencyButton := EMERGENCY_STOP);
+	alarmSystem(ClearButton 		:= Reset_Button,
+				EmergencyButton 	:= EMERGENCY_STOP,
+				HMIClearButton 		:= bClear,
+				HMIEmergencyButton 	:= bEmergency);
 // ======================== Alarm System ========================
 	
 // ================ Outer bounds logic (outputs) ================
@@ -248,6 +253,7 @@ END_IF
       <LineId Id="1179" Count="0" />
       <LineId Id="1272" Count="0" />
       <LineId Id="1426" Count="0" />
+      <LineId Id="3009" Count="1" />
       <LineId Id="1374" Count="0" />
       <LineId Id="1199" Count="0" />
       <LineId Id="1178" Count="0" />

@@ -4,8 +4,10 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_EmergencySystem
 
 VAR_INPUT			// Input variables
-	ClearButton : BOOL;
-	EmergencyButton : BOOL;
+	ClearButton 		: BOOL;
+	EmergencyButton 	: BOOL;
+	HMIClearButton 		: BOOL;
+	HMIEmergencyButton 	: BOOL;
 END_VAR
 
 VAR					// Internal (instance) variables
@@ -20,7 +22,7 @@ IF (NOT bIsInitialized) THEN
 	gAL.fbAlarm.CreateEx(TC_Events.TankAlarmEvent.Emergency, TRUE, 0);
 END_IF
 	// Raise Alarm
-IF ( (NOT EmergencyButton) AND (NOT latch) ) THEN
+IF ( (NOT EmergencyButton OR HMIEmergencyButton) AND (NOT latch) ) THEN
 	gAL.fbAlarm.Raise(0); // 0 -> Current time
 	latch := TRUE;
 END_IF
@@ -31,7 +33,7 @@ IF (EmergencyButton AND (NOT ClearButton) AND gAL.fbAlarm.bRaised) THEN
 END_IF*)
 
 	// Clear Alarm when timer is 0 and cleared
-IF (ControlSystem.resetLatch OR (NOT Main.Reset_Button)) AND Main.EMERGENCY_STOP THEN
+IF (ControlSystem.resetLatch OR (NOT Main.Reset_Button) OR HMIClearButton) AND Main.EMERGENCY_STOP THEN
 	gAL.fbAlarm.Clear(0, TRUE);	// .Clear(CurrentTime, ConfirmAlarm)
 	latch := FALSE;
 END_IF
