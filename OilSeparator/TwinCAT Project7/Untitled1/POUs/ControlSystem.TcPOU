@@ -1868,7 +1868,7 @@ stateAlarm := AlarmState.AlarmActive;]]></ST>
     <Action Name="Emergency_exit" Id="{f60c972d-b762-44db-a616-b0355972ac63}">
       <Implementation>
         <ST><![CDATA[
-alarmTime := 0.0;]]></ST>
+//alarmTime := 0.0;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Filling_entry" Id="{1f04233e-530e-451e-a81b-beddfffbfd24}">
@@ -2042,11 +2042,7 @@ resetLatch := FALSE;]]></ST>
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_active">
-      <LineId Id="2" Count="1" />
-      <LineId Id="11" Count="0" />
-      <LineId Id="4" Count="2" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="7" Count="3" />
+      <LineId Id="2" Count="10" />
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Emergency_entry">
