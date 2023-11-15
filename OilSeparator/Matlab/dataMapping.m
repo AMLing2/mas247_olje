@@ -157,20 +157,23 @@ g = 9.80665;
 PDTmax = 0.4;
 PDTmin = 0.004;
 dPDT = PDTmax-PDTmin;
-dBit = 2^15 - 1;
+bitMax = 2^15 - 1;
+bitMin = 700;
+dBit = bitMax;
 A = 1/(g*(rhoWater - rhoOil));
 B = rhoOil/(rhoWater - rhoOil);
-C = 1/20.03;
+C = 1-29/30.8;
+R = 0.9/33.22;
 % Variables to change
-    PDT1bit = 15748;
-    LT2mm   = 111.27;
+    PDT1bit = 14290;
+    LT2mm   = 87;
 % Variables to change
 LT2m = LT2mm/1000;
-PDT1bar = PDT1bit*(dPDT/dBit)*C;
+PDT1bar = PDT1bit*(dPDT*R/dBit);
 PDT1Pa  = PDT1bar*10^5;
     PDT1calc = rhoWater*g*LT2m;
 
-%h_water = ((PDT1bar * (100000) * A) - (LT2mm * (1/1000) * B))*1000
+h_water = ((PDT1Pa*A) - (LT2m*B))*1000.0;
 
     table(PDT1Pa, PDT1calc);
     Cinv = PDT1Pa/PDT1calc;
@@ -179,9 +182,53 @@ PDT1Pa  = PDT1bar*10^5;
     C3 = 19.831767100422518;
     C_fin = (C1+C2+C3)/3;
 
+    h_waterTC1 = ( (PDT1bar * (100000.0) * A)  - (LT2mm * (1.0/1000.0) * B))*1000.0;
     h_water2 = (PDT1Pa*(1/(g*(rhoOil-rhoWater))) - LT2m*(rhoWater/(rhoOil-rhoWater)))*1000
     h_water1 = (PDT1Pa*(1/(g*(rhoWater-rhoOil))) - LT2m*(rhoOil/(rhoWater-rhoOil)))*1000
 h_oil = LT2m*1000 - h_water;
 h_tot = h_water + h_oil;
 format short
 table(h_water, h_oil, h_tot)
+
+%% Clean Water Calibration
+close all;
+figure(Name='Clean Water Calibration')
+
+SensorBit = [726, 2940, 4780, 7150, 9740, 13035, 14970, 17110, 18135];
+hMeasured = [0, 26, 37, 52, 69, 89, 101, 115, 122]; 
+
+SensorBit2 = [2940, 4780, 7150, 9740, 13035, 14970, 17110, 18135];
+hMeasured2 = [26, 37, 52, 69, 89, 101, 115, 122];
+pMeasured2 = rhoWater*g*hMeasured2/1000.0;
+
+rhoWater = 998; % [kg/m^3]
+g = 9.80665;    % [m/s^2]
+pMeasured = rhoWater*g*hMeasured/1000.0;
+
+plot(SensorBit, pMeasured)
+xlabel('[bit]')
+ylabel('[Pa]')
+
+dx = SensorBit(end) - SensorBit(2);
+dy = pMeasured(end) - pMeasured(2);
+slope = dy/dx;
+
+figure(Name='Linear Regression')
+y = slope*SensorBit;
+plot(SensorBit, y)
+
+C = y(end) - SensorBit(end)*slope;
+
+y2 = slope*(SensorBit+SensorBit(1));
+
+k = 0.06172;
+b = 69.67;
+y3 = k*SensorBit + b;
+
+figure(Name='Final both')
+hold on
+plot(SensorBit, pMeasured)
+plot(SensorBit, y3)
+xlabel('[bit]')
+ylabel('[Pa]')
+legend('Measurements', 'Linear regression', 'Location','southeast')

@@ -76,6 +76,10 @@ VAR
 	h_water 	: REAL;
 	g			: REAL := 9.80665;			// Gravity (earth, not mars!) [m/s^2]
 	
+		// Linear Regression of PDT1
+	k 			: REAL := 0.06172;
+	coeff		: REAL := 69.67;
+	
 		// With Float on both fluids
 	A 			: REAL := 1.0/(rhoWater*g - rhoOil*g);
 	B 			: REAL := rhoOil/(rhoWater - rhoOil);
@@ -106,7 +110,7 @@ VAR_INPUT
 	bEmergency : BOOL;
 	Motor_ON_OFF 	AT %Q* : BOOL := FALSE;	// Motor switch	
 	StartProcess : BOOL; //POU Variable for detecting machine state
-	StartBuffer : BOOL := FALSE;
+	StartBuffer  : BOOL := FALSE;
 	
 	// User Input as percentage, Declaration
 	Flow_Valve_1_Percentage	: INT;
@@ -206,7 +210,7 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	LT1mm 	:= Level_Transmitter_1					* kLT1 						+ minLT1; // Different Mapping
 	LT2mm 	:= Level_Transmitter_2 					* kLT2						+ minLT2; // Different Mapping
 	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
-	PDT1bar := Pressure_Differencial_Transmitter_1 	* (deltaPDT/bitMax) * C;
+	PDT1bar := Pressure_Differencial_Transmitter_1 	* k + coeff;
 	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax);	// Not used
 	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax);
 	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax);
