@@ -214,7 +214,7 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	
 		// Height estimate, with float on both fluids
 	h_water := ( (PDT1bar * (100000.0) * A)  - (LT2mm * (1.0/1000.0) * B))*1000.0;
-	h_oil 	:= LT2mm - h_water; 
+	h_oil	:= LT2mm - h_water;
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
