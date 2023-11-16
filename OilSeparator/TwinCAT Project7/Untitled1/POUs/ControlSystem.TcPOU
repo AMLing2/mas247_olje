@@ -14,7 +14,7 @@ VAR
 	LTemergency		: REAL := 50;		// [mm]
 	FVstop			: INT  := 95;		// [%]
 	goal 			: INT  := 70;		// [%]
-	startControl	: INT  := 143-50;	// [mm]
+	startControl	: INT  := 145-40;	// [mm]
 	
 		// Function Blocks
 	initializer : FB_defaultValues;
@@ -26,7 +26,7 @@ VAR
 	ST_PIDparameters : ST_CTRL_PID_PARAMS;	// Structure
 	eMode : E_CTRL_MODE;					// PID mode
 		// PID Function Block Inputs
-	setPoint 	   : LREAL := 130.0;
+	setPoint 	   : LREAL := 85.0;
 	fActualValue   : LREAL;
 	fManSyncValue  : LREAL;
 	bSync          : BOOL;
@@ -836,7 +836,7 @@ END_VAR
                                                 <o>
                                                   <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                                   <o n="Value" t="StringValue">
-                                                    <v n="Value">"(Main.PDT2percent &gt; goal) OR (gAL.fbAlarm.bRaised) OR (ManualMode)"</v>
+                                                    <v n="Value">"(gAL.fbAlarm.bRaised) OR (ManualMode)"</v>
                                                     <v n="DefaultValue">""</v>
                                                   </o>
                                                   <v n="Id">603L</v>
@@ -1910,10 +1910,10 @@ END_IF]]></ST>
 	ST_PIDparameters.fOutMinLimit 	:= 15; 		// Min allowed output - LV2 closed with deadzone
 	eMode := eCTRL_MODE_Manual; 				// Set PID control mode to manual
 	
-	ST_PIDparameters.fKp 			:= 2.3662;		// K_P ~ Proportional Gain
+	ST_PIDparameters.fKp 			:= 1.0;		// K_P ~ Proportional Gain
 	ST_PIDparameters.tTn 			:= T#67MS;	// K_I ~ Integral Time Constant
-	ST_PIDparameters.tTv 			:= T#16MS;	// K_D ~ Derivative Time Constant
-	ST_PIDparameters.tTd 			:= T#10MS;		// Filter time for derivative]]></ST>
+	ST_PIDparameters.tTv 			:= T#20MS;	// K_D ~ Derivative Time Constant
+	ST_PIDparameters.tTd 			:= T#20MS;		// Filter time for derivative]]></ST>
       </Implementation>
       <ObjectProperties>
         <XmlArchive>

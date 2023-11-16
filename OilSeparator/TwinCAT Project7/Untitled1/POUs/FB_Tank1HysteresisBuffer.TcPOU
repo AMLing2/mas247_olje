@@ -9,7 +9,7 @@ END_VAR
 
 VAR
 	minLT1mm : REAL := 50.0;
-	maxLT1mm : REAL := 75.0;
+	maxLT1mm : REAL := 60.0;
 END_VAR
 ]]></Declaration>
     <Implementation>
