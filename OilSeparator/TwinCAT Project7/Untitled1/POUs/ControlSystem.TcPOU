@@ -27,8 +27,10 @@ VAR
 	ST_PIDparameters : ST_CTRL_PID_PARAMS;	// Structure
 	eMode : E_CTRL_MODE;					// PID mode
 		// PID Function Block Inputs
-	setPoint 	   : LREAL := 85.0;
-	levelRange 	   : LREAL := (155.42 - 42);
+	setPoint 	   : LREAL := 85.0;			 	// [mm]	
+	LT2min 		   : LREAL := 43.4;				// [mm]
+	LT2max         : LREAL := 156.84;			// [mm]
+	levelRange 	   : LREAL := LT2max - LT2min; 	// [mm]
 	fActualValue   : LREAL;
 	fManSyncValue  : LREAL;
 	bSync          : BOOL;
@@ -655,7 +657,7 @@ END_VAR
                                                 <o>
                                                   <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                                   <o n="Value" t="StringValue">
-                                                    <v n="Value">"Main.LT1mm&gt;150"</v>
+                                                    <v n="Value">"Main.LT2mm&gt;startControl"</v>
                                                     <v n="DefaultValue">""</v>
                                                   </o>
                                                   <v n="Id">459L</v>
@@ -1802,7 +1804,7 @@ END_VAR
 // ========== Buffer Hysteresis for Tank 1 ===========
 	hysteresisBuffer(motorOnOff => Main.Motor_ON_OFF);
 // ========== Buffer Hysteresis for Tank 1 ===========
-(*
+
 // =========== Control Algoritm with PID =============
 	FB_PID( fSetpointValue 	:= 	((setPoint)	   *(100.0/levelRange)),		// Desired Value
 			fActualValue 	:= 	((Main.h_water)*(100.0/levelRange)),		// Actual  Value
@@ -1815,7 +1817,7 @@ END_VAR
 	// PID FB also takes in the struct values, not specified here.
 	Main.Level_Valve_1_Percentage := LREAL_TO_INT(fOutBuffer);
 // =========== Control Algoritm with PID =============
-*)]]></ST>
+]]></ST>
       </Implementation>
       <ObjectProperties>
         <XmlArchive>
@@ -1836,11 +1838,11 @@ END_VAR
         <ST><![CDATA[
 	// Controlling initialization
 Main.Flow_Valve_1_Percentage  := 100;	// Open
-Main.Level_Valve_1_Percentage := 100;	// Half
+Main.Level_Valve_1_Percentage := 45;	// Half
 Main.Level_Valve_2_Percentage := 100;	// Open
-Main.Level_Valve_3_Percentage := 100;		// Closed
+Main.Level_Valve_3_Percentage := 0;		// Closed
 
-//eMode := eCTRL_MODE_Active;		// Activate PID]]></ST>
+eMode := eCTRL_MODE_Active;		// Activate PID]]></ST>
       </Implementation>
     </Action>
     <Action Name="Emergency_active" Id="{f3d9c642-3825-4f1f-8f2e-6190e18b09ed}">
@@ -1884,8 +1886,8 @@ IF (NOT ManualMode) THEN
 		// Start Filling
 	Main.Motor_ON_OFF := TRUE;				// ON
 	Main.Flow_Valve_1_Percentage  := 100;	// Open
-	Main.Level_Valve_1_Percentage := 0;	// Open
-	Main.Level_Valve_2_Percentage := 100;		// Closed
+	Main.Level_Valve_1_Percentage := 100;	// Open
+	Main.Level_Valve_2_Percentage := 0;		// Closed
 	Main.Level_Valve_3_Percentage := 100;	// Open
 END_IF]]></ST>
       </Implementation>
@@ -1913,9 +1915,9 @@ END_IF]]></ST>
 	ST_PIDparameters.fOutMinLimit 	:= 15; 		// Min allowed output - LV2 closed with deadzone
 	eMode := eCTRL_MODE_Manual; 				// Set PID control mode to manual
 	
-	ST_PIDparameters.fKp 			:= 2.3662;		// K_P ~ Proportional Gain
-	ST_PIDparameters.tTn 			:= T#67S;		// K_I ~ Integral Time Constant
-	ST_PIDparameters.tTv 			:= T#16S;		// K_D ~ Derivative Time Constant
+	ST_PIDparameters.fKp 			:= 8.9318;		// K_P ~ Proportional Gain
+	ST_PIDparameters.tTn 			:= T#2700MS;	// K_I ~ Integral Time Constant
+	ST_PIDparameters.tTv 			:= T#6685MS;	// K_D ~ Derivative Time Constant
 	ST_PIDparameters.tTd 			:= T#100MS;		// Filter time for derivative]]></ST>
       </Implementation>
       <ObjectProperties>
@@ -2042,9 +2044,8 @@ resetLatch := FALSE;]]></ST>
       </XmlArchive>
     </ObjectProperties>
     <LineIds Name="ControlSystem.Controlling_active">
-      <LineId Id="2" Count="15" />
+      <LineId Id="2" Count="16" />
       <LineId Id="1" Count="0" />
-      <LineId Id="19" Count="0" />
     </LineIds>
     <LineIds Name="ControlSystem.Controlling_entry">
       <LineId Id="2" Count="6" />
