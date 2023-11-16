@@ -2708,6 +2708,23 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.ControlSystem.setPoint": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::ControlSystem::setPoint",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/LREAL"
+                    },
+                    {
+                        "comment": "[mm]"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "PLC1.ControlSystem.stateAlarm": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -5030,6 +5047,7 @@
                 "PLC1.ControlSystem.Tv": 3,
                 "PLC1.ControlSystem.alarmTime": 3,
                 "PLC1.ControlSystem.emergencyTime": 3,
+                "PLC1.ControlSystem.setPoint": 3,
                 "PLC1.ControlSystem.stateAlarm": 3,
                 "PLC1.MAIN.B_EMG": 3,
                 "PLC1.MAIN.B_Start": 3,

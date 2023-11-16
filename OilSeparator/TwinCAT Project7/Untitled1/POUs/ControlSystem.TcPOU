@@ -8,7 +8,7 @@ VAR
 	//alarmTime 	: REAL;
 	resetLatch 		: BOOL := FALSE;
 	stateAlarm 		: AlarmState := AlarmState.AlarmCleared;
-	timeBuffer 		: TIME := T#5S;
+	//timeBuffer 		: TIME := T#5S;		// [seconds]
 	tempMax 		: REAL := 20.0;		// [celsius]
 	pressureMax 	: REAL := 0.25;		// [bar]
 	LTemergency		: REAL := 50;		// [mm]
@@ -27,7 +27,7 @@ VAR
 	ST_PIDparameters : ST_CTRL_PID_PARAMS;	// Structure
 	eMode : E_CTRL_MODE;					// PID mode
 		// PID Function Block Inputs
-	setPoint 	   : LREAL := 85.0;			 	// [mm]	
+	setPoint 	   : LREAL := 84.0;			 	// [mm]	
 	LT2min 		   : LREAL := 43.4;				// [mm]
 	LT2max         : LREAL := 156.84;			// [mm]
 	levelRange 	   : LREAL := LT2max - LT2min; 	// [mm]
@@ -1916,7 +1916,7 @@ END_IF]]></ST>
 	eMode := eCTRL_MODE_Manual; 				// Set PID control mode to manual
 	
 	ST_PIDparameters.fKp 			:= 8.9318;		// K_P ~ Proportional Gain
-	ST_PIDparameters.tTn 			:= T#2700MS;	// K_I ~ Integral Time Constant
+	ST_PIDparameters.tTn 			:= T#26740MS;	// K_I ~ Integral Time Constant
 	ST_PIDparameters.tTv 			:= T#6685MS;	// K_D ~ Derivative Time Constant
 	ST_PIDparameters.tTd 			:= T#100MS;		// Filter time for derivative]]></ST>
       </Implementation>

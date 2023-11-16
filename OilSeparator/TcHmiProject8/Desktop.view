@@ -1548,7 +1548,7 @@ Water Height" data-tchmi-top="465" data-tchmi-top-unit="px" data-tchmi-width="18
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%s%PLC1.ControlSystem.SPtext%/s%",
+        "symbolExpression": "%s%PLC1.ControlSystem.setPoint%/s%",
         "value": {
           "objectType": "Symbol",
           "valueType": "tchmi:general#/definitions/String",

@@ -56,7 +56,6 @@ VAR
 	minPDT		: REAL := 0.004;			// [bar]
 	maxPDT		: REAL := 0.4;				// [bar]
 	deltaPDT	: REAL := maxPDT - minPDT;	// [bar]
-	C			: REAL := 1.0/(20.03);		// See calculation. "Scale descaler"
 	
 	//maxLT 		: REAL := 304.8;			// [mm]
 	minLT1  	: REAL := 37.0;				// [mm]
@@ -210,17 +209,15 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	LT1mm 	:= Level_Transmitter_1					* kLT1 						+ minLT1; // Different Mapping
 	LT2mm 	:= Level_Transmitter_2 					* kLT2						+ minLT2; // Different Mapping
 	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
-	PDT1bar := Pressure_Differencial_Transmitter_1 	* k + coeff;		// [Pa], old variable name, no time to change
+	PDT1bar := (Pressure_Differencial_Transmitter_1 * k + coeff)/100000.0;		// [Pa], old variable name, no time to change
 	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax);	// Not used
 	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax);
 	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax);
 	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax);		// Not used
 	
 		// Height estimate, with float on both fluids
-	h_water := ( (PDT1bar * A)  - (LT2mm * (1.0/1000.0) * B))*1000.0;
+	h_water := ( (PDT1bar * 100000.0 * A)  - (LT2mm * (1.0/1000.0) * B))*1000.0;
 	h_oil	:= LT2mm - h_water;
-	
-	PDT1bar := PDT1bar / 100000.0;		// back to [bar]
 // ================= Mapping (INPUTS) =================
 
 	// Toggle motor state with green button
@@ -297,7 +294,6 @@ END_IF
       <LineId Id="2776" Count="0" />
       <LineId Id="2518" Count="0" />
       <LineId Id="2893" Count="0" />
-      <LineId Id="3246" Count="1" />
       <LineId Id="1702" Count="0" />
       <LineId Id="1626" Count="0" />
       <LineId Id="1621" Count="0" />
