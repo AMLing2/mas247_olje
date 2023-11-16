@@ -1198,44 +1198,6 @@
 </div>
 <div id="TcHmiLine_6" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiLine" data-tchmi-height="15" data-tchmi-height-unit="px" data-tchmi-left="1259" data-tchmi-left-unit="px" data-tchmi-top="97" data-tchmi-top-unit="px" data-tchmi-width="351" data-tchmi-width-unit="px" data-tchmi-x2="350" data-tchmi-y2="0" data-tchmi-stroke-thickness="2" data-tchmi-zindex="4">
 </div>
-<div id="AlarmTimer_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="1640" data-tchmi-left-unit="px" data-tchmi-top="315" data-tchmi-top-unit="px" data-tchmi-width="170" data-tchmi-width-unit="px" data-tchmi-text-font-size="30" data-tchmi-zindex="4">
-<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
-{
-  "top": 3,
-  "right": 3,
-  "bottom": 3,
-  "left": 3
-}
-</script>
-
-
-
-
-<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
-[
-  {
-    "event": "%s%PLC1.ControlSystem.alarmTime%/s%",
-    "actions": [
-      {
-        "objectType": "WriteToSymbol",
-        "active": true,
-        "symbolExpression": "%ctrl%AlarmTimer::Text%/ctrl%",
-        "value": {
-          "objectType": "Symbol",
-          "valueType": "tchmi:general#/definitions/String",
-          "symbolExpression": "%s%PLC1.ControlSystem.alarmTime%/s%"
-        },
-        "asyncWait": true
-      }
-    ]
-  }
-]
-</script>
-</div>
-<div id="TcHmiTextblock_64" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="32" data-tchmi-height-unit="px" data-tchmi-left="1384" data-tchmi-left-unit="px" data-tchmi-text="Alarm Time Remaining:" data-tchmi-top="321" data-tchmi-top-unit="px" data-tchmi-width="236" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="25" data-tchmi-text-font-weight="Normal" data-tchmi-zindex="4">
-</div>
-<div id="TcHmiTextblock_65" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="32" data-tchmi-height-unit="px" data-tchmi-left="1820" data-tchmi-left-unit="px" data-tchmi-text="[seconds]" data-tchmi-top="321" data-tchmi-top-unit="px" data-tchmi-width="102" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="25" data-tchmi-text-font-weight="Normal" data-tchmi-zindex="4">
-</div>
 <div id="bEmergency_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="115" data-tchmi-height-unit="px" data-tchmi-left="1607" data-tchmi-left-unit="px" data-tchmi-text="EMERGENCY" data-tchmi-top="655" data-tchmi-top-unit="px" data-tchmi-width="308" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="50">
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{0aa47d1b-47e2-4417-ac35-7a27c8d4470a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	bFirstScan:BOOL := TRUE;
+	// Tank Type: Function Block and struct
+	StTank:ST_TankType;		// Structured type variable. (intentional St =/= st?)
+	rInput:REAL;
+	fb_Tank:FB_TankSim;		// Function Block instance. (intentional TankSIM =/= TankSim?)
+	
+	// PID Instantiation
+	fb_PID: FB_CTRL_PID;				// PID instance
+	ST_PID_PARAMS:ST_CTRL_PID_PARAMS;	// PID parameters structure
+	eMode: E_CTRL_MODE; 				// PID Mode selection
+
+	// PID Function Block inputs
+	fSetPointValue : LREAL;
+	fActualValue   : LREAL;
+	fManSyncValue  : LREAL;
+	bSync : BOOL;
+	bHold : BOOL; 
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bFirstScan THEN			// One time initializations
+	bFirstScan := FALSE;
+	StTank.k0 := 0.1;
+	StTank.k1 := 0.2;
+	StTank.k2 := 0.25;
+	StTank.k3 := 0.3;
+	StTank.A1 := 2.0;
+	StTank.A2 := 3.0;
+	StTank.A3 := 4.0;
+	
+	st_PID_PARAMS.tTaskCycleTime:= T#10MS; 	// PLC Task Cycle Time
+	st_PID_PARAMS.tCtrlCycleTime:= T#10MS;	// Cycle Time of controller >= Task cycle time
+	st_PID_PARAMS.fOutMaxLimit:= 5.0;		// Max allowed control output, ORIGINAL 1.0
+	st_PID_PARAMS.fOutMinLimit:= 0.0;		// Min allowed control output
+	
+	fSetpointValue := 0.1;		// SP/reference for height in tank #3
+	eMode := eCTRL_MODE_Manual;	// Set the PID control mode to manual
+	
+	st_PID_PARAMS.fKp :=    8.7775;	// P: Proportional gain
+	st_PID_PARAMS.tTn :=  T#18260MS;	// I: Integral time constant (Ti)
+	st_PID_PARAMS.tTv :=  T#4565MS;	// D: Derivative time constant (Td)
+	st_PID_PARAMS.tTd :=  T#10MS;	// D: filter time constant
+	
+END_IF
+
+fb_Tank(rU 		:= rInput,	// Call Function Block
+		rDeltaT := 0.01,
+		StTank  := StTank);
+		
+fActualValue := StTank.h3;	// Actual value of the height to the controller
+
+// PID call
+fb_PID( fSetPointValue := fSetPointValue,
+		fActualValue := fActualValue,
+		fManSyncValue := fManSyncValue,
+		bSync := bSync,
+		eMode := eMode,
+		bHold := bHold,
+		stParams := ST_PID_PARAMS,
+		fOut => rInput
+	  );]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="15" Count="5" />
+      <LineId Id="53" Count="1" />
+      <LineId Id="58" Count="10" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="71" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="75" Count="8" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_TankType" Id="{a8ff45c7-f626-4140-8e76-c570d550176f}">
+    <Declaration><![CDATA[TYPE ST_TankType :
+	STRUCT
+		h1:REAL;	// Height of liquid 1 in tank 1	[m]
+		h2:REAL;	// Height of liquid 1 in tank 2 [m]
+		h3:REAL;	// Height of liquid 1 in tank 3 [m]
+		k0:REAL;	// Coefficient of input flow
+		k1:REAL;	// Coefficient of output flow 1 [m^2/s]
+		k2:REAL;	// Coefficient of output flow 2	[m^2/s]
+		k3:REAL;	// Coefficient of output flow 3	[m^2/s]
+		A1:REAL;	// Area of tank 1	[m^2]
+		A2:REAL;	// Area of tank 2	[m^2]
+		A3:REAL;	// Area of tank 3	[m^2]
+	END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

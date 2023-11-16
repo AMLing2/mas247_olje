@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_TankSim" Id="{89ad3220-149c-4edb-8b00-eef5a398664d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TankSim
+VAR_INPUT
+	rU:REAL;
+	rDeltaT:REAL;
+END_VAR
+
+VAR_IN_OUT
+	stTank:ST_TankType;		// Structure, gives needed attributes. (Currently =/= StTank)
+END_VAR
+
+VAR_OUTPUT
+END_VAR
+
+VAR
+	u:REAL;
+	h1:REAL;
+	h2:REAL;
+	h3:REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (rU < 0) THEN
+	u := 0.0;
+ELSIF (u > 1) THEN
+	u := 1.0;
+ELSE
+	u := rU;
+END_IF;
+
+// h_k+1 = h_k + dt*(inFlow - outFlow)
+h1 := stTank.h1 + rDeltaT*(stTank.k0*u         - stTank.k1*stTank.h1)/stTank.A1;
+h2 := stTank.h2 + rDeltaT*(stTank.k1*stTank.h1 - stTank.k2*stTank.h2)/stTank.A2;
+h3 := stTank.h3 + rDeltaT*(stTank.k2*stTank.h2 - stTank.k3*stTank.h3)/stTank.A3;
+
+stTank.h1 := h1;
+stTank.h2 := h2;
+stTank.h3 := h3;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_TankSim">
+      <LineId Id="9" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="31" Count="3" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="37" Count="1" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="43" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

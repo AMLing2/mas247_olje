@@ -9,8 +9,8 @@ VAR
 	resetLatch 		: BOOL := FALSE;
 	stateAlarm 		: AlarmState := AlarmState.AlarmCleared;
 	//timeBuffer 		: TIME := T#5S;		// [seconds]
-	tempMax 		: REAL := 20.0;		// [celsius]
-	pressureMax 	: REAL := 0.25;		// [bar]
+	tempMax 		: REAL := 60.0;		// [celsius]
+	pressureMax 	: REAL := 3;		// [bar]
 	LTemergency		: REAL := 50;		// [mm]
 	FVstop			: INT  := 95;		// [%]
 	goal 			: INT  := 70;		// [%]
