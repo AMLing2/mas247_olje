@@ -6,4 +6,12 @@
     <Name>OilSeparatorLogging</Name>
     <RootNamespace>OilSeparatorLogging</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="ZieglerNichols.tcscopex">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ZieglerNicholsThursday.svdx">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
 </Project>

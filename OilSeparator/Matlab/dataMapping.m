@@ -115,8 +115,11 @@ Kp = 1.2 / (L*R/U); % From formulas
 Ti = 2*L;           % From formulas = Tn
 Td = L/2;           % From formulas
 
+Ki = Kp/Ti;
+Kd = Td/Kp;
+
 % Display results:
-table(Kp, Ti, Td)   % Tn = Ti, Tv = Td
+table(Kp, Ti, Td, Ki, Kd)   % Tn = Ti, Tv = Td
 
 % ------------------ Ziegler Nichols calculations ------------------
 
@@ -232,3 +235,46 @@ plot(SensorBit, y3)
 xlabel('[bit]')
 ylabel('[Pa]')
 legend('Measurements', 'Linear regression', 'Location','southeast')
+
+%% Ziegler Nichols tuning: Thursday
+
+LT2min = 43.4;
+LT2max = 156.84;
+
+figure(Name='Ziegler Nichols Tuning: LV1 in, LT2 out')
+title("Ziegler Nichols Tuning: LV1 in, LT2 out")
+xlabel("Time [seconds]")
+hold on
+
+ylabel("[%]")
+
+plot(ZieglerNicholsThursday.Time0/1000, ...
+     ZieglerNicholsThursday.Level_Valve_1_Percentage)
+
+plot(ZieglerNicholsThursday.Time0/1000, ...
+     100*(ZieglerNicholsThursday.LT2mm-LT2min)/(LT2max-LT2min), 'r-')
+
+xlim([33 212])
+ylim([-5 105])
+legend('Step Response', 'LT2', 'Location', 'southeast')
+
+
+% ------------------ Ziegler Nichols calculations ------------------
+    % Read from graph
+U = 100;
+L = 66.62 - 53.25;
+dy = 58.52 - 23.46;
+dx = 133.87 - 98.98;
+R = dy/dx;
+
+Kp = 1.2 / (L*R/U); % From formulas
+Ti = 2*L;           % From formulas = Tn
+Td = L/2;           % From formulas
+
+Ki = Kp/Ti;
+Kd = Td/Kp;
+
+% Display results:
+table(Kp, Ti, Td, Ki, Kd)   % Tn = Ti, Tv = Td
+
+% ------------------ Ziegler Nichols calculations ------------------
