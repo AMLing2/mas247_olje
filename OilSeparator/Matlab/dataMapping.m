@@ -165,13 +165,87 @@ dx = 133.87 - 98.98;
 R = dy/dx;
 
 Kp = 1.2 / (L*R/U); % From formulas
-Ti = 2*L;           % From formulas = Tn
-Td = L/2;           % From formulas
+Tn = 2*L;           % From formulas = Tn
+Tv = L/2;           % From formulas
 
-Ki = Kp/Ti;
-Kd = Td/Kp;
+Ki = Kp/Tn;
+Kd = Tv/Kp;
 
 % Display results:
-table(Kp, Ti, Td, Ki, Kd)   % Tn = Ti, Tv = Td
+table(Kp, Tn, Tv, Ki, Kd)   % Tn = Ti, Tv = Td
 
 % ------------------ Ziegler Nichols calculations ------------------
+
+%% Old math model
+
+close all; clc;
+
+figure(Name='Mathematical Model')
+title('Mathematical Model: Differential Equations')
+
+modell = readtable("TankData.csv");
+empirisk = readtable("OpenFlow.csv");
+
+modellPlot = table2array(modell);
+empiriskPlot = table2array(empirisk);
+
+hold on
+plot(modellPlot(:,1)/1000,modellPlot(:,2), LineWidth=2);
+plot((empiriskPlot(:,1)-34290)/1000,empiriskPlot(:,2), LineWidth=1.5);
+
+plot(modellPlot(:,1)/1000,modellPlot(:,3), LineWidth=2);
+plot((empiriskPlot(:,1)-34290)/1000,empiriskPlot(:,4), LineWidth=1.5);
+
+legend('Model Tank 1', 'Measurements Tank 1', ...
+       'Model Tank 2', 'Measurements Tank 2', 'Location','best')
+xlabel('Time [seconds]')
+ylabel('Height [mm]')
+xlim([-1 115])
+
+%% Mathematical Model - Differential Equations
+
+close all; clc;
+
+tank1Areal = 1;
+tank2Areal = 1;
+tank1h = 0.1; 
+tank2h = 0.1; 
+tank1k = 8000;
+tank2k = tank1k/6.89; 
+tank1input = 340000.0; 
+deltaT = 0.01;
+time = 0;
+t = time : deltaT : 120;
+
+L1 = 600;
+L2 = 740;
+R = 285/2;
+
+tank1Vec = 0 : deltaT : 120;
+tank2Vec = 0 : deltaT : 120;
+for i = 1 : 12000
+    % Area calculations - discrete volume integral
+    tank1Areal = 1 + 2 * L1 * sqrt( ( 1 - ((tank1h - R)/R)^2 ) * (R^2) ); 
+    tank2Areal = 1 + 2 * L2 * sqrt( ( 1 - ((tank2h - R)/R)^2 ) * (R^2) ); 
+    
+    tank1h = tank1h + deltaT*(tank1input - tank1k*tank1h)/tank1Areal;
+    tank2h = tank2h + deltaT*(tank1k*tank1h - tank2k*tank2h)/tank2Areal;
+    
+    tank1Vec(i) = tank1h;
+    tank2Vec(i) = tank2h;
+end
+
+% Name = time, varname4 = LT1mm height
+figure(Name='MathModelV2')
+hold on
+plot(t, tank1Vec, LineWidth=2);
+plot((empiriskPlot(:,1)-34290)/1000,empiriskPlot(:,2), LineWidth=1.5);
+
+plot(t, tank2Vec, LineWidth=2);
+plot((empiriskPlot(:,1)-34290)/1000,empiriskPlot(:,4), LineWidth=1.5);
+
+legend('Model Tank 1', 'Measurements Tank 1', ...
+       'Model Tank 2', 'Measurements Tank 2', 'Location','best')
+xlabel('Time [seconds]')
+ylabel('Height [mm]')
+xlim([-1 115])

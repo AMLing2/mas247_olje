@@ -1806,8 +1806,8 @@ Water Height" data-tchmi-top="465" data-tchmi-top-unit="px" data-tchmi-width="18
 ]
 </script>
 </div>
-<div id="bClearEmergency_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="116" data-tchmi-height-unit="px" data-tchmi-left="1215" data-tchmi-left-unit="px" data-tchmi-text="CLEAR
-EMERGENCY" data-tchmi-top="465" data-tchmi-top-unit="px" data-tchmi-width="215" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
+<div id="bClearEmergency_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="116" data-tchmi-height-unit="px" data-tchmi-left="1162" data-tchmi-left-unit="px" data-tchmi-text="RESET/CLEAR
+EMERGENCY" data-tchmi-top="465" data-tchmi-top-unit="px" data-tchmi-width="308" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="40">
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
   "color": "rgba(218, 226, 195, 1)"

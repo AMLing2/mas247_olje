@@ -211,8 +211,8 @@ Motor_speed := REAL_TO_INT(262.14*Motor_speed_Percentage +6553);
 	TT1c 	:= Temperature_Transmitter 				* (deltaTT/bitMax)  		+ minTT;
 	PDT1bar := (Pressure_Differencial_Transmitter_1 * k + coeff)/100000.0;		// [Pa], old variable name, no time to change
 	PDT2bar := Pressure_Differencial_Transmitter_2 	* (deltaPDT/bitMax);	// Not used
-	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax);
-	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax);
+	PT1bar  := Pressure_Transmitter_1 				* (deltaPT/bitMax)			+ minPT;
+	PT2bar  := Pressure_Transmitter_2 				* (deltaPT/bitMax)			+ minPT;
 	PT3bar  := Pressure_Transmitter_3 				* (deltaPT/bitMax);		// Not used
 	
 		// Height estimate, with float on both fluids

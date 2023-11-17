@@ -5,7 +5,7 @@
   <Children>
     <Node>
       <Title>ZieglerNichols</Title>
-      <Expanded>False</Expanded>
+      <Expanded>True</Expanded>
       <FileName>C:\MAS247Projects\mas247_olje\OilSeparator\OilSeparatorLogging\ZieglerNichols.tcscopex</FileName>
       <Children>
         <Node>
@@ -71,12 +71,12 @@
         </Node>
         <Node>
           <Title>ZieglerNichols</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>[%]</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -95,7 +95,7 @@
             </Node>
             <Node>
               <Title>[mm]</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -123,12 +123,12 @@
         </Node>
         <Node>
           <Title>FlowMeasurement</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>[mm] (1)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -147,7 +147,7 @@
             </Node>
             <Node>
               <Title>[bit] (1)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -172,7 +172,7 @@
             </Node>
             <Node>
               <Title>[%] (1)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
