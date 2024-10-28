@@ -1,6 +1,6 @@
 ## MAS247 Project: Oil Separator System
 
-*Project for the BSc. course MAS427 Industrial IT*
+*Project for the BSc. course MAS247 Industrial IT*
  \
 <img src="Siphon.jpg" alt="drawing" width="190"/>
 <img src="MathModel.png" alt="drawing" width="405"/>
