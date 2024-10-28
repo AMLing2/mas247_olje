@@ -1,3 +1,20 @@
-## mas247 oil separation project
-The aim of this project is to maximise the separation of oil and water after a mixing process with a PLC controlled machine\
-Written with TwinCAT PLC progrmamming
+## MAS247 Project: Oil Separator System
+
+*Project for the BSc. course MAS427 Industrial IT*
+
+<img src="Siphon.jpg" alt="drawing" width="190"/>
+<img src="MathModel.png" alt="drawing" width="405"/>
+<img src="Results.jpg" alt="drawing" width="600"/>
+
+
+## Overview
+
+This project is based on the three-phase separator which 
+separates oil from a water mixture through the use of gravity 
+and valve control. Goals of the project:
+
+- PLC programming with TwinCAT (with slight focus on OOP)
+- Maximise the separation of oil form water mixture with feedback control
+- Predict values using mathematical model with differential equations
+
+The report and demo video is also added in the current working directory
