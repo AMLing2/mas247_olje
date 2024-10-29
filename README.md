@@ -2,9 +2,9 @@
 
 *Project for the BSc. course MAS247 Industrial IT*
  \
-<img src="Siphon.jpg" alt="drawing" width="190"/>
-<img src="MathModel.png" alt="drawing" width="405"/>
-<img src="Results.jpg" alt="drawing" width="600"/>
+<img src="Images/Siphon.jpg" alt="drawing" width="190"/>
+<img src="Images/MathModel.png" alt="drawing" width="405"/>
+<img src="Images/Results.jpg" alt="drawing" width="600"/>
 
 
 ## Overview
